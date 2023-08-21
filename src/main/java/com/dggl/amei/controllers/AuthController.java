@@ -13,6 +13,9 @@ import com.dggl.amei.models.User;
 import com.dggl.amei.repositories.RoleRepository;
 import com.dggl.amei.repositories.UserRepository;
 import com.dggl.amei.services.RefreshTokenService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -52,6 +55,12 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/signin")
+    @Operation(summary = "Login a user")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Login successful"),
+            }
+    )
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
