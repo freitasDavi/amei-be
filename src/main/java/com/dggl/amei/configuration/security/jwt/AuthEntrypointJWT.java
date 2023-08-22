@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @Component
 public class AuthEntrypointJWT implements AuthenticationEntryPoint {
@@ -19,6 +20,14 @@ public class AuthEntrypointJWT implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException, ServletException {
         logger.error("Unauthorized error: {}", authenticationException.getMessage());
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
+
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json");
+        String errorMessage = "Unauthorized: " + authenticationException.getMessage();
+        String jsonResponse = "{\"error\": \"" + errorMessage + "\"}";
+
+        PrintWriter writer = response.getWriter();
+        writer.write(jsonResponse);
+        writer.flush();
     }
 }
