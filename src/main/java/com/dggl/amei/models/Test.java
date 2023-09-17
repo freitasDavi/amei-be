@@ -4,11 +4,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "testes")
+@Table(name = "TESTES")
 public class Test {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)

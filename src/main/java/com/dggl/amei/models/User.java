@@ -1,13 +1,14 @@
 package com.dggl.amei.models;
 
 import com.dggl.amei.models.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Negative;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(
@@ -43,6 +44,77 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+
+//    ---
+
+    @NotBlank
+    @Size(max = 100)
+    @Column(name = "RAZAO")
+    private String razaoSocialUsuario;
+
+    @NotBlank
+    @Size(max = 14)
+    @Column(name = "CPNJ")
+    private String cnpjUsuario;
+
+    @Size(max = 14)
+    @Column(name = "INSCRICAO_MUNICIPAL")
+    private String inscricaoMunicipalUsuario;
+
+    @NotBlank
+    @Size(max = 11)
+    @Column(name = "TELEFONE")
+    private String telefoneUsuario;
+
+    @NotBlank
+    @Size(max = 8)
+    @Column(name = "CEP")
+    private String cepUsuario;
+
+    @NotBlank
+    @Size(max = 150)
+    @Column(name = "ENDERECO")
+    private String enderecoUsuario;
+
+    @NotBlank
+    @Size(max = 50)
+    @Column(name = "NUMERO")
+    private String numeroUsuario;
+
+    @Size(max = 150)
+    @Column(name = "COMPLEMENTO")
+    private String complementoUsuario;
+
+//    ---
+
+    @NotBlank
+    @ManyToOne
+    @JoinColumn(name = "CIDADE_USUARIO", referencedColumnName = "id")
+    private Cidade usuarioCidade;
+
+    @NotBlank
+    @ManyToOne
+    @JoinColumn(name = "ESTADO_USUARIO", referencedColumnName = "id")
+    private Estado usuarioEstado;
+
+    @NotBlank
+    @ManyToOne
+    @JoinColumn(name = "BAIRRO_USUARIO", referencedColumnName = "id")
+    private Bairro usuarioBairro;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuarioAgendamento")
+    private List<Agendamento> listaAgendamentoUsuario = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuarioCliente")
+    private List<Clientes> listaClientesUsuario = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuarioOrcamento")
+    private List<Orcamento> listaOrcamentoUsuario = new ArrayList<>();
+
+//    ---
 
     public User() {
     }
@@ -91,5 +163,74 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public void setRazaoSocialUsuario(String razaoSocialUsuario) {
+        this.razaoSocialUsuario = razaoSocialUsuario;
+    }
+
+    public void setCnpjUsuario(String cnpjUsuario) {
+        this.cnpjUsuario = cnpjUsuario;
+    }
+
+    public void setInscricaoMunicipalUsuario(String inscricaoMunicipalUsuario) {
+        this.inscricaoMunicipalUsuario = inscricaoMunicipalUsuario;
+    }
+
+    public void setTelefoneUsuario(String telefoneUsuario) {
+        this.telefoneUsuario = telefoneUsuario;
+    }
+
+    public void setCepUsuario(String cepUsuario) {
+        this.cepUsuario = cepUsuario;
+    }
+
+    public void setEnderecoUsuario(String enderecoUsuario) {
+        this.enderecoUsuario = enderecoUsuario;
+    }
+
+    public void setNumeroUsuario(String numeroUsuario) {
+        this.numeroUsuario = numeroUsuario;
+    }
+
+    public void setComplementoUsuario(String complementoUsuario) {
+        this.complementoUsuario = complementoUsuario;
+    }
+
+    public void setUsuarioCidade(Cidade usuarioCidade) {
+        this.usuarioCidade = usuarioCidade;
+    }
+
+    public void setUsuarioEstado(Estado usuarioEstado) {
+        this.usuarioEstado = usuarioEstado;
+    }
+
+    public void setUsuarioBairro(Bairro usuarioBairro) {
+        this.usuarioBairro = usuarioBairro;
+    }
+
+    public List<Agendamento> getListaAgendamentoUsuario() {
+        return listaAgendamentoUsuario;
+    }
+
+    public List<Clientes> getListaClientesUsuario() {
+        return listaClientesUsuario;
+    }
+
+    public List<Orcamento> getListaOrcamentoUsuario() {
+        return listaOrcamentoUsuario;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
