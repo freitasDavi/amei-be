@@ -1,6 +1,7 @@
 package com.dggl.amei.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -8,6 +9,8 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ORCAMENTO")
@@ -53,4 +56,8 @@ public class Orcamento {
     @ManyToOne
     @JoinColumn(name = "ORDEM_ORCAMENTO", referencedColumnName = "id")
     private OrdemServico orcamentoOrdemServico;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "orcamentoItens")
+    private List<ItensOrcamento> listaItensOrcamento = new ArrayList<>();
 }

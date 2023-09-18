@@ -109,6 +109,11 @@ public class User {
     @OneToMany(mappedBy = "usuarioOrcamento")
     private List<Orcamento> listaOrcamentoUsuario = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "servicoUsuario")
+    private List<User> listaServicosUsuario = new ArrayList<>();
+
+
 //    ---
 
     public User() {

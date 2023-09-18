@@ -34,6 +34,11 @@ public class Servico {
     @JoinColumn(name = "ITENS_ORCAMENTO", referencedColumnName = "id")
     private ItensOrcamento itensOrcamento;
 
+    @NotBlank
+    @ManyToOne
+    @JoinColumn(name = "SERVICO_USUARIO")
+    private User servicoUsuario;
+
 
 
 }

@@ -31,6 +31,8 @@ public class ItensOrcamento {
     @Column(name = "DESCRICAO")
     private String descricao;
 
+//    ----
+
     @NotBlank
     @ManyToOne
     @JoinColumn(name = "ORCAMENTO_ITENS", referencedColumnName = "id")
@@ -38,7 +40,14 @@ public class ItensOrcamento {
 
     @JsonIgnore
     @OneToMany(mappedBy = "itensOrcamento")
-    private List<Servico> servicosItens = new ArrayList<>();
+    private List<Servico> listaServicosItensOrcamento = new ArrayList<>();
+
+    @NotBlank
+    @ManyToOne
+    @JoinColumn(name = "ORCAMENTO_ITENS")
+    private Orcamento orcamentoItens;
+
+
 
 
 }
