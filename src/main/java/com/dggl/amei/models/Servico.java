@@ -27,8 +27,12 @@ public class Servico {
     private String codigoCNAE;
 
     @ManyToOne
-    @JoinColumn(name = "ITEN_SERVICO", referencedColumnName = "id")
+    @JoinColumn(name = "ITENS_ORDEM_ SERVICO", referencedColumnName = "id")
     private ItensOrdemServico itensServico;
+
+    @ManyToOne
+    @JoinColumn(name = "ITENS_ORCAMENTO", referencedColumnName = "id")
+    private ItensOrcamento itensOrcamento;
 
 
 

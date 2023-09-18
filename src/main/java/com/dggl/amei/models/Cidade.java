@@ -32,7 +32,7 @@ public class Cidade {
     private Estado estadoCidade;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "cidadeBairro")
+    @OneToMany(mappedBy = "bairroCidade")
     private List<Bairro> listaBairrosCidade = new ArrayList<>();
 
     @JsonIgnore

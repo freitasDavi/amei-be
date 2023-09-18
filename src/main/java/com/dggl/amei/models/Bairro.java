@@ -28,7 +28,7 @@ public class Bairro {
     @NotBlank
     @ManyToOne
     @JoinColumn(name = "BAIRRO_CIDADE", referencedColumnName = "id")
-    private Cidade cidadeBairro;
+    private Cidade bairroCidade;
 
     @JsonIgnore
     @OneToMany(mappedBy = "usuarioBairro")

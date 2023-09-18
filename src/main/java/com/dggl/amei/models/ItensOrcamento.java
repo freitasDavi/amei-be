@@ -1,6 +1,7 @@
 package com.dggl.amei.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.juli.logging.Log;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "ITENS_ORDEM_SERVICO")
-public class ItensOrdemServico {
+@Table(name = "ITENS_ORCAMENTO")
+public class ItensOrcamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,21 +27,18 @@ public class ItensOrdemServico {
     @Column(name = "VALOR_TOTAL")
     private BigDecimal valorTotal;
 
-    @Size
+    @Size(max = 500)
     @Column(name = "DESCRICAO")
-    private String descricaoItemOrdem;
+    private String descricao;
 
     @NotBlank
     @ManyToOne
-    @JoinColumn(name = "ORDEM_ITENS", referencedColumnName = "id")
-    private OrdemServico ordemItens;
+    @JoinColumn(name = "ORCAMENTO_ITENS", referencedColumnName = "id")
+    private Orcamento itensOrcamento;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "itensServico")
-    private List<Servico> listaServicoItem = new ArrayList<>();
-
-
-
+    @OneToMany(mappedBy = "itensOrcamento")
+    private List<Servico> servicosItens = new ArrayList<>();
 
 
 }

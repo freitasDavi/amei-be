@@ -40,7 +40,7 @@ public class OrdemServico {
 
     @JsonIgnore
     @OneToMany(mappedBy = "orcamentoOrdemServico")
-    private List<Orcamento> orcamentosOrdemServico = new ArrayList<>();
+    private List<Orcamento> listaOrcamentosOrdemServico = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "ordemItens")

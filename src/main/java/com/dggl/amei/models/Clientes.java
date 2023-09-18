@@ -84,7 +84,7 @@ public class Clientes {
 
     @JsonIgnore
     @OneToMany(mappedBy = "clienteOrcamento")
-    private List<Orcamento> listaOrcamentoClientes = new ArrayList<>();
+    private List<Orcamento> listaOrcamentosCliente = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "clienteAgendamento")
