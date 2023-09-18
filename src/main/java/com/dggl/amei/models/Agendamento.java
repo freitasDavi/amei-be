@@ -20,7 +20,7 @@ public class Agendamento {
     @NotBlank
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "DATA_AGENDAMENTO")
-    private LocalDate dataAtendimento;
+    private LocalDate dataAgendamento;
 
     @NotBlank
     @Size(max = 150)
@@ -48,11 +48,6 @@ public class Agendamento {
     @ManyToOne
     @JoinColumn(name = "CIDADE_AGENDAMENTO", referencedColumnName = "id")
     private Cidade agendamentoCidade;
-
-    @NotBlank
-    @ManyToOne
-    @JoinColumn(name = "ESTADO_AGENDAMENTO", referencedColumnName = "id")
-    private Estado agendamentoEstado;
 
     @NotBlank
     @ManyToOne

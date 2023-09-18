@@ -38,10 +38,6 @@ public class Bairro {
     @OneToMany(mappedBy = "clienteBairro")
     private List<Clientes> listaClientesBairro = new ArrayList<>();
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "agendamentoEstado")
-    private List<Agendamento> listaAgendamentoBairro = new ArrayList<>();
-
 //    ---
 
     public Bairro() {

@@ -29,18 +29,6 @@ public class Estado {
     @OneToMany(mappedBy = "estadoCidade")
     private List<Cidade> listaCidadeEstado = new ArrayList<>();
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "usuarioEstado")
-    private List<User> listaUsuariosEstado = new ArrayList<>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "clienteEstado")
-    private List<Clientes> listaClientesEstado = new ArrayList<>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "agendamentoEstado")
-    private List<Agendamento> listaAgendamentoEstado = new ArrayList<>();
-
 //    ----
 
     public Estado() {

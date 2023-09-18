@@ -23,7 +23,7 @@ public class Clientes {
     @NotBlank
     @Size(max = 50)
     @Column(name = "NOME")
-    private String nome;
+    private String nomeCliente;
 
     @NotBlank
     @Size(max = 50)
@@ -76,11 +76,6 @@ public class Clientes {
     @ManyToOne
     @JoinColumn(name = "CIDADE_CLIENTE", referencedColumnName = "id")
     private Cidade clienteCidade;
-
-    @NotBlank
-    @ManyToOne
-    @JoinColumn(name = "ESTADO_CLIENTE", referencedColumnName = "id")
-    private Estado clienteEstado;
 
     @NotBlank
     @ManyToOne

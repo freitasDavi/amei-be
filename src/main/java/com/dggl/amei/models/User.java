@@ -94,11 +94,6 @@ public class User {
 
     @NotBlank
     @ManyToOne
-    @JoinColumn(name = "ESTADO_USUARIO", referencedColumnName = "id")
-    private Estado usuarioEstado;
-
-    @NotBlank
-    @ManyToOne
     @JoinColumn(name = "BAIRRO_USUARIO", referencedColumnName = "id")
     private Bairro usuarioBairro;
 
@@ -165,61 +160,6 @@ public class User {
         this.roles = roles;
     }
 
-    public void setRazaoSocialUsuario(String razaoSocialUsuario) {
-        this.razaoSocialUsuario = razaoSocialUsuario;
-    }
-
-    public void setCnpjUsuario(String cnpjUsuario) {
-        this.cnpjUsuario = cnpjUsuario;
-    }
-
-    public void setInscricaoMunicipalUsuario(String inscricaoMunicipalUsuario) {
-        this.inscricaoMunicipalUsuario = inscricaoMunicipalUsuario;
-    }
-
-    public void setTelefoneUsuario(String telefoneUsuario) {
-        this.telefoneUsuario = telefoneUsuario;
-    }
-
-    public void setCepUsuario(String cepUsuario) {
-        this.cepUsuario = cepUsuario;
-    }
-
-    public void setEnderecoUsuario(String enderecoUsuario) {
-        this.enderecoUsuario = enderecoUsuario;
-    }
-
-    public void setNumeroUsuario(String numeroUsuario) {
-        this.numeroUsuario = numeroUsuario;
-    }
-
-    public void setComplementoUsuario(String complementoUsuario) {
-        this.complementoUsuario = complementoUsuario;
-    }
-
-    public void setUsuarioCidade(Cidade usuarioCidade) {
-        this.usuarioCidade = usuarioCidade;
-    }
-
-    public void setUsuarioEstado(Estado usuarioEstado) {
-        this.usuarioEstado = usuarioEstado;
-    }
-
-    public void setUsuarioBairro(Bairro usuarioBairro) {
-        this.usuarioBairro = usuarioBairro;
-    }
-
-    public List<Agendamento> getListaAgendamentoUsuario() {
-        return listaAgendamentoUsuario;
-    }
-
-    public List<Clientes> getListaClientesUsuario() {
-        return listaClientesUsuario;
-    }
-
-    public List<Orcamento> getListaOrcamentoUsuario() {
-        return listaOrcamentoUsuario;
-    }
 
     @Override
     public boolean equals(Object o) {
