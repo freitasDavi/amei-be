@@ -64,6 +64,89 @@ public class Agendamento {
     public Agendamento() {
     }
 
+//    ----
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getDataAgendamento() {
+        return dataAgendamento;
+    }
+
+    public void setDataAgendamento(LocalDate dataAgendamento) {
+        this.dataAgendamento = dataAgendamento;
+    }
+
+    public String getEnderecoAgendamento() {
+        return enderecoAgendamento;
+    }
+
+    public void setEnderecoAgendamento(String enderecoAgendamento) {
+        this.enderecoAgendamento = enderecoAgendamento;
+    }
+
+    public String getResponsavelAgendamento() {
+        return responsavelAgendamento;
+    }
+
+    public void setResponsavelAgendamento(String responsavelAgendamento) {
+        this.responsavelAgendamento = responsavelAgendamento;
+    }
+
+    public String getTelefoneAgendamento() {
+        return telefoneAgendamento;
+    }
+
+    public void setTelefoneAgendamento(String telefoneAgendamento) {
+        this.telefoneAgendamento = telefoneAgendamento;
+    }
+
+    public String getTelefoneSecundario() {
+        return telefoneSecundario;
+    }
+
+    public void setTelefoneSecundario(String telefoneSecundario) {
+        this.telefoneSecundario = telefoneSecundario;
+    }
+
+    public Clientes getClienteAgendamento() {
+        return clienteAgendamento;
+    }
+
+    public void setClienteAgendamento(Clientes clienteAgendamento) {
+        this.clienteAgendamento = clienteAgendamento;
+    }
+
+    public Cidade getAgendamentoCidade() {
+        return agendamentoCidade;
+    }
+
+    public void setAgendamentoCidade(Cidade agendamentoCidade) {
+        this.agendamentoCidade = agendamentoCidade;
+    }
+
+    public Bairro getAgendamentoBairro() {
+        return agendamentoBairro;
+    }
+
+    public void setAgendamentoBairro(Bairro agendamentoBairro) {
+        this.agendamentoBairro = agendamentoBairro;
+    }
+
+    public User getUsuarioAgendamento() {
+        return usuarioAgendamento;
+    }
+
+    public void setUsuarioAgendamento(User usuarioAgendamento) {
+        this.usuarioAgendamento = usuarioAgendamento;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
