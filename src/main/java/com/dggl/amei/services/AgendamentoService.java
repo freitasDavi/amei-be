@@ -1,9 +1,12 @@
 package com.dggl.amei.services;
 
-import com.dggl.amei.exceptions.RecusoNãoEncontrado;
+import com.dggl.amei.exceptions.DataBaseException;
+import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Agendamento;
 import com.dggl.amei.repositories.AgendamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -22,11 +25,21 @@ public class AgendamentoService {
 
     public Agendamento findById(Long id){
         Optional<Agendamento> obj =  repository.findById(id);
-        return obj.orElseThrow(()-> new RecusoNãoEncontrado(id));
+        return obj.orElseThrow(()-> new RecursoNaoEncontrado(id));
     }
 
     public Agendamento insert(Agendamento obj){
         return repository.save(obj);
+    }
+
+    public void delete(Long id){
+        try{
+            repository.deleteById(id);
+        }catch (EmptyResultDataAccessException e){
+            throw new RecursoNaoEncontrado(id);
+        }catch (DataIntegrityViolationException e){
+            throw new DataBaseException(e.getMessage());
+        }
     }
 
     public Agendamento update(Long id, Agendamento obj){
@@ -35,7 +48,7 @@ public class AgendamentoService {
             updateDados(entity, obj);
             return repository.save(entity);
         }catch (EntityNotFoundException e){
-            throw new RecusoNãoEncontrado(id);
+            throw new RecursoNaoEncontrado(id);
         }
     }
 
@@ -48,7 +61,6 @@ public class AgendamentoService {
         entity.setResponsavelAgendamento(obj.getResponsavelAgendamento());
         entity.setTelefoneAgendamento(obj.getTelefoneAgendamento());
         entity.setTelefoneSecundario(obj.getTelefoneSecundario());
-        entity.setUsuarioAgendamento(obj.getUsuarioAgendamento());
 
     }
 

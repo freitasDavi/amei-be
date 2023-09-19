@@ -30,6 +30,8 @@ public class ItensOrdemServico {
     @Column(name = "DESCRICAO")
     private String descricaoItemOrdem;
 
+//    ----
+
     @NotBlank
     @ManyToOne
     @JoinColumn(name = "ORDEM_ITENS", referencedColumnName = "id")
@@ -39,8 +41,54 @@ public class ItensOrdemServico {
     @OneToMany(mappedBy = "itensServico")
     private List<Servico> listaServicoItensOrdem = new ArrayList<>();
 
+//    ----
 
 
 
+//  ----
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public BigDecimal getValorUnitario() {
+        return valorUnitario;
+    }
+
+    public void setValorUnitario(BigDecimal valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public String getDescricaoItemOrdem() {
+        return descricaoItemOrdem;
+    }
+
+    public void setDescricaoItemOrdem(String descricaoItemOrdem) {
+        this.descricaoItemOrdem = descricaoItemOrdem;
+    }
+
+    public OrdemServico getOrdemItens() {
+        return ordemItens;
+    }
+
+    public void setOrdemItens(OrdemServico ordemItens) {
+        this.ordemItens = ordemItens;
+    }
+
+    public List<Servico> getListaServicoItensOrdem() {
+        return listaServicoItensOrdem;
+    }
 }

@@ -1,7 +1,7 @@
 package com.dggl.amei.controllers;
 
-import com.dggl.amei.models.Agendamento;
-import com.dggl.amei.services.AgendamentoService;
+import com.dggl.amei.models.ItensOrcamento;
+import com.dggl.amei.services.ItensOrcamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,26 +11,26 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/agendamentos")
-public class AgendamentoController {
+@RequestMapping(value = "/api/itensorcamento")
+public class ItensOrcamentoController {
 
     @Autowired
-    private AgendamentoService service;
+    private ItensOrcamentoService service;
 
     @GetMapping
-    public ResponseEntity<List<Agendamento>> findAll(){
-        List<Agendamento> listaAgendamento = service.findAll();
-        return ResponseEntity.ok().body(listaAgendamento);
+    public ResponseEntity<List<ItensOrcamento>> findAll(){
+        List<ItensOrcamento> listaItensOrcamento = service.findAll();
+        return ResponseEntity.ok().body(listaItensOrcamento);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Agendamento> findById(@PathVariable Long id){
-        Agendamento obj = service.findById(id);
+    public ResponseEntity<ItensOrcamento> findById(@PathVariable Long id){
+        ItensOrcamento obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 
     @PostMapping
-    public ResponseEntity<Agendamento> insert(@RequestBody Agendamento obj){
+    public ResponseEntity<ItensOrcamento> insert(@RequestBody ItensOrcamento obj){
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);
@@ -43,8 +43,12 @@ public class AgendamentoController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Agendamento> update(@PathVariable Long id, @RequestBody Agendamento obj){
+    public ResponseEntity<ItensOrcamento> update(@PathVariable Long id, @RequestBody ItensOrcamento obj){
         obj = service.update(id, obj);
         return ResponseEntity.ok().body(obj);
     }
+
+
+
+
 }

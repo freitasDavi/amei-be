@@ -11,6 +11,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "ORCAMENTO")
@@ -44,6 +45,8 @@ public class Orcamento {
     @Column(name = "OBSERVACAOES")
     private String observacoesOrcamento;
 
+//    ----
+
     @NotBlank
     @ManyToOne
     @JoinColumn(name = "USUARIO_ORCAMENTO", referencedColumnName = "id")
@@ -60,4 +63,104 @@ public class Orcamento {
     @JsonIgnore
     @OneToMany(mappedBy = "orcamentoItens")
     private List<ItensOrcamento> listaItensOrcamento = new ArrayList<>();
+
+//    --
+
+
+
+
+//    --
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTelefoneClienteOrcamento() {
+        return telefoneClienteOrcamento;
+    }
+
+    public void setTelefoneClienteOrcamento(String telefoneClienteOrcamento) {
+        this.telefoneClienteOrcamento = telefoneClienteOrcamento;
+    }
+
+    public Instant getDataEmissaoOrcamento() {
+        return dataEmissaoOrcamento;
+    }
+
+    public void setDataEmissaoOrcamento(Instant dataEmissaoOrcamento) {
+        this.dataEmissaoOrcamento = dataEmissaoOrcamento;
+    }
+
+    public LocalDate getDataValidadeOrcamento() {
+        return dataValidadeOrcamento;
+    }
+
+    public void setDataValidadeOrcamento(LocalDate dataValidadeOrcamento) {
+        this.dataValidadeOrcamento = dataValidadeOrcamento;
+    }
+
+    public BigDecimal getValorTotalDoOrcamento() {
+        return valorTotalDoOrcamento;
+    }
+
+    public void setValorTotalDoOrcamento(BigDecimal valorTotalDoOrcamento) {
+        this.valorTotalDoOrcamento = valorTotalDoOrcamento;
+    }
+
+    public String getObservacoesOrcamento() {
+        return observacoesOrcamento;
+    }
+
+    public void setObservacoesOrcamento(String observacoesOrcamento) {
+        this.observacoesOrcamento = observacoesOrcamento;
+    }
+
+    public User getUsuarioOrcamento() {
+        return usuarioOrcamento;
+    }
+
+    public void setUsuarioOrcamento(User usuarioOrcamento) {
+        this.usuarioOrcamento = usuarioOrcamento;
+    }
+
+    public Clientes getClienteOrcamento() {
+        return clienteOrcamento;
+    }
+
+    public void setClienteOrcamento(Clientes clienteOrcamento) {
+        this.clienteOrcamento = clienteOrcamento;
+    }
+
+    public OrdemServico getOrcamentoOrdemServico() {
+        return orcamentoOrdemServico;
+    }
+
+    public void setOrcamentoOrdemServico(OrdemServico orcamentoOrdemServico) {
+        this.orcamentoOrdemServico = orcamentoOrdemServico;
+    }
+
+    public List<ItensOrcamento> getListaItensOrcamento() {
+        return listaItensOrcamento;
+    }
+
+//    ----
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Orcamento orcamento = (Orcamento) o;
+        return Objects.equals(id, orcamento.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
