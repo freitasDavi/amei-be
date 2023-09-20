@@ -20,8 +20,8 @@ public class CidadeService {
     }
 
     public Cidade findById(Long id){
-        Optional<Cidade> obj = repository.findById(id);
-        return obj.orElseThrow(()-> new RecursoNaoEncontrado(id));
+        Optional<Cidade> cidade = repository.findById(id);
+        return cidade.orElseThrow(()-> new RecursoNaoEncontrado(id));
     }
 
 

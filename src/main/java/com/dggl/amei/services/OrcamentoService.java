@@ -28,12 +28,12 @@ public class OrcamentoService {
     }
 
     public Orcamento findById(Long id){
-        Optional<Orcamento> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new RecursoNaoEncontrado(id));
+        Optional<Orcamento> orcamento = repository.findById(id);
+        return orcamento.orElseThrow(() -> new RecursoNaoEncontrado(id));
     }
 
-    public Orcamento insert(Orcamento obj){
-        return repository.save(obj);
+    public Orcamento insert(Orcamento orcamento){
+        return repository.save(orcamento);
     }
 
     public void delete(Long id){
@@ -49,21 +49,21 @@ public class OrcamentoService {
     }
 
     public boolean verificaOrdemServico() {
-        Orcamento obj = new Orcamento();
-        if(obj.getOrcamentoOrdemServico() == null){
+        Orcamento orcamento = new Orcamento();
+        if(orcamento.getOrcamentoOrdemServico() == null){
             return true;
         }
         return false;
     }
 
-    public Orcamento update(Long id, Orcamento obj){
+    public Orcamento update(Long id, Orcamento orcamento){
         try{
-            if(obj.getOrcamentoOrdemServico() != null){
+            if(orcamento.getOrcamentoOrdemServico() != null){
 //                Tratar como enviar o erro para o front
             }else {
-                Orcamento entity = repository.getReferenceById(id);
-                updateDados(entity, obj);
-                return repository.save(entity);
+                Orcamento orcamentoBanco = repository.getReferenceById(id);
+                updateDados(orcamentoBanco, orcamento);
+                return repository.save(orcamentoBanco);
             }
         }catch (EntityNotFoundException e){
             throw new RecursoNaoEncontrado(id);
@@ -71,13 +71,13 @@ public class OrcamentoService {
         return null;
     }
 
-    private void updateDados(Orcamento entity, Orcamento obj){
+    private void updateDados(Orcamento orcamentoBanco, Orcamento orcamento){
 //        Ver questão de como editar os itens do orçamento
-        entity.setClienteOrcamento(obj.getClienteOrcamento());
-        entity.setDataValidadeOrcamento(obj.getDataValidadeOrcamento());
-        entity.setObservacoesOrcamento(obj.getObservacoesOrcamento());
-        entity.setTelefoneClienteOrcamento(obj.getTelefoneClienteOrcamento());
-        entity.setValorTotalDoOrcamento(obj.getValorTotalDoOrcamento());
+        orcamentoBanco.setClienteOrcamento(orcamento.getClienteOrcamento());
+        orcamentoBanco.setDataValidadeOrcamento(orcamento.getDataValidadeOrcamento());
+        orcamentoBanco.setObservacoesOrcamento(orcamento.getObservacoesOrcamento());
+        orcamentoBanco.setTelefoneClienteOrcamento(orcamento.getTelefoneClienteOrcamento());
+        orcamentoBanco.setValorTotalDoOrcamento(orcamento.getValorTotalDoOrcamento());
 
 
     }

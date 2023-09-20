@@ -32,8 +32,8 @@ public class ItensOrcamentoService {
         return obj.orElseThrow(() -> new RecursoNaoEncontrado(id));
     }
 
-    public ItensOrcamento insert(ItensOrcamento obj) {
-        return repository.save(obj);
+    public ItensOrcamento insert(ItensOrcamento itensOrcamento) {
+        return repository.save(itensOrcamento);
     }
 
     public void delete(Long id) {
@@ -46,21 +46,21 @@ public class ItensOrcamentoService {
     }
 
 
-    public ItensOrcamento update(Long id, ItensOrcamento obj) {
+    public ItensOrcamento update(Long id, ItensOrcamento novoItensOrcamento) {
         try {
-            ItensOrcamento entity = repository.getReferenceById(id);
-            updateDados(entity, obj);
-            return repository.save(entity);
+            ItensOrcamento itensOrcamentoBanco = repository.getReferenceById(id);
+            updateDados(itensOrcamentoBanco, novoItensOrcamento);
+            return repository.save(itensOrcamentoBanco);
         } catch (EntityNotFoundException e) {
             throw new RecursoNaoEncontrado(id);
         }
     }
 
-    private void updateDados(ItensOrcamento entity, ItensOrcamento obj){
-        entity.setDescricao(obj.getDescricao());
-        entity.setValorUnitario(obj.getValorUnitario());
-        entity.setValorTotal(obj.getValorTotal());
-        entity.setOrcamentoItens(obj.getOrcamentoItens());
+    private void updateDados(ItensOrcamento itensOrcamentoBanco, ItensOrcamento novoItensOrcamento){
+        itensOrcamentoBanco.setDescricao(novoItensOrcamento.getDescricao());
+        itensOrcamentoBanco.setValorUnitario(novoItensOrcamento.getValorUnitario());
+        itensOrcamentoBanco.setValorTotal(novoItensOrcamento.getValorTotal());
+        itensOrcamentoBanco.setOrcamentoItens(novoItensOrcamento.getOrcamentoItens());
 
 
 

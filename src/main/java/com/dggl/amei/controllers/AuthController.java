@@ -8,7 +8,7 @@ import com.dggl.amei.dtos.requests.TokenRefreshRequest;
 import com.dggl.amei.dtos.responses.JwtResponse;
 import com.dggl.amei.dtos.responses.MessageResponse;
 import com.dggl.amei.dtos.responses.RefreshTokenResponse;
-import com.dggl.amei.enums.EnumRole;
+import com.dggl.amei.models.enums.EnumRole;
 import com.dggl.amei.models.RefreshToken;
 import com.dggl.amei.models.Role;
 import com.dggl.amei.models.User;

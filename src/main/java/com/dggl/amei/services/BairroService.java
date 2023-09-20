@@ -20,9 +20,7 @@ public class BairroService {
     }
 
     public Bairro findById(Long id){
-        Optional<Bairro> obj = repository.findById(id);
-        return obj.orElseThrow(()-> new RecursoNaoEncontrado(id));
+        Optional<Bairro> bairro = repository.findById(id);
+        return bairro.orElseThrow(()-> new RecursoNaoEncontrado(id));
     }
-
-
 }

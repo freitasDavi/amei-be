@@ -1,6 +1,6 @@
 package com.dggl.amei.models;
 
-import com.dggl.amei.enums.EnumRole;
+import com.dggl.amei.models.enums.EnumRole;
 
 import javax.persistence.*;
 

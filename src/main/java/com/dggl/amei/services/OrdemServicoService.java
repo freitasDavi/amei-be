@@ -24,12 +24,12 @@ public class OrdemServicoService {
     }
 
     public OrdemServico findById(Long id){
-        Optional<OrdemServico> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new RecursoNaoEncontrado(id));
+        Optional<OrdemServico> ordemServico = repository.findById(id);
+        return ordemServico.orElseThrow(() -> new RecursoNaoEncontrado(id));
     }
 
-    public OrdemServico insert(OrdemServico obj){
-        return repository.save(obj);
+    public OrdemServico insert(OrdemServico ordemServico){
+        return repository.save(ordemServico);
     }
 
     public void delete(Long id){
@@ -42,19 +42,19 @@ public class OrdemServicoService {
         }
     }
 
-    public OrdemServico update(Long id, OrdemServico obj){
+    public OrdemServico update(Long id, OrdemServico ordemServico){
         try {
-            OrdemServico entity = repository.getReferenceById(id);
-            updateDados(entity, obj);
-            return repository.save(entity);
+            OrdemServico ordemServicoBanco = repository.getReferenceById(id);
+            updateDados(ordemServicoBanco, ordemServico);
+            return repository.save(ordemServicoBanco);
         }catch (EntityNotFoundException e){
             throw new RecursoNaoEncontrado(id);
         }
     }
 
-    public void updateDados(OrdemServico entity, OrdemServico obj){
-        entity.setTelefoneOrdem(obj.getTelefoneOrdem());
-        entity.setValorTotal(obj.getValorTotal());
+    public void updateDados(OrdemServico ordemServicoBanco, OrdemServico ordemServico){
+        ordemServicoBanco.setTelefoneOrdem(ordemServico.getTelefoneOrdem());
+        ordemServicoBanco.setValorTotal(ordemServico.getValorTotal());
     }
 
 

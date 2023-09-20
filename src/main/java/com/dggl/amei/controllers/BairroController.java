@@ -26,7 +26,7 @@ public class BairroController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Bairro> findById(@PathVariable Long id){
-        Bairro obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+        Bairro bairro = service.findById(id);
+        return ResponseEntity.ok().body(bairro);
     }
 }

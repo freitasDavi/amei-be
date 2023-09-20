@@ -30,10 +30,10 @@ public class OrcamentoController {
     }
 
     @PostMapping
-    public ResponseEntity<Orcamento> insert(@RequestBody Orcamento obj){
-        obj = service.insert(obj);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(uri).body(obj);
+    public ResponseEntity<Orcamento> insert(@RequestBody Orcamento orcamento){
+        orcamento = service.insert(orcamento);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(orcamento.getId()).toUri();
+        return ResponseEntity.created(uri).body(orcamento);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -43,12 +43,9 @@ public class OrcamentoController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Orcamento> update(@PathVariable Long id, @RequestBody Orcamento obj){
-        obj = service.update(id, obj);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<Orcamento> update(@PathVariable Long id, @RequestBody Orcamento orcamento){
+        orcamento = service.update(id, orcamento);
+        return ResponseEntity.ok().body(orcamento);
     }
-
-
-
 
 }

@@ -26,7 +26,7 @@ public class CidadeController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Cidade> findById(@PathVariable Long id){
-        Cidade obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+        Cidade cidade = service.findById(id);
+        return ResponseEntity.ok().body(cidade);
     }
 }

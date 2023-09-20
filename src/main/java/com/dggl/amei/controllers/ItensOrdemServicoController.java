@@ -30,10 +30,10 @@ public class ItensOrdemServicoController {
     }
 
     @PostMapping
-    public ResponseEntity<ItensOrdemServico> insert(@RequestBody ItensOrdemServico obj){
-        obj = service.insert(obj);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(uri).body(obj);
+    public ResponseEntity<ItensOrdemServico> insert(@RequestBody ItensOrdemServico itensOrdemServico){
+        itensOrdemServico = service.insert(itensOrdemServico);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(itensOrdemServico.getId()).toUri();
+        return ResponseEntity.created(uri).body(itensOrdemServico);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -43,9 +43,9 @@ public class ItensOrdemServicoController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ItensOrdemServico> update(@PathVariable Long id, @RequestBody ItensOrdemServico obj){
-        obj = service.update(id, obj);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<ItensOrdemServico> update(@PathVariable Long id, @RequestBody ItensOrdemServico itensOrdemServico){
+        itensOrdemServico = service.update(id, itensOrdemServico);
+        return ResponseEntity.ok().body(itensOrdemServico);
     }
 
 

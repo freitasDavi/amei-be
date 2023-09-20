@@ -32,8 +32,8 @@ public class ItensOrdemServicoService {
         return obj.orElseThrow(() -> new RecursoNaoEncontrado(id));
     }
 
-    public ItensOrdemServico insert(ItensOrdemServico obj) {
-        return repository.save(obj);
+    public ItensOrdemServico insert(ItensOrdemServico itensOrdemServico) {
+        return repository.save(itensOrdemServico);
     }
 
     public void delete(Long id) {
@@ -46,22 +46,22 @@ public class ItensOrdemServicoService {
     }
 
 
-    public ItensOrdemServico update(Long id, ItensOrdemServico obj) {
+    public ItensOrdemServico update(Long id, ItensOrdemServico itensOrdemServico) {
         try {
-            ItensOrdemServico entity = repository.getReferenceById(id);
-            updateDados(entity, obj);
-            return repository.save(entity);
+            ItensOrdemServico itensOrdemServicoBanco = repository.getReferenceById(id);
+            updateDados(itensOrdemServicoBanco, itensOrdemServico);
+            return repository.save(itensOrdemServicoBanco);
         } catch (EntityNotFoundException e) {
             throw new RecursoNaoEncontrado(id);
         }
     }
     
-    private void updateDados(ItensOrdemServico entity, ItensOrdemServico obj){
-        entity.setValorUnitario(obj.getValorUnitario());
-        entity.setValorTotal(obj.getValorTotal());
-        entity.setValorUnitario(obj.getValorUnitario());
-        entity.setDescricaoItemOrdem(obj.getDescricaoItemOrdem());
-        entity.setOrdemItens(obj.getOrdemItens());
+    private void updateDados(ItensOrdemServico itensOrdemServicoBanco, ItensOrdemServico novosItensOrdemServico){
+        itensOrdemServicoBanco.setValorUnitario(novosItensOrdemServico.getValorUnitario());
+        itensOrdemServicoBanco.setValorTotal(novosItensOrdemServico.getValorTotal());
+        itensOrdemServicoBanco.setValorUnitario(novosItensOrdemServico.getValorUnitario());
+        itensOrdemServicoBanco.setDescricaoItemOrdem(novosItensOrdemServico.getDescricaoItemOrdem());
+        itensOrdemServicoBanco.setOrdemItens(novosItensOrdemServico.getOrdemItens());
         
         
         

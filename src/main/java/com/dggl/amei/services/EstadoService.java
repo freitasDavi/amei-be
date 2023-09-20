@@ -20,8 +20,8 @@ public class EstadoService {
     }
 
     public Estado findById(Long id){
-        Optional<Estado> obj = repository.findById(id);
-        return obj.orElseThrow(()-> new RecursoNaoEncontrado(id));
+        Optional<Estado> estado = repository.findById(id);
+        return estado.orElseThrow(()-> new RecursoNaoEncontrado(id));
     }
 
 }
