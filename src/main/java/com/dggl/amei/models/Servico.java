@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "SERVICO")
+@Table(name = "servicos")
 public class Servico {
 
     @Id
@@ -30,7 +30,7 @@ public class Servico {
 //    ----
 
     @ManyToOne
-    @JoinColumn(name = "ITENS_ORDEM_ SERVICO", referencedColumnName = "id")
+    @JoinColumn(name = "ITENS_ORDEM_SERVICO", referencedColumnName = "id")
     private ItensOrdemServico itensServico;
 
     @ManyToOne
