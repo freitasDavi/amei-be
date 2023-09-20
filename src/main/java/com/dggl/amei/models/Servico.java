@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "SERVICO")
+@Table(name = "servico")
 public class Servico {
 
     @Id
@@ -27,7 +27,7 @@ public class Servico {
     private String codigoCNAE;
 
     @ManyToOne
-    @JoinColumn(name = "ITENS_ORDEM_ SERVICO", referencedColumnName = "id")
+    @JoinColumn(name = "ITENS_ORDEM_SERVICO", referencedColumnName = "id")
     private ItensOrdemServico itensServico;
 
     @ManyToOne
@@ -36,8 +36,17 @@ public class Servico {
 
     @NotBlank
     @ManyToOne
-    @JoinColumn(name = "SERVICO_USUARIO")
+    @JoinColumn(name = "SERVICO_USUARIO", referencedColumnName = "id")
     private User servicoUsuario;
+
+//  ----
+
+
+//  ----
+
+
+
+
 
 
 

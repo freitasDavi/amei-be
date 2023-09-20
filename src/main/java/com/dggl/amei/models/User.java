@@ -111,10 +111,8 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "servicoUsuario")
-    private List<User> listaServicosUsuario = new ArrayList<>();
+    private List<Servico> listaServicosUsuario = new ArrayList<>();
 
-
-//    ---
 
     public User() {
     }
