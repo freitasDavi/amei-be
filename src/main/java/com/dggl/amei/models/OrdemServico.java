@@ -39,14 +39,6 @@ public class OrdemServico {
     @JoinColumn(name = "CLIENTE_ORDEM", referencedColumnName = "id")
     private Clientes clienteOrdem;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "orcamentoOrdemServico")
-    private List<Orcamento> listaOrcamentosOrdemServico = new ArrayList<>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "ordemItens")
-    private List<ItensOrdemServico> listaItensOrdemServico = new ArrayList<>();
-
 //    ----
 
 
@@ -93,13 +85,6 @@ public class OrdemServico {
         this.clienteOrdem = clienteOrdem;
     }
 
-    public List<Orcamento> getListaOrcamentosOrdemServico() {
-        return listaOrcamentosOrdemServico;
-    }
-
-    public List<ItensOrdemServico> getListaItensOrdemServico() {
-        return listaItensOrdemServico;
-    }
 
     @Override
     public boolean equals(Object o) {

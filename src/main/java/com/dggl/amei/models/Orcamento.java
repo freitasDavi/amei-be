@@ -60,9 +60,6 @@ public class Orcamento {
     @JoinColumn(name = "ORDEM_ORCAMENTO", referencedColumnName = "id")
     private OrdemServico orcamentoOrdemServico;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "orcamentoItens")
-    private List<ItensOrcamento> listaItensOrcamento = new ArrayList<>();
 
 //    --
 
@@ -144,9 +141,6 @@ public class Orcamento {
         this.orcamentoOrdemServico = orcamentoOrdemServico;
     }
 
-    public List<ItensOrcamento> getListaItensOrcamento() {
-        return listaItensOrcamento;
-    }
 
 //    ----
 

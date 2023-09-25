@@ -33,10 +33,6 @@ public class ItensOrcamento {
 
 //    ----
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "itensOrcamento")
-    private List<Servico> listaServicosItensOrcamento = new ArrayList<>();
-
     @NotBlank
     @ManyToOne
     @JoinColumn(name = "ORCAMENTO_ITENS")
@@ -88,7 +84,4 @@ public class ItensOrcamento {
         this.orcamentoItens = orcamentoItens;
     }
 
-    public List<Servico> getListaServicosItensOrcamento() {
-        return listaServicosItensOrcamento;
-    }
 }
