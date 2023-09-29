@@ -8,7 +8,7 @@ import com.dggl.amei.dtos.requests.TokenRefreshRequest;
 import com.dggl.amei.dtos.responses.JwtResponse;
 import com.dggl.amei.dtos.responses.MessageResponse;
 import com.dggl.amei.dtos.responses.RefreshTokenResponse;
-import com.dggl.amei.enums.EnumRole;
+import com.dggl.amei.models.enums.EnumRole;
 import com.dggl.amei.models.RefreshToken;
 import com.dggl.amei.models.Role;
 import com.dggl.amei.models.User;
@@ -102,7 +102,8 @@ public class AuthController {
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
 
-        User user = new User(signupRequest.getUsername(), signupRequest.getEmail(),
+        User user = new User(signupRequest.getUsername(),
+                signupRequest.getEmail(),
                 passwordEncoder.encode(signupRequest.getPassword()));
 
         Set<String> strRoles = signupRequest.getRole();

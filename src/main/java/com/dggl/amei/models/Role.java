@@ -1,15 +1,16 @@
 package com.dggl.amei.models;
 
-import com.dggl.amei.enums.EnumRole;
+import com.dggl.amei.models.enums.EnumRole;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "ROLES")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "ID")
     private int id;
 
     @Enumerated(EnumType.STRING)
