@@ -1,5 +1,8 @@
 package com.dggl.amei.dtos.requests;
 
+import com.dggl.amei.models.Bairro;
+import com.dggl.amei.models.Cidade;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -37,27 +40,29 @@ public class SignupRequest {
 
     @NotBlank
     @Size(max = 8, message = "CPE deve conter no máximo 8 caraceteres")
-    private String cpeUsuario;
+    private String cepUsuario;
 
     @NotBlank
     @Size(max = 30, message = "Cidade deve ter no máximo 30 caracteres")
-    private String cidadeUsuario;
+    private Cidade cidadeUsuario;
 
-    @NotBlank
-    @Size(max = 10, message = "Estado deve ter no máximo 10 caracteres")
-    private String estadoUsuario;
+//    @NotBlank
+//    @Size(max = 10, message = "Estado deve ter no máximo 10 caracteres")
+//    private String estadoUsuario;
 
     @NotBlank
     @Size(max = 150, message = "Lougradouro deve ter no máximo 150 caracteres")
     private String lougradouroUsuario;
 
     @NotBlank
-    @Size(max = 150, message = "Bairro deve ter no máximo 150 caracteres")
-    private String bairroUsuario;
+    //@Size(max = 150, message = "Bairro deve ter no máximo 150 caracteres")
+    private Bairro bairroUsuario;
 
     @NotBlank
     @Size(max = 100, message = "Complemento deve ter no máximo 100 caracteres")
     private String complementoUsuario;
+
+    private String numeroUsuario;
 
     private Set<String> role;
 
@@ -69,6 +74,15 @@ public class SignupRequest {
     }
 
 //    ---
+
+
+    public String getNumeroUsuario() {
+        return numeroUsuario;
+    }
+
+    public void setNumeroUsuario(String numeroUsuario) {
+        this.numeroUsuario = numeroUsuario;
+    }
 
     public String getRazaoSocial() {
         return razaoSocial;
@@ -103,28 +117,21 @@ public class SignupRequest {
     }
 
     public String getCpeUsuario() {
-        return cpeUsuario;
+        return cepUsuario;
     }
 
-    public void setCpeUsuario(String cpeUsuario) {
-        this.cpeUsuario = cpeUsuario;
+    public void setCepUsuario(String cpeUsuario) {
+        this.cepUsuario = cpeUsuario;
     }
 
-    public String getCidadeUsuario() {
+    public Cidade getCidadeUsuario() {
         return cidadeUsuario;
     }
 
-    public void setCidadeUsuario(String cidadeUsuario) {
+    public void setCidadeUsuario(Cidade cidadeUsuario) {
         this.cidadeUsuario = cidadeUsuario;
     }
 
-    public String getEstadoUsuario() {
-        return estadoUsuario;
-    }
-
-    public void setEstadoUsuario(String estadoUsuario) {
-        this.estadoUsuario = estadoUsuario;
-    }
 
     public String getLougradouroUsuario() {
         return lougradouroUsuario;
@@ -134,11 +141,11 @@ public class SignupRequest {
         this.lougradouroUsuario = lougradouroUsuario;
     }
 
-    public String getBairroUsuario() {
+    public Bairro getBairroUsuario() {
         return bairroUsuario;
     }
 
-    public void setBairroUsuario(String bairroUsuario) {
+    public void setBairroUsuario(Bairro bairroUsuario) {
         this.bairroUsuario = bairroUsuario;
     }
 

@@ -102,9 +102,7 @@ public class AuthController {
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
 
-        User user = new User(signupRequest.getUsername(),
-                signupRequest.getEmail(),
-                passwordEncoder.encode(signupRequest.getPassword()));
+
 
         Set<String> strRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();
@@ -140,6 +138,22 @@ public class AuthController {
                 }
             });
         }
+
+        User user = new User(signupRequest.getUsername(),
+                signupRequest.getEmail(),
+                passwordEncoder.encode(signupRequest.getPassword()),
+                roles,
+                signupRequest.getRazaoSocial(),
+                signupRequest.getCnpj(),
+                signupRequest.getInscricaoMunicipal(),
+                signupRequest.getTelefoneUsuario(),
+                signupRequest.getCpeUsuario(),
+                signupRequest.getLougradouroUsuario(),
+                signupRequest.getNumeroUsuario(),
+                signupRequest.getComplementoUsuario(),
+                signupRequest.getCidadeUsuario(),
+                signupRequest.getBairroUsuario()
+        );
 
         user.setRoles(roles);
         userRepository.save(user);
