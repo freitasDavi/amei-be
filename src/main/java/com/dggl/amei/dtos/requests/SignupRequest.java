@@ -1,8 +1,13 @@
 package com.dggl.amei.dtos.requests;
 
+import com.dggl.amei.models.Bairro;
+import com.dggl.amei.models.Cidade;
+import com.dggl.amei.models.Role;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 public class SignupRequest {
@@ -19,6 +24,8 @@ public class SignupRequest {
     @NotBlank
     @Size(min = 6, max = 40, message = "A senha deve ter entre 6 e 40 caracteres.")
     private String password;
+
+    private Set<String> roles;
 
     @NotBlank
     @Size(max = 150, message = "Razao Social deve ter no máximo 150 caracteres")
@@ -37,38 +44,85 @@ public class SignupRequest {
 
     @NotBlank
     @Size(max = 8, message = "CPE deve conter no máximo 8 caraceteres")
-    private String cpeUsuario;
+    private String cepUsuario;
 
     @NotBlank
-    @Size(max = 30, message = "Cidade deve ter no máximo 30 caracteres")
-    private String cidadeUsuario;
+    @Size(max = 150, message = "Endereço deve ter no máximo 150 caracteres")
+    private String enderecoUsuario;
 
     @NotBlank
-    @Size(max = 10, message = "Estado deve ter no máximo 10 caracteres")
-    private String estadoUsuario;
+    @Size(max = 50)
+    private String numeroUsuario;
 
-    @NotBlank
-    @Size(max = 150, message = "Lougradouro deve ter no máximo 150 caracteres")
-    private String lougradouroUsuario;
-
-    @NotBlank
-    @Size(max = 150, message = "Bairro deve ter no máximo 150 caracteres")
-    private String bairroUsuario;
-
-    @NotBlank
     @Size(max = 100, message = "Complemento deve ter no máximo 100 caracteres")
     private String complementoUsuario;
 
-    private Set<String> role;
+    private Cidade usuarioCidade;
 
-    public SignupRequest(String username, String email, Set<String> role, String password) {
+    private Bairro usuarioBairro;
+
+    // Constructors
+
+    public SignupRequest() {
+    }
+
+    public SignupRequest(String username, String email, String password, Set<String> roles) {
         this.username = username;
         this.email = email;
-        this.role = role;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public SignupRequest(String username, String email, String password, Set<String> roles, String razaoSocial, String cnpj, String inscricaoMunicipal, String telefoneUsuario, String cepUsuario, String enderecoUsuario, String numeroUsuario, String complementoUsuario, Cidade usuarioCidade, Bairro usuarioBairro) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+        this.razaoSocial = razaoSocial;
+        this.cnpj = cnpj;
+        this.inscricaoMunicipal = inscricaoMunicipal;
+        this.telefoneUsuario = telefoneUsuario;
+        this.cepUsuario = cepUsuario;
+        this.enderecoUsuario = enderecoUsuario;
+        this.numeroUsuario = numeroUsuario;
+        this.complementoUsuario = complementoUsuario;
+        this.usuarioCidade = usuarioCidade;
+        this.usuarioBairro = usuarioBairro;
+    }
+
+    // Getters and Setters
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
-//    ---
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
 
     public String getRazaoSocial() {
         return razaoSocial;
@@ -102,44 +156,28 @@ public class SignupRequest {
         this.telefoneUsuario = telefoneUsuario;
     }
 
-    public String getCpeUsuario() {
-        return cpeUsuario;
+    public String getCepUsuario() {
+        return cepUsuario;
     }
 
-    public void setCpeUsuario(String cpeUsuario) {
-        this.cpeUsuario = cpeUsuario;
+    public void setCepUsuario(String cepUsuario) {
+        this.cepUsuario = cepUsuario;
     }
 
-    public String getCidadeUsuario() {
-        return cidadeUsuario;
+    public String getEnderecoUsuario() {
+        return enderecoUsuario;
     }
 
-    public void setCidadeUsuario(String cidadeUsuario) {
-        this.cidadeUsuario = cidadeUsuario;
+    public void setEnderecoUsuario(String enderecoUsuario) {
+        this.enderecoUsuario = enderecoUsuario;
     }
 
-    public String getEstadoUsuario() {
-        return estadoUsuario;
+    public String getNumeroUsuario() {
+        return numeroUsuario;
     }
 
-    public void setEstadoUsuario(String estadoUsuario) {
-        this.estadoUsuario = estadoUsuario;
-    }
-
-    public String getLougradouroUsuario() {
-        return lougradouroUsuario;
-    }
-
-    public void setLougradouroUsuario(String lougradouroUsuario) {
-        this.lougradouroUsuario = lougradouroUsuario;
-    }
-
-    public String getBairroUsuario() {
-        return bairroUsuario;
-    }
-
-    public void setBairroUsuario(String bairroUsuario) {
-        this.bairroUsuario = bairroUsuario;
+    public void setNumeroUsuario(String numeroUsuario) {
+        this.numeroUsuario = numeroUsuario;
     }
 
     public String getComplementoUsuario() {
@@ -150,38 +188,21 @@ public class SignupRequest {
         this.complementoUsuario = complementoUsuario;
     }
 
-
-//    ---
-
-    public String getUsername() {
-        return username;
+    public Cidade getUsuarioCidade() {
+        return usuarioCidade;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsuarioCidade(Cidade usuarioCidade) {
+        this.usuarioCidade = usuarioCidade;
     }
 
-    public String getEmail() {
-        return email;
+    public Bairro getUsuarioBairro() {
+        return usuarioBairro;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsuarioBairro(Bairro usuarioBairro) {
+        this.usuarioBairro = usuarioBairro;
     }
 
-    public Set<String> getRole() {
-        return role;
-    }
 
-    public void setRole(Set<String> role) {
-        this.role = role;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

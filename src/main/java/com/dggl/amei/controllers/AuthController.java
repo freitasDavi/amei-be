@@ -8,12 +8,9 @@ import com.dggl.amei.dtos.requests.TokenRefreshRequest;
 import com.dggl.amei.dtos.responses.JwtResponse;
 import com.dggl.amei.dtos.responses.MessageResponse;
 import com.dggl.amei.dtos.responses.RefreshTokenResponse;
-import com.dggl.amei.models.enums.EnumRole;
 import com.dggl.amei.models.RefreshToken;
-import com.dggl.amei.models.Role;
-import com.dggl.amei.models.User;
-import com.dggl.amei.repositories.RoleRepository;
 import com.dggl.amei.repositories.UserRepository;
+import com.dggl.amei.services.AuthService;
 import com.dggl.amei.services.RefreshTokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -24,7 +21,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -44,17 +40,15 @@ public class AuthController {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
-    PasswordEncoder passwordEncoder;
 
     @Autowired
     RefreshTokenService refreshTokenService;
 
     @Autowired
     JwtUtils jwtUtils;
+
+    @Autowired
+    AuthService service;
 
     @PostMapping("/signin")
     @Operation(summary = "Login a user")
@@ -92,57 +86,14 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser (@Valid @RequestBody SignupRequest signupRequest) {
-        if (userRepository.existsByUsername(signupRequest.getUsername())) {
+
+        try {
+            var user = service.registerUser(signupRequest);
+        } catch (Exception ex) {
             return ResponseEntity.badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
+                    .body(new MessageResponse(ex.getMessage()));
         }
-
-        if (userRepository.existsByEmail(signupRequest.getEmail())) {
-            return ResponseEntity.badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
-        }
-
-        User user = new User(signupRequest.getUsername(),
-                signupRequest.getEmail(),
-                passwordEncoder.encode(signupRequest.getPassword()));
-
-        Set<String> strRoles = signupRequest.getRole();
-        Set<Role> roles = new HashSet<>();
-
-        List<Role> all = roleRepository.findAll();
-
-        if (all.isEmpty()) {
-            Role role = new Role();
-            role.setName(EnumRole.ROLE_ADMIN);
-            roleRepository.save(role);
-            Role role2 = new Role();
-            role2.setName(EnumRole.ROLE_USER);
-            roleRepository.save(role2);
-        }
-
-        if (strRoles == null) {
-            Role userRole = roleRepository.findByName(EnumRole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(EnumRole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(EnumRole.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
-                }
-            });
-        }
-
-        user.setRoles(roles);
-        userRepository.save(user);
+        
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }

@@ -50,16 +50,16 @@ public class User {
     @NotBlank
     @Size(max = 100)
     @Column(name = "RAZAO")
-    private String razaoSocialUsuario;
+    private String razaoSocial;
 
     @NotBlank
     @Size(max = 14)
     @Column(name = "CPNJ")
-    private String cnpjUsuario;
+    private String cnpj;
 
     @Size(max = 14)
     @Column(name = "INSCRICAO_MUNICIPAL")
-    private String inscricaoMunicipalUsuario;
+    private String inscricaoMunicipal;
 
     @NotBlank
     @Size(max = 11)
@@ -97,8 +97,6 @@ public class User {
     @JoinColumn(name = "BAIRRO_USUARIO", referencedColumnName = "id")
     private Bairro usuarioBairro;
 
-
-
     public User() {
     }
 
@@ -106,6 +104,23 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public User(String username, String email, String password, Set<Role> roles, String razaoSocial, String cnpj, String inscricaoMunicipal, String telefoneUsuario, String cepUsuario, String enderecoUsuario, String numeroUsuario, String complementoUsuario, Cidade usuarioCidade, Bairro usuarioBairro) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+        this.razaoSocial = razaoSocial;
+        this.cnpj = cnpj;
+        this.inscricaoMunicipal = inscricaoMunicipal;
+        this.telefoneUsuario = telefoneUsuario;
+        this.cepUsuario = cepUsuario;
+        this.enderecoUsuario = enderecoUsuario;
+        this.numeroUsuario = numeroUsuario;
+        this.complementoUsuario = complementoUsuario;
+        this.usuarioCidade = usuarioCidade;
+        this.usuarioBairro = usuarioBairro;
     }
 
     public Long getId() {
