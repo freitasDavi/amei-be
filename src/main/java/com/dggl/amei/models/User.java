@@ -87,12 +87,12 @@ public class User {
 
 //    ---
 
-    @NotBlank
+    //@NotBlank
     @ManyToOne
     @JoinColumn(name = "CIDADE_USUARIO", referencedColumnName = "id")
     private Cidade usuarioCidade;
 
-    @NotBlank
+    //@NotBlank
     @ManyToOne
     @JoinColumn(name = "BAIRRO_USUARIO", referencedColumnName = "id")
     private Bairro usuarioBairro;

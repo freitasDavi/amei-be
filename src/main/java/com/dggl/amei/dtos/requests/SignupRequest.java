@@ -42,8 +42,8 @@ public class SignupRequest {
     @Size(max = 8, message = "CPE deve conter no máximo 8 caraceteres")
     private String cepUsuario;
 
-    @NotBlank
-    @Size(max = 30, message = "Cidade deve ter no máximo 30 caracteres")
+    //@NotBlank
+    //@Size(max = 30, message = "Cidade deve ter no máximo 30 caracteres")
     private Cidade cidadeUsuario;
 
 //    @NotBlank
@@ -51,10 +51,10 @@ public class SignupRequest {
 //    private String estadoUsuario;
 
     @NotBlank
-    @Size(max = 150, message = "Lougradouro deve ter no máximo 150 caracteres")
-    private String lougradouroUsuario;
+    @Size(max = 150, message = "Logradouro deve ter no máximo 150 caracteres")
+    private String logradouroUsuario;
 
-    @NotBlank
+    //@NotBlank
     //@Size(max = 150, message = "Bairro deve ter no máximo 150 caracteres")
     private Bairro bairroUsuario;
 
@@ -133,12 +133,12 @@ public class SignupRequest {
     }
 
 
-    public String getLougradouroUsuario() {
-        return lougradouroUsuario;
+    public String getLogradouroUsuario() {
+        return logradouroUsuario;
     }
 
-    public void setLougradouroUsuario(String lougradouroUsuario) {
-        this.lougradouroUsuario = lougradouroUsuario;
+    public void setLogradouroUsuario(String lougradouroUsuario) {
+        this.logradouroUsuario = lougradouroUsuario;
     }
 
     public Bairro getBairroUsuario() {

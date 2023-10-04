@@ -19,7 +19,7 @@ public class Estado {
     private Long id;
 
     @NotBlank
-    @Size(max = 10)
+    @Size(max = 20)
     @Column(name = "NOME_ESTADO")
     private String nomeEstado;
 
@@ -29,6 +29,10 @@ public class Estado {
 //    ----
 
     public Estado() {
+    }
+
+    public Estado(Long id) {
+        this.id = id;
     }
 
     @Override

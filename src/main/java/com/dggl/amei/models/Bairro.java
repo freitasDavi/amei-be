@@ -35,6 +35,10 @@ public class Bairro {
     public Bairro() {
     }
 
+    public Bairro(Long id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
