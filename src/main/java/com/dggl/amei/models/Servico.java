@@ -36,7 +36,7 @@ public class Servico {
     @JoinColumn(name = "ITENS_ORCAMENTO", referencedColumnName = "id")
     private ItensOrcamento itensOrcamento;
 
-    @NotBlank
+    //@NotBlank
     @ManyToOne
     @JoinColumn(name = "SERVICO_USUARIO")
     private User servicoUsuario;
@@ -48,10 +48,11 @@ public class Servico {
         this.id = id;
     }
 
-    public Servico(String descricaoServico, BigDecimal valorServico, String codigoCNAE) {
+    public Servico(String descricaoServico, BigDecimal valorServico, String codigoCNAE, User servicoUsuario) {
         this.descricaoServico = descricaoServico;
         this.valorServico = valorServico;
         this.codigoCNAE = codigoCNAE;
+        this.servicoUsuario = servicoUsuario;
     }
 
     public Long getId() {

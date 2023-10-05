@@ -31,7 +31,7 @@ public class ServicoService {
     }
 
     public Servico insert(NovoServicoRequest dto){
-        var novoServico = new Servico(dto.getDescricao(), dto.getValor(), dto.getCodigoCNAE());
+        var novoServico = new Servico(dto.getDescricaoServico(), dto.getValorServico(), dto.getCodigoCNAE(), dto.getServicoUsuario());
 
         repository.save(novoServico);
 

@@ -101,6 +101,10 @@ public class User {
     public User() {
     }
 
+    public User(Long id) {
+        this.id = id;
+    }
+
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
