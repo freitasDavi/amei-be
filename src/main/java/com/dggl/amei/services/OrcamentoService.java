@@ -23,13 +23,15 @@ public class OrcamentoService {
     @Autowired
     OrdemServicoRepository ordemServicoRepository;
 
+    private String taskName = "Orçamento";
+
     public List<Orcamento> findAll(){
         return repository.findAll();
     }
 
     public Orcamento findById(Long id){
         Optional<Orcamento> orcamento = repository.findById(id);
-        return orcamento.orElseThrow(() -> new RecursoNaoEncontrado(id));
+        return orcamento.orElseThrow(() -> new RecursoNaoEncontrado(taskName, id));
     }
 
     public Orcamento insert(Orcamento orcamento){
@@ -42,7 +44,7 @@ public class OrcamentoService {
                 repository.deleteById(id);
             }
         }catch (EmptyResultDataAccessException e){
-            throw new RecursoNaoEncontrado(id);
+            throw new RecursoNaoEncontrado(taskName, id);
         }catch (DataIntegrityViolationException e){
             throw new DataBaseException(e.getMessage());
         }
@@ -66,7 +68,7 @@ public class OrcamentoService {
                 return repository.save(orcamentoBanco);
             }
         }catch (EntityNotFoundException e){
-            throw new RecursoNaoEncontrado(id);
+            throw new RecursoNaoEncontrado(taskName, id);
         }
         return null;
     }

@@ -14,6 +14,7 @@ public class BairroService {
 
     @Autowired
     private BairroRepository repository;
+    private String task = "Bairro";
 
     public List<Bairro> findAll(){
         return repository.findAll();
@@ -21,6 +22,6 @@ public class BairroService {
 
     public Bairro findById(Long id){
         Optional<Bairro> bairro = repository.findById(id);
-        return bairro.orElseThrow(()-> new RecursoNaoEncontrado(id));
+        return bairro.orElseThrow(()-> new RecursoNaoEncontrado(task, id));
     }
 }

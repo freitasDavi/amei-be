@@ -1,5 +1,6 @@
 package com.dggl.amei.services;
 
+import com.dggl.amei.dtos.requests.NovoServicoRequest;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Servico;
@@ -18,6 +19,7 @@ public class ServicoService {
 
     @Autowired
     private ServicoRepository repository;
+    private String task = "Serviço";
 
     public List<Servico> findAll(){
         return repository.findAll();
@@ -25,30 +27,36 @@ public class ServicoService {
 
     public Servico findById(Long id){
         Optional<Servico> listaServico =  repository.findById(id);
-        return listaServico.orElseThrow(()-> new RecursoNaoEncontrado(id));
+        return listaServico.orElseThrow(()-> new RecursoNaoEncontrado(task, id));
     }
 
-    public Servico insert(Servico servicoCriado){
-        return repository.save(servicoCriado);
+    public Servico insert(NovoServicoRequest dto){
+        var novoServico = new Servico(dto.getDescricao(), dto.getValor(), dto.getCodigoCNAE());
+
+        repository.save(novoServico);
+
+        return novoServico;
     }
 
     public void delete(Long id){
         try{
             repository.deleteById(id);
         }catch (EmptyResultDataAccessException e){
-            throw new RecursoNaoEncontrado(id);
+            throw new RecursoNaoEncontrado(task, id);
         }catch (DataIntegrityViolationException e){
             throw new DataBaseException(e.getMessage());
         }
     }
 
-    public Servico update(Long id, Servico novoServico){
+    public Servico update(Long id, Servico update){
         try {
             Servico servicoBanco = repository.getReferenceById(id);
-            updateDados(servicoBanco, novoServico);
+
+            updateDados(servicoBanco, update);
+
             return repository.save(servicoBanco);
         }catch (EntityNotFoundException e){
-            throw new RecursoNaoEncontrado(id);
+            throw new RecursoNaoEncontrado(task, id);
         }
     }
 

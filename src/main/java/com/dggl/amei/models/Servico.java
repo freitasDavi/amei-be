@@ -20,7 +20,6 @@ public class Servico {
     @Column(name = "DESCRICAO_SERVICO")
     private String descricaoServico;
 
-    @NotBlank
     @Column(name = "VALOR_SERVICO")
     private BigDecimal valorServico;
 
@@ -42,10 +41,18 @@ public class Servico {
     @JoinColumn(name = "SERVICO_USUARIO")
     private User servicoUsuario;
 
-//    ----
+    public Servico() {
+    }
 
-//    ----
+    public Servico(Long id) {
+        this.id = id;
+    }
 
+    public Servico(String descricaoServico, BigDecimal valorServico, String codigoCNAE) {
+        this.descricaoServico = descricaoServico;
+        this.valorServico = valorServico;
+        this.codigoCNAE = codigoCNAE;
+    }
 
     public Long getId() {
         return id;

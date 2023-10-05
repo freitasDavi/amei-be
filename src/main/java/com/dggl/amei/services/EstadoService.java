@@ -14,6 +14,7 @@ public class EstadoService {
 
     @Autowired
     private EstadoRepository repository;
+    private String taskName = "Estado";
 
     public List<Estado> findAll(){
         return repository.findAll();
@@ -21,7 +22,7 @@ public class EstadoService {
 
     public Estado findById(Long id){
         Optional<Estado> estado = repository.findById(id);
-        return estado.orElseThrow(()-> new RecursoNaoEncontrado(id));
+        return estado.orElseThrow(()-> new RecursoNaoEncontrado(taskName, id));
     }
 
 }

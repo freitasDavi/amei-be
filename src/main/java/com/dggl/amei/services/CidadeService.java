@@ -14,6 +14,7 @@ public class CidadeService {
 
     @Autowired
     private CidadeRepository repository;
+    private String task = "Cidade";
 
     public List<Cidade> findAll(){
         return repository.findAll();
@@ -21,7 +22,7 @@ public class CidadeService {
 
     public Cidade findById(Long id){
         Optional<Cidade> cidade = repository.findById(id);
-        return cidade.orElseThrow(()-> new RecursoNaoEncontrado(id));
+        return cidade.orElseThrow(()-> new RecursoNaoEncontrado(task, id));
     }
 
 

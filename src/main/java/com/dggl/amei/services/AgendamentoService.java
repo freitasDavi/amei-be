@@ -18,6 +18,7 @@ public class AgendamentoService {
 
     @Autowired
     private AgendamentoRepository repository;
+    private String task = "Agendamento";
 
     public List<Agendamento> findAll(){
         return repository.findAll();
@@ -25,7 +26,7 @@ public class AgendamentoService {
 
     public Agendamento findById(Long id){
         Optional<Agendamento> obj =  repository.findById(id);
-        return obj.orElseThrow(()-> new RecursoNaoEncontrado(id));
+        return obj.orElseThrow(()-> new RecursoNaoEncontrado(task, id));
     }
 
     public Agendamento insert(Agendamento obj){
@@ -36,7 +37,7 @@ public class AgendamentoService {
         try{
             repository.deleteById(id);
         }catch (EmptyResultDataAccessException e){
-            throw new RecursoNaoEncontrado(id);
+            throw new RecursoNaoEncontrado(task, id);
         }catch (DataIntegrityViolationException e){
             throw new DataBaseException(e.getMessage());
         }
@@ -48,7 +49,7 @@ public class AgendamentoService {
             updateDados(entity, obj);
             return repository.save(entity);
         }catch (EntityNotFoundException e){
-            throw new RecursoNaoEncontrado(id);
+            throw new RecursoNaoEncontrado(task, id);
         }
     }
 

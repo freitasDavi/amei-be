@@ -19,13 +19,15 @@ public class OrdemServicoService {
     @Autowired
     private OrdemServicoRepository repository;
 
+    private String taskName = "Ordem de Serviço";
+
     public List<OrdemServico> findAll(){
         return repository.findAll();
     }
 
     public OrdemServico findById(Long id){
         Optional<OrdemServico> ordemServico = repository.findById(id);
-        return ordemServico.orElseThrow(() -> new RecursoNaoEncontrado(id));
+        return ordemServico.orElseThrow(() -> new RecursoNaoEncontrado(taskName, id));
     }
 
     public OrdemServico insert(OrdemServico ordemServico){
@@ -36,7 +38,7 @@ public class OrdemServicoService {
         try {
             repository.deleteById(id);
         }catch (EmptyResultDataAccessException e){
-            throw new RecursoNaoEncontrado(id);
+            throw new RecursoNaoEncontrado(taskName, id);
         }catch (DataIntegrityViolationException e){
             throw new DataBaseException(e.getMessage());
         }
@@ -48,7 +50,7 @@ public class OrdemServicoService {
             updateDados(ordemServicoBanco, ordemServico);
             return repository.save(ordemServicoBanco);
         }catch (EntityNotFoundException e){
-            throw new RecursoNaoEncontrado(id);
+            throw new RecursoNaoEncontrado(taskName, id);
         }
     }
 

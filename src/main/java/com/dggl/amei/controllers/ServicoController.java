@@ -1,5 +1,6 @@
 package com.dggl.amei.controllers;
 
+import com.dggl.amei.dtos.requests.NovoServicoRequest;
 import com.dggl.amei.models.Servico;
 import com.dggl.amei.services.ServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,10 @@ public class ServicoController {
     }
 
     @PostMapping
-    public ResponseEntity<Servico> insert(@RequestBody Servico servico){
-        servico = service.insert(servico);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(servico.getId()).toUri();
-        return ResponseEntity.created(uri).body(servico);
+    public ResponseEntity<Servico> insert(@RequestBody NovoServicoRequest dto){
+        var novoServico = service.insert(dto);
+
+        return ResponseEntity.ok(novoServico);
     }
 
     @DeleteMapping(value = "/{id}")
