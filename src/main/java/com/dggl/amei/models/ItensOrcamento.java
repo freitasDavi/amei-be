@@ -16,7 +16,7 @@ public class ItensOrcamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Long id;
 
     @NotBlank
@@ -32,16 +32,27 @@ public class ItensOrcamento {
     private String descricao;
 
 //    ----
-
-    @NotBlank
     @ManyToOne
-    @JoinColumn(name = "ORCAMENTO_ITENS")
-    private Orcamento orcamentoItens;
+    @JoinColumn(name = "ORCAMENTO_ID", nullable = false)
+    private Orcamento orcamento;
 
 //    ----
 
+    public ItensOrcamento() {
+    }
 
-//    ----
+    public ItensOrcamento(Long id) {
+        this.id = id;
+    }
+
+    public ItensOrcamento(BigDecimal valorUnitario, BigDecimal valorTotal, String descricao, Orcamento orcamento) {
+        this.valorUnitario = valorUnitario;
+        this.valorTotal = valorTotal;
+        this.descricao = descricao;
+        this.orcamento = orcamento;
+    }
+
+    //    ----
 
 
     public Long getId() {
@@ -76,12 +87,11 @@ public class ItensOrcamento {
         this.descricao = descricao;
     }
 
-    public Orcamento getOrcamentoItens() {
-        return orcamentoItens;
+    public Orcamento getOrcamento() {
+        return orcamento;
     }
 
-    public void setOrcamentoItens(Orcamento orcamentoItens) {
-        this.orcamentoItens = orcamentoItens;
+    public void setOrcamento(Orcamento orcamento) {
+        this.orcamento = orcamento;
     }
-
 }

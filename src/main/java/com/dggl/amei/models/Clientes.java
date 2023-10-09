@@ -87,6 +87,9 @@ public class Clientes {
     public Clientes() {
     }
 
+    public Clientes(Long id) {
+        this.id = id;
+    }
 
     @Override
     public boolean equals(Object o) {

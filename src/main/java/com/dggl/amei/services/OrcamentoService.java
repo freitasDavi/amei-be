@@ -1,5 +1,6 @@
 package com.dggl.amei.services;
 
+import com.dggl.amei.dtos.requests.NovoOrcamentoRequest;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Orcamento;
@@ -34,7 +35,17 @@ public class OrcamentoService {
         return orcamento.orElseThrow(() -> new RecursoNaoEncontrado(taskName, id));
     }
 
-    public Orcamento insert(Orcamento orcamento){
+    public Orcamento insert(NovoOrcamentoRequest dto){
+        var orcamento = new Orcamento(
+                dto.getTelefoneClienteOrcamento(),
+                dto.getDataValidadeOrcamento(),
+                dto.getValorTotalDoOrcamento(),
+                dto.getObservacoesOrcamento(),
+                dto.getUsuarioOrcamento(),
+                dto.getClienteOrcamento(),
+                dto.getOrcamentoOrdemServico()
+        );
+
         return repository.save(orcamento);
     }
 
