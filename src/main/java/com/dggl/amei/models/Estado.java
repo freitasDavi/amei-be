@@ -23,6 +23,11 @@ public class Estado {
     @Column(name = "NOME_ESTADO")
     private String nomeEstado;
 
+    @NotBlank
+    @Size(max = 2)
+    @Column(name = "UF_ESTADO")
+    private String UFEstado;
+
 //    ----
 
 
