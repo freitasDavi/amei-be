@@ -1,0 +1,16 @@
+INSERT INTO bairro (nome_bairro, bairro_cidade) VALUES
+                                                    ('Campestre', 278),
+                                                    ('Centro', 278),
+                                                    ('Dehon', 278),
+                                                    ('Humaitá de Cima', 278),
+                                                    ('Km 60', 278),
+                                                    ('Monte Castelo', 278),
+                                                    ('Morrotes', 278),
+                                                    ('Oficinas', 278),
+                                                    ('Passagem', 278),
+                                                    ('Revoredo', 278),
+                                                    ('São Clemente', 278),
+                                                    ('São João Margem Direita', 278),
+                                                    ('São João Margem Esquerda', 278),
+                                                    ('Vila Esperança', 278),
+                                                    ('Vila Moema', 278);
