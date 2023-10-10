@@ -1,0 +1,16 @@
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Amapá', 3);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Calçoene', 3);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Cutias', 3);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Ferreira Gomes', 3);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Itaubal', 3);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Laranjal do Jari', 3);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Macapá', 3);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Mazagão', 3);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Oiapoque', 3);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Pedra Branca do Amapari', 3);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Porto Grande', 3);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Pracuúba', 3);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Santana', 3);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Serra do Navio', 3);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Tartarugalzinho', 3);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Vitória do Jari', 3);

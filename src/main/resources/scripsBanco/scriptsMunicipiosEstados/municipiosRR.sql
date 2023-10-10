@@ -1,0 +1,15 @@
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Alto Alegre', 23);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Amajari', 23);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Boa Vista', 23);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Bonfim', 23);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Cantá', 23);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Caracaraí', 23);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Caroebe', 23);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Iracema', 23);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Mucajaí', 23);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Normandia', 23);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Pacaraima', 23);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Rorainópolis', 23);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('São João da Baliza', 23);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('São Luiz', 23);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Uiramutã', 23);
