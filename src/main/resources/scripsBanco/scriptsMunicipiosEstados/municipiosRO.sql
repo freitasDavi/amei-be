@@ -1,53 +1,53 @@
-
-Insert into cidade (nome_cidade, cidade_estado) values ('Alta Floresta D''Oeste', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Ariquemes', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Cabixi', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Cacoal', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Cerejeiras', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Colorado do Oeste', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Corumbiara', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Costa Marques', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Espigão D''Oeste', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Guajará-Mirim', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Jaru', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Ji-Paraná', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Machadinho D''Oeste', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Nova Brasilândia D''Oeste', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Ouro Preto do Oeste', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Pimenta Bueno', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Porto Velho', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Presidente Médici', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Rio Crespo', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Rolim de Moura', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Santa Luzia D''Oeste', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Vilhena', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('São Miguel do Guaporé', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Nova Mamoré', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Alvorada D''Oeste', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Alto Alegre dos Parecis', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Alto Paraíso', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Buritis', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Novo Horizonte do Oeste', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Cacaulândia', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Campo Novo de Rondônia', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Candeias do Jamari', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Castanheiras', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Chupinguaia', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Cujubim', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Governador Jorge Teixeira', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Itapuã do Oeste', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Ministro Andreazza', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Mirante da Serra', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Monte Negro', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Nova União', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Parecis', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Pimenteiras do Oeste', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Primavera de Rondônia', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('São Felipe D''Oeste', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('São Francisco do Guaporé', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Seringueiras', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Teixeirópolis', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Theobroma', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Urupá', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Vale do Anari', 22);
-Insert into cidade (nome_cidade, cidade_estado) values ('Vale do Paraíso', 22);
+Insert into cidade (nome_cidade, cidade_estado) values
+('Alta Floresta D''Oeste', 22),
+('Ariquemes', 22),
+('Cabixi', 22),
+('Cacoal', 22),
+('Cerejeiras', 22),
+('Colorado do Oeste', 22),
+('Corumbiara', 22),
+('Costa Marques', 22),
+('Espigão D''Oeste', 22),
+('Guajará-Mirim', 22),
+('Jaru', 22),
+('Ji-Paraná', 22),
+('Machadinho D''Oeste', 22),
+('Nova Brasilândia D''Oeste', 22),
+('Ouro Preto do Oeste', 22),
+('Pimenta Bueno', 22),
+('Porto Velho', 22),
+('Presidente Médici', 22),
+('Rio Crespo', 22),
+('Rolim de Moura', 22),
+('Santa Luzia D''Oeste', 22),
+('Vilhena', 22),
+('São Miguel do Guaporé', 22),
+('Nova Mamoré', 22),
+('Alvorada D''Oeste', 22),
+('Alto Alegre dos Parecis', 22),
+('Alto Paraíso', 22),
+('Buritis', 22),
+('Novo Horizonte do Oeste', 22),
+('Cacaulândia', 22),
+('Campo Novo de Rondônia', 22),
+('Candeias do Jamari', 22),
+('Castanheiras', 22),
+('Chupinguaia', 22),
+('Cujubim', 22),
+('Governador Jorge Teixeira', 22),
+('Itapuã do Oeste', 22),
+('Ministro Andreazza', 22),
+('Mirante da Serra', 22),
+('Monte Negro', 22),
+('Nova União', 22),
+('Parecis', 22),
+('Pimenteiras do Oeste', 22),
+('Primavera de Rondônia', 22),
+('São Felipe D''Oeste', 22),
+('São Francisco do Guaporé', 22),
+('Seringueiras', 22),
+('Teixeirópolis', 22),
+('Theobroma', 22),
+('Urupá', 22),
+('Vale do Anari', 22),
+('Vale do Paraíso', 22);

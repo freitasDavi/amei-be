@@ -1,23 +1,23 @@
-
-Insert into cidade (nome_cidade, cidade_estado) values ('Acrelândia', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Assis Brasil', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Brasiléia', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Bujari', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Capixaba', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Cruzeiro do Sul', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Epitaciolândia', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Feijó', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Jordão', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Mâncio Lima', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Manoel Urbano', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Marechal Thaumaturgo', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Plácido de Castro', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Porto Walter', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Rio Branco', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Rodrigues Alves', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Santa Rosa do Purus', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Senador Guiomard', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Sena Madureira', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Tarauacá', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Xapuri', 1);
-Insert into cidade (nome_cidade, cidade_estado) values ('Porto Acre', 1);
+Insert into cidade (nome_cidade, cidade_estado) values
+('Acrelândia', 1),
+('Assis Brasil', 1),
+('Brasiléia', 1),
+('Bujari', 1),
+('Capixaba', 1),
+('Cruzeiro do Sul', 1),
+('Epitaciolândia', 1),
+('Feijó', 1),
+('Jordão', 1),
+('Mâncio Lima', 1),
+('Manoel Urbano', 1),
+('Marechal Thaumaturgo', 1),
+('Plácido de Castro', 1),
+('Porto Walter', 1),
+('Rio Branco', 1),
+('Rodrigues Alves', 1),
+('Santa Rosa do Purus', 1),
+('Senador Guiomard', 1),
+('Sena Madureira', 1),
+('Tarauacá', 1),
+('Xapuri', 1),
+('Porto Acre', 1);

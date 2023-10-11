@@ -1,62 +1,63 @@
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Alvarães', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Amaturá', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Anamã', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Anori', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Apuí', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Atalaia do Norte', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Autazes', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Barcelos', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Barreirinha', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Benjamin Constant', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Beruri', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Boa Vista do Ramos', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Boca do Acre', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Borba', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Caapiranga', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Canutama', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Carauari', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Careiro', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Careiro da Várzea', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Coari', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Codajás', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Eirunepé', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Envira', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Fonte Boa', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Guajará', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Humaitá', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Ipixuna', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Iranduba', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Itacoatiara', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Itamarati', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Itapiranga', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Japurá', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Juruá', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Jutaí', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Lábrea', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Manacapuru', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Manaquiri', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Manaus', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Manicoré', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Maraã', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Maués', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Nhamundá', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Nova Olinda do Norte', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Novo Airão', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Novo Aripuanã', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Parintins', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Pauini', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Presidente Figueiredo', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Rio Preto da Eva', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Santa Isabel do Rio Negro', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Santo Antônio do Içá', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('São Gabriel da Cachoeira', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('São Paulo de Olivença', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('São Sebastião do Uatumã', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Silves', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Tabatinga', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Tapauá', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Tefé', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Tonantins', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Uarini', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Urucará', 4);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Urucurituba', 4);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES
+('Alvarães', 4),
+('Amaturá', 4),
+('Anamã', 4),
+('Anori', 4),
+('Apuí', 4),
+('Atalaia do Norte', 4),
+('Autazes', 4),
+('Barcelos', 4),
+('Barreirinha', 4),
+('Benjamin Constant', 4),
+('Beruri', 4),
+('Boa Vista do Ramos', 4),
+('Boca do Acre', 4),
+('Borba', 4),
+('Caapiranga', 4),
+('Canutama', 4),
+('Carauari', 4),
+('Careiro', 4),
+('Careiro da Várzea', 4),
+('Coari', 4),
+('Codajás', 4),
+('Eirunepé', 4),
+('Envira', 4),
+('Fonte Boa', 4),
+('Guajará', 4),
+('Humaitá', 4),
+('Ipixuna', 4),
+('Iranduba', 4),
+('Itacoatiara', 4),
+('Itamarati', 4),
+('Itapiranga', 4),
+('Japurá', 4),
+('Juruá', 4),
+('Jutaí', 4),
+('Lábrea', 4),
+('Manacapuru', 4),
+('Manaquiri', 4),
+('Manaus', 4),
+('Manicoré', 4),
+('Maraã', 4),
+('Maués', 4),
+('Nhamundá', 4),
+('Nova Olinda do Norte', 4),
+('Novo Airão', 4),
+('Novo Aripuanã', 4),
+('Parintins', 4),
+('Pauini', 4),
+('Presidente Figueiredo', 4),
+('Rio Preto da Eva', 4),
+('Santa Isabel do Rio Negro', 4),
+('Santo Antônio do Içá', 4),
+('São Gabriel da Cachoeira', 4),
+('São Paulo de Olivença', 4),
+('São Sebastião do Uatumã', 4),
+('Silves', 4),
+('Tabatinga', 4),
+('Tapauá', 4),
+('Tefé', 4),
+('Tonantins', 4),
+('Uarini', 4),
+('Urucará', 4),
+('Urucurituba', 4);

@@ -852,4 +852,4 @@ INSERT INTO cidade (nome_cidade, cidade_estado) VALUES
                                                     ('Virgolândia', 13),
                                                     ('Visconde do Rio Branco', 13),
                                                     ('Volta Grande', 13),
-                                                    ('Wenceslau Braz', 13),
+                                                    ('Wenceslau Braz', 13);

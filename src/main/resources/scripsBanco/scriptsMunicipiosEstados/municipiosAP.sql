@@ -1,16 +1,17 @@
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Amapá', 3);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Calçoene', 3);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Cutias', 3);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Ferreira Gomes', 3);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Itaubal', 3);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Laranjal do Jari', 3);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Macapá', 3);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Mazagão', 3);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Oiapoque', 3);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Pedra Branca do Amapari', 3);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Porto Grande', 3);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Pracuúba', 3);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Santana', 3);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Serra do Navio', 3);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Tartarugalzinho', 3);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Vitória do Jari', 3);
+Insert into cidade (nome_cidade, cidade_estado) values
+('Amapá', 3),
+('Calçoene', 3),
+('Cutias', 3),
+('Ferreira Gomes', 3),
+('Itaubal', 3),
+('Laranjal do Jari', 3),
+('Macapá', 3),
+('Mazagão', 3),
+('Oiapoque', 3),
+('Pedra Branca do Amapari', 3),
+('Porto Grande', 3),
+('Pracuúba', 3),
+('Santana', 3),
+('Serra do Navio', 3),
+('Tartarugalzinho', 3),
+('Vitória do Jari', 3);

@@ -1,139 +1,140 @@
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Abreulândia', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Aguiarnópolis', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Aliança do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Almas', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Alvorada', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Ananás', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Angico', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Aparecida do Rio Negro', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Aragominas', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Araguacema', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Araguaçu', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Araguaína', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Araguanã', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Araguatins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Arapoema', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Arraias', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Augustinópolis', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Aurora do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Axixá do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Babaçulândia', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Bandeirantes do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Barra do Ouro', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Barrolândia', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Bernardo Sayão', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Bom Jesus do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Brasilândia do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Brejinho de Nazaré', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Buriti do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Cachoeirinha', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Campos Lindos', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Cariri do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Carmolândia', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Carrasco Bonito', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Caseara', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Centenário', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Chapada da Natividade', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Chapada de Areia', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Colinas do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Colméia', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Combinado', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Conceição do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Couto de Magalhães', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Cristalândia', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Crixás do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Darcinópolis', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Dianópolis', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Divinópolis do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Dois Irmãos do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Dueré', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Esperantina', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Fátima', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Figueirópolis', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Filadélfia', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Formoso do Araguaia', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Fortaleza do Tabocão', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Goianorte', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Goiatins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Guaraí', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Gurupi', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Ipueiras', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Itacajá', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Itaguatins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Itapiratins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Itaporã do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Jaú do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Juarina', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Lagoa da Confusão', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Lagoa do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Lajeado', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Lavandeira', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Lizarda', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Luzinópolis', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Marianópolis do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Mateiros', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Maurilândia do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Miracema do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Miranorte', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Monte do Carmo', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Monte Santo do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Muricilândia', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Natividade', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Nazaré', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Nova Olinda', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Nova Rosalândia', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Novo Acordo', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Novo Alegre', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Novo Jardim', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Oliveira de Fátima', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Palmas', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Palmeirante', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Palmeiras do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Palmeirópolis', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Paraíso do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Paranã', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Pau D''Arco', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Pedro Afonso', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Peixe', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Pequizeiro', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Pindorama do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Piraquê', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Pium', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Ponte Alta do Bom Jesus', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Ponte Alta do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Porto Alegre do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Porto Nacional', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Praia Norte', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Presidente Kennedy', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Pugmil', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Recursolândia', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Riachinho', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Rio da Conceição', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Rio dos Bois', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Rio Sono', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Sampaio', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Sandolândia', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Santa Fé do Araguaia', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Santa Maria do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Santa Rita do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Santa Rosa do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Santa Tereza do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Santa Terezinha do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('São Bento do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('São Félix do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('São Miguel do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('São Salvador do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('São Sebastião do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('São Valério da Natividade', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Silvanópolis', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Sítio Novo do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Sucupira', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Taguatinga', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Taipas do Tocantins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Talismã', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Tocantínia', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Tocantinópolis', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Tupirama', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Tupiratins', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Wanderlândia', 27);
-INSERT INTO cidade (nome_cidade, cidade_estado) VALUES ('Xambioá', 27);
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES
+('Abreulândia', 27),
+('Aguiarnópolis', 27),
+('Aliança do Tocantins', 27),
+('Almas', 27),
+('Alvorada', 27),
+('Ananás', 27),
+('Angico', 27),
+('Aparecida do Rio Negro', 27),
+('Aragominas', 27),
+('Araguacema', 27),
+('Araguaçu', 27),
+('Araguaína', 27),
+('Araguanã', 27),
+('Araguatins', 27),
+('Arapoema', 27),
+('Arraias', 27),
+('Augustinópolis', 27),
+('Aurora do Tocantins', 27),
+('Axixá do Tocantins', 27),
+('Babaçulândia', 27),
+('Bandeirantes do Tocantins', 27),
+('Barra do Ouro', 27),
+('Barrolândia', 27),
+('Bernardo Sayão', 27),
+('Bom Jesus do Tocantins', 27),
+('Brasilândia do Tocantins', 27),
+('Brejinho de Nazaré', 27),
+('Buriti do Tocantins', 27),
+('Cachoeirinha', 27),
+('Campos Lindos', 27),
+('Cariri do Tocantins', 27),
+('Carmolândia', 27),
+('Carrasco Bonito', 27),
+('Caseara', 27),
+('Centenário', 27),
+('Chapada da Natividade', 27),
+('Chapada de Areia', 27),
+('Colinas do Tocantins', 27),
+('Colméia', 27),
+('Combinado', 27),
+('Conceição do Tocantins', 27),
+('Couto de Magalhães', 27),
+('Cristalândia', 27),
+('Crixás do Tocantins', 27),
+('Darcinópolis', 27),
+('Dianópolis', 27),
+('Divinópolis do Tocantins', 27),
+('Dois Irmãos do Tocantins', 27),
+('Dueré', 27),
+('Esperantina', 27),
+('Fátima', 27),
+('Figueirópolis', 27),
+('Filadélfia', 27),
+('Formoso do Araguaia', 27),
+('Fortaleza do Tabocão', 27),
+('Goianorte', 27),
+('Goiatins', 27),
+('Guaraí', 27),
+('Gurupi', 27),
+('Ipueiras', 27),
+('Itacajá', 27),
+('Itaguatins', 27),
+('Itapiratins', 27),
+('Itaporã do Tocantins', 27),
+('Jaú do Tocantins', 27),
+('Juarina', 27),
+('Lagoa da Confusão', 27),
+('Lagoa do Tocantins', 27),
+('Lajeado', 27),
+('Lavandeira', 27),
+('Lizarda', 27),
+('Luzinópolis', 27),
+('Marianópolis do Tocantins', 27),
+('Mateiros', 27),
+('Maurilândia do Tocantins', 27),
+('Miracema do Tocantins', 27),
+('Miranorte', 27),
+('Monte do Carmo', 27),
+('Monte Santo do Tocantins', 27),
+('Muricilândia', 27),
+('Natividade', 27),
+('Nazaré', 27),
+('Nova Olinda', 27),
+('Nova Rosalândia', 27),
+('Novo Acordo', 27),
+('Novo Alegre', 27),
+('Novo Jardim', 27),
+('Oliveira de Fátima', 27),
+('Palmas', 27),
+('Palmeirante', 27),
+('Palmeiras do Tocantins', 27),
+('Palmeirópolis', 27),
+('Paraíso do Tocantins', 27),
+('Paranã', 27),
+('Pau D''Arco', 27),
+('Pedro Afonso', 27),
+('Peixe', 27),
+('Pequizeiro', 27),
+('Pindorama do Tocantins', 27),
+('Piraquê', 27),
+('Pium', 27),
+('Ponte Alta do Bom Jesus', 27),
+('Ponte Alta do Tocantins', 27),
+('Porto Alegre do Tocantins', 27),
+('Porto Nacional', 27),
+('Praia Norte', 27),
+('Presidente Kennedy', 27),
+('Pugmil', 27),
+('Recursolândia', 27),
+('Riachinho', 27),
+('Rio da Conceição', 27),
+('Rio dos Bois', 27),
+('Rio Sono', 27),
+('Sampaio', 27),
+('Sandolândia', 27),
+('Santa Fé do Araguaia', 27),
+('Santa Maria do Tocantins', 27),
+('Santa Rita do Tocantins', 27),
+('Santa Rosa do Tocantins', 27),
+('Santa Tereza do Tocantins', 27),
+('Santa Terezinha do Tocantins', 27),
+('São Bento do Tocantins', 27),
+('São Félix do Tocantins', 27),
+('São Miguel do Tocantins', 27),
+('São Salvador do Tocantins', 27),
+('São Sebastião do Tocantins', 27),
+('São Valério da Natividade', 27),
+('Silvanópolis', 27),
+('Sítio Novo do Tocantins', 27),
+('Sucupira', 27),
+('Taguatinga', 27),
+('Taipas do Tocantins', 27),
+('Talismã', 27),
+('Tocantínia', 27),
+('Tocantinópolis', 27),
+('Tupirama', 27),
+('Tupiratins', 27),
+('Wanderlândia', 27),
+('Xambioá', 27);
