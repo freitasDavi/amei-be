@@ -1,12 +1,9 @@
 package com.dggl.amei.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,9 +24,6 @@ public class OrdemServico {
     @Column(name = "VALOR_TOTAL")
     private BigDecimal valorTotal;
 
-
-//    ----
-
     @NotBlank
     @ManyToOne
     @JoinColumn(name = "USUARIO_ORDEM", referencedColumnName = "id")
@@ -39,10 +33,9 @@ public class OrdemServico {
     @JoinColumn(name = "CLIENTE_ORDEM", referencedColumnName = "id")
     private Clientes clienteOrdem;
 
-//    ----
-
-
-//    ----
+    @OneToMany
+    @JoinColumn(name = "ITEMS_ORDEM", referencedColumnName = "id")
+    private List<ItensOrcamento> items;
 
 
     public Long getId() {
