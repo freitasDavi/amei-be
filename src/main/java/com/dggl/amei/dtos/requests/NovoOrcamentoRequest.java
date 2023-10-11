@@ -29,7 +29,7 @@ public class NovoOrcamentoRequest {
     private User usuarioOrcamento;
 
     private Clientes clienteOrcamento;
-    private List<ItensOrcamento> orcamentoOrdemServico;
+    private List<ItensOrcamento> itensOrcamentos;
 
     public String getTelefoneClienteOrcamento() {
         return telefoneClienteOrcamento;
@@ -51,8 +51,8 @@ public class NovoOrcamentoRequest {
         return usuarioOrcamento;
     }
 
-    public List<ItensOrcamento> getOrcamentoOrdemServico() {
-        return orcamentoOrdemServico;
+    public List<ItensOrcamento> getItensOrcamentos() {
+        return itensOrcamentos;
     }
 
     public Clientes getClienteOrcamento() {

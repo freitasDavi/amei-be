@@ -28,7 +28,6 @@ public class Orcamento {
     @Column(name = "TELEFONE_CLIENTE_ORCAMENTO")
     private String telefoneClienteOrcamento;
 
-    @NotBlank
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     @CreationTimestamp
     @Column(name = "DATA_EMISSAO")
@@ -38,7 +37,6 @@ public class Orcamento {
     @Column(name = "DATA_VALIDADE")
     private LocalDate dataValidadeOrcamento;
 
-    @NotBlank
     @Column(name = "VALOR_TOTAL")
     private BigDecimal valorTotalDoOrcamento;
 
@@ -48,17 +46,17 @@ public class Orcamento {
 
 //    ----
 
-    @NotBlank
+    //@NotBlank
     @ManyToOne
-    @JoinColumn(name = "USUARIO_ORCAMENTO", referencedColumnName = "id")
+    @JoinColumn(name = "USUARIO_ORCAMENTO", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_ORCAMENTO_USUARIO"))
     private User usuarioOrcamento;
 
     @ManyToOne
-    @JoinColumn(name = "CLIENTE_ORCAMENTO", referencedColumnName = "id")
+    @JoinColumn(name = "CLIENTE_ORCAMENTO", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_ORCAMENTO_CLIENTE"))
     private Clientes clienteOrcamento;
 
     @ManyToOne
-    @JoinColumn(name = "ORDEM_ORCAMENTO", referencedColumnName = "id")
+    @JoinColumn(name = "ORDEM_ORCAMENTO", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_ORCAMENTO_ORDEMS"))
     private OrdemServico orcamentoOrdemServico;
 
     @OneToMany(mappedBy = "orcamento")
@@ -77,6 +75,7 @@ public class Orcamento {
         this.usuarioOrcamento = usuarioOrcamento;
         this.clienteOrcamento = clienteOrcamento;
         this.itensOrcamentos = itensOrcamentos;
+        this.dataEmissaoOrcamento = Instant.now();
     }
 
     public Orcamento(Long id) {

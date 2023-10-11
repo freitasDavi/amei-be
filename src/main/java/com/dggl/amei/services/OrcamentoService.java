@@ -3,7 +3,9 @@ package com.dggl.amei.services;
 import com.dggl.amei.dtos.requests.NovoOrcamentoRequest;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
+import com.dggl.amei.models.ItensOrcamento;
 import com.dggl.amei.models.Orcamento;
+import com.dggl.amei.repositories.ItensOrcamentoRepository;
 import com.dggl.amei.repositories.OrcamentoRepository;
 import com.dggl.amei.repositories.OrdemServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +26,9 @@ public class OrcamentoService {
 
     @Autowired
     OrdemServicoRepository ordemServicoRepository;
+
+    @Autowired
+    ItensOrcamentoRepository itensOrcamentoRepository;
 
     private String taskName = "Orçamento";
 
@@ -43,10 +49,23 @@ public class OrcamentoService {
                 dto.getObservacoesOrcamento(),
                 dto.getUsuarioOrcamento(),
                 dto.getClienteOrcamento(),
-                dto.getOrcamentoOrdemServico()
+                dto.getItensOrcamentos()
         );
 
-        return repository.save(orcamento);
+        var orc = repository.save(orcamento);
+
+        List<ItensOrcamento> listaDeItensOrcamento = new LinkedList<>();
+
+        dto.getItensOrcamentos().forEach(item -> listaDeItensOrcamento.add(new ItensOrcamento(
+                item.getValorUnitario(),
+                item.getValorTotal(),
+                item.getDescricao(),
+                orc)));
+
+        if (!listaDeItensOrcamento.isEmpty())
+            itensOrcamentoRepository.saveAll(listaDeItensOrcamento);
+
+        return orc;
     }
 
     public void delete(Long id){

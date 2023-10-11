@@ -19,11 +19,11 @@ public class ItensOrcamento {
     @Column(name = "ID")
     private Long id;
 
-    @NotBlank
+    //@NotBlank
     @Column(name = "VALOR_UNITARIO")
     private BigDecimal valorUnitario;
 
-    @NotBlank
+    //@NotBlank
     @Column(name = "VALOR_TOTAL")
     private BigDecimal valorTotal;
 
@@ -33,7 +33,7 @@ public class ItensOrcamento {
 
 //    ----
     @ManyToOne
-    @JoinColumn(name = "ORCAMENTO_ID", nullable = false)
+    @JoinColumn(name = "ORCAMENTO_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_ITENS_ORCAMENTO_ORCAMENTO"))
     private Orcamento orcamento;
 
 //    ----
@@ -43,6 +43,13 @@ public class ItensOrcamento {
 
     public ItensOrcamento(Long id) {
         this.id = id;
+    }
+
+    public ItensOrcamento(BigDecimal valorUnitario, BigDecimal valorTotal, String descricao) {
+        this.valorUnitario = valorUnitario;
+        this.valorTotal = valorTotal;
+        this.descricao = descricao;
+        //this.orcamento = orcamento;
     }
 
     public ItensOrcamento(BigDecimal valorUnitario, BigDecimal valorTotal, String descricao, Orcamento orcamento) {
