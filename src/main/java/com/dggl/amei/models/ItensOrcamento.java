@@ -32,6 +32,7 @@ public class ItensOrcamento {
     private String descricao;
 
 //    ----
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ORCAMENTO_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_ITENS_ORCAMENTO_ORCAMENTO"))
     private Orcamento orcamento;

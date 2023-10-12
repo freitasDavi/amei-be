@@ -55,6 +55,7 @@ public class Orcamento {
     @JoinColumn(name = "CLIENTE_ORCAMENTO", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_ORCAMENTO_CLIENTE"))
     private Clientes clienteOrcamento;
 
+
     @ManyToOne
     @JoinColumn(name = "ORDEM_ORCAMENTO", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_ORCAMENTO_ORDEMS"))
     private OrdemServico orcamentoOrdemServico;
