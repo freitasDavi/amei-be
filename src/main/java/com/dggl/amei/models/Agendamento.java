@@ -17,12 +17,12 @@ public class Agendamento {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank
+    
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "DATA_AGENDAMENTO")
     private LocalDate dataAgendamento;
 
-    @NotBlank
+    
     @Size(max = 150)
     @Column(name = "ENDERECO")
     private String enderecoAgendamento;
@@ -43,18 +43,17 @@ public class Agendamento {
     @ManyToOne
     @JoinColumn(name = "CLIENTE_AGENDAMENTO", referencedColumnName = "id")
     private Clientes clienteAgendamento;
-
-    @NotBlank
+    
     @ManyToOne
     @JoinColumn(name = "CIDADE_AGENDAMENTO", referencedColumnName = "id")
     private Cidade agendamentoCidade;
 
-    @NotBlank
+    
     @ManyToOne
     @JoinColumn(name = "BAIRRO_AGENDAMENTO", referencedColumnName = "id")
     private Bairro agendamentoBairro;
 
-    @NotBlank
+    
     @ManyToOne
     @JoinColumn(name = "AGENDAMENTO_USUARIO", referencedColumnName = "id")
     private User usuarioAgendamento;

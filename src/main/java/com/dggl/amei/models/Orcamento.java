@@ -59,11 +59,15 @@ public class Orcamento {
     @JoinColumn(name = "ORDEM_ORCAMENTO", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_ORCAMENTO_ORDEMS"))
     private OrdemServico orcamentoOrdemServico;
 
+//    ----
+
+    @JsonIgnore
     @OneToMany(mappedBy = "orcamento")
     private List<ItensOrcamento> itensOrcamentos;
 
 
-    //    --
+    //    ----
+
     public Orcamento() {
     }
 

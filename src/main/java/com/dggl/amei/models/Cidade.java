@@ -33,6 +33,24 @@ public class Cidade {
 
 //    --
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "bairroCidade")
+    private List<Bairro> bairrosCidade;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "clienteCidade")
+    private List<Clientes> clientesCidade;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuarioCidade")
+    private List<User> usuarioCidade;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "agendamentoCidade")
+    private List<Agendamento> agendamentosCidade;
+
+//    --
+
     public Cidade() {
     }
 

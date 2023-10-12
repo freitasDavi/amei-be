@@ -25,6 +25,9 @@ public class Estado {
 
 //    ----
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "estadoCidade")
+    private List<Cidade> cidadesEstado;
 
 //    ----
 

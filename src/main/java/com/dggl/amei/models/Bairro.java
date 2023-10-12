@@ -30,6 +30,20 @@ public class Bairro {
     @JoinColumn(name = "BAIRRO_CIDADE", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BAIRRO_CIDADE"))
     private Cidade bairroCidade;
 
+//    --
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuarioBairro")
+    private List<Bairro> bairroUsuario;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "agendamentoBairro")
+    private List<Agendamento> agendamentosBairro;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "clienteBairro")
+    private List<Clientes> clientesBairro;
+
 //    ---
 
     public Bairro() {
