@@ -43,7 +43,8 @@ public class OrcamentoService {
 
     public Orcamento insert(NovoOrcamentoRequest dto){
         var orcamento = new Orcamento(
-                dto.getTelefoneClienteOrcamento(),
+                dto.getNomeCliente(),
+                dto.getTelefoneCliente(),
                 dto.getDataValidadeOrcamento(),
                 dto.getValorTotalDoOrcamento(),
                 dto.getObservacoesOrcamento(),
@@ -60,7 +61,8 @@ public class OrcamentoService {
                 item.getValorUnitario(),
                 item.getValorTotal(),
                 item.getDescricao(),
-                orc)));
+                orc,
+                item.getQuantidade())));
 
         if (!listaDeItensOrcamento.isEmpty())
             itensOrcamentoRepository.saveAll(listaDeItensOrcamento);
@@ -108,7 +110,7 @@ public class OrcamentoService {
         orcamentoBanco.setClienteOrcamento(orcamento.getClienteOrcamento());
         orcamentoBanco.setDataValidadeOrcamento(orcamento.getDataValidadeOrcamento());
         orcamentoBanco.setObservacoesOrcamento(orcamento.getObservacoesOrcamento());
-        orcamentoBanco.setTelefoneClienteOrcamento(orcamento.getTelefoneClienteOrcamento());
+        orcamentoBanco.setTelefoneCliente(orcamento.getTelefoneCliente());
         orcamentoBanco.setValorTotalDoOrcamento(orcamento.getValorTotalDoOrcamento());
 
 

@@ -15,7 +15,9 @@ import java.util.List;
 public class NovoOrcamentoRequest {
 
     @Size(max = 11)
-    private String telefoneClienteOrcamento;
+    private String telefoneCliente;
+
+    private String nomeCliente;
 
     //@NotBlank
     private LocalDate dataValidadeOrcamento;
@@ -31,8 +33,12 @@ public class NovoOrcamentoRequest {
     private Clientes clienteOrcamento;
     private List<ItensOrcamento> itensOrcamentos;
 
-    public String getTelefoneClienteOrcamento() {
-        return telefoneClienteOrcamento;
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public String getTelefoneCliente() {
+        return telefoneCliente;
     }
 
     public LocalDate getDataValidadeOrcamento() {

@@ -25,8 +25,12 @@ public class Orcamento {
 
     @NotBlank
     @Size(max = 11)
-    @Column(name = "TELEFONE_CLIENTE_ORCAMENTO")
-    private String telefoneClienteOrcamento;
+    @Column(name = "TELEFONE_CLIENTE")
+    private String telefoneCliente;
+
+    @NotBlank
+    @Column(name = "NOME_CLIENTE")
+    private String nomeCliente;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     @CreationTimestamp
@@ -67,8 +71,9 @@ public class Orcamento {
     public Orcamento() {
     }
 
-    public Orcamento(String telefoneClienteOrcamento, LocalDate dataValidadeOrcamento, BigDecimal valorTotalDoOrcamento, String observacoesOrcamento, User usuarioOrcamento, Clientes clienteOrcamento, List<ItensOrcamento> itensOrcamentos) {
-        this.telefoneClienteOrcamento = telefoneClienteOrcamento;
+    public Orcamento(String nomeCliente, String telefoneCliente, LocalDate dataValidadeOrcamento, BigDecimal valorTotalDoOrcamento, String observacoesOrcamento, User usuarioOrcamento, Clientes clienteOrcamento, List<ItensOrcamento> itensOrcamentos) {
+        this.nomeCliente = nomeCliente;
+        this.telefoneCliente = telefoneCliente;
         this.dataValidadeOrcamento = dataValidadeOrcamento;
         this.valorTotalDoOrcamento = valorTotalDoOrcamento;
         this.observacoesOrcamento = observacoesOrcamento;
@@ -92,12 +97,12 @@ public class Orcamento {
         this.id = id;
     }
 
-    public String getTelefoneClienteOrcamento() {
-        return telefoneClienteOrcamento;
+    public String getTelefoneCliente() {
+        return telefoneCliente;
     }
 
-    public void setTelefoneClienteOrcamento(String telefoneClienteOrcamento) {
-        this.telefoneClienteOrcamento = telefoneClienteOrcamento;
+    public void setTelefoneCliente(String telefoneCliente) {
+        this.telefoneCliente = telefoneCliente;
     }
 
     public Instant getDataEmissaoOrcamento() {

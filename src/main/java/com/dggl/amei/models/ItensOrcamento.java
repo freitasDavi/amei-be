@@ -19,6 +19,9 @@ public class ItensOrcamento {
     @Column(name = "ID")
     private Long id;
 
+    @Column(name = "QUANTIDADE")
+    private Long quantidade;
+
     //@NotBlank
     @Column(name = "VALOR_UNITARIO")
     private BigDecimal valorUnitario;
@@ -33,6 +36,7 @@ public class ItensOrcamento {
 
 //    ----
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "ORCAMENTO_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_ITENS_ORCAMENTO_ORCAMENTO"))
     private Orcamento orcamento;
 
@@ -45,18 +49,20 @@ public class ItensOrcamento {
         this.id = id;
     }
 
-    public ItensOrcamento(BigDecimal valorUnitario, BigDecimal valorTotal, String descricao) {
+    public ItensOrcamento(BigDecimal valorUnitario, BigDecimal valorTotal, String descricao, Long quantidade) {
         this.valorUnitario = valorUnitario;
         this.valorTotal = valorTotal;
         this.descricao = descricao;
+        this.quantidade = quantidade;
         //this.orcamento = orcamento;
     }
 
-    public ItensOrcamento(BigDecimal valorUnitario, BigDecimal valorTotal, String descricao, Orcamento orcamento) {
+    public ItensOrcamento(BigDecimal valorUnitario, BigDecimal valorTotal, String descricao, Orcamento orcamento, Long quantidade) {
         this.valorUnitario = valorUnitario;
         this.valorTotal = valorTotal;
         this.descricao = descricao;
         this.orcamento = orcamento;
+        this.quantidade = quantidade;
     }
 
     //    ----
@@ -92,6 +98,14 @@ public class ItensOrcamento {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Long getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Long quantidade) {
+        this.quantidade = quantidade;
     }
 
     public Orcamento getOrcamento() {
