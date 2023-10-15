@@ -84,6 +84,16 @@ public class Clientes {
 
 //    ---
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "clienteOrcamento")
+    private List<Orcamento> orcamentosCliente;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "clienteAgendamento")
+    private List<Clientes> clientesAgendamento;
+
+//    ---
+
     public Clientes() {
     }
 

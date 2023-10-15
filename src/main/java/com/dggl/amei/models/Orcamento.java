@@ -1,5 +1,7 @@
 package com.dggl.amei.models;
 
+
+import com.dggl.amei.models.enums.StatusOrcamentoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -9,7 +11,6 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,6 +22,8 @@ public class Orcamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    private Integer statusOrcamento;
 
     @NotBlank
     @Size(max = 11)
@@ -61,13 +64,20 @@ public class Orcamento {
     private OrdemServico orcamentoOrdemServico;
 
 
-//    --
+//    ----
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "orcamentoItens")
+    private List<ItensOrcamento> itensOrcamentos;
+
+//    ----
 
 
-
-
-//    --
-
+    /**
+     * Atenção Davi:
+     * Quando criar algum construtor, que vá utilizar o status do orcamento, me avisa.
+     * ass: Hahn
+     */
 
     public Long getId() {
         return id;
@@ -75,6 +85,16 @@ public class Orcamento {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public StatusOrcamentoEnum getStatusOrcamento() {
+        return StatusOrcamentoEnum.valueOf(statusOrcamento);
+    }
+
+    public void setStatusOrcamento(StatusOrcamentoEnum statusOrcamento) {
+        if(statusOrcamento != null){
+            this.statusOrcamento = statusOrcamento.getCodigoEnum();
+        }
     }
 
     public String getTelefoneClienteOrcamento() {

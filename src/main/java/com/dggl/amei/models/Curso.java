@@ -26,8 +26,12 @@ public class Curso {
     @Column(name = "DATA_CURSO")
     private LocalDate dataCurso;
 
+//    ----
+
     @NotBlank
     @ManyToOne
     @JoinColumn(name = "CIDADE_CURSO", referencedColumnName = "id")
     private Cidade cidadeCurso;
+
+//    ----
 }

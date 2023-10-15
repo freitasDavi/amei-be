@@ -1,9 +1,0 @@
-https://spring.io/guides/gs/scheduling-tasks/
-
-https://spring.io/guides/gs/scheduling-tasks/#initial
-
-https://www.tutorialspoint.com/spring_boot/spring_boot_scheduling.htm#:~:text=The%20%40EnableScheduling%20annotation%20is%20used,Spring%20Boot%20application%20class%20file.&text=The%20%40Scheduled%20annotation%20is%20used,for%20a%20specific%20time%20period.
-
-https://docs.oracle.com/cd/E12058_01/doc/doc.1014/e12030/cron_expressions.htm
-
-https://www.baeldung.com/cron-expressions

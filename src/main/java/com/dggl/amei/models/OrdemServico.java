@@ -41,6 +41,10 @@ public class OrdemServico {
 
 //    ----
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "ordemItens")
+    private List<ItensOrdemServico> itensOrdemServicos;
+
 
 //    ----
 

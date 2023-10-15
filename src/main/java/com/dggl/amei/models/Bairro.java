@@ -30,7 +30,17 @@ public class Bairro {
     @JoinColumn(name = "BAIRRO_CIDADE", referencedColumnName = "id")
     private Cidade bairroCidade;
 
-//    ---
+//    ----
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "clienteBairro")
+    private List<Clientes> clientesBairro;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "agendamentoBairro")
+    private List<Agendamento> agendamentosBairro;
+
+//    ----
 
     public Bairro() {
     }
