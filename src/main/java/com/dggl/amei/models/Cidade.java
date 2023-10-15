@@ -20,7 +20,7 @@ public class Cidade {
     private Long id;
 
     @NotBlank
-    @Size(max = 30)
+    @Size(max = 100)
     @Column(name = "NOME_CIDADE")
     private String nomeCidade;
 
