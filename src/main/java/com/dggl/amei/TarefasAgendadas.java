@@ -1,6 +1,7 @@
 package com.dggl.amei;
 
 import com.dggl.amei.models.Orcamento;
+import com.dggl.amei.repositories.OrcamentoRepository;
 import com.dggl.amei.services.OrcamentoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,8 @@ public class TarefasAgendadas {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
     private OrcamentoService orcamentoService;
+
+    private OrcamentoRepository orcamentoRepository;
     @Scheduled(fixedRate = 5000)
     public void excluiOrcamentoMaiorTresMeses(){
 
@@ -27,9 +30,11 @@ public class TarefasAgendadas {
 
         int tempoMaximoExpurgoOrcamento = 90;
 
-        for(Orcamento orcamento : orcamentoService.findAll()){
+//        orcamentoRepository.findById((long)32);
+
+        for(Orcamento orcamento : orcamentoRepository.findAll()){
             if(orcamento.getDataEmissaoOrcamento().until(Instant.now(), ChronoUnit.DAYS) > tempoMaximoExpurgoOrcamento){
-                orcamentoService.delete(orcamento.getId());
+                orcamentoRepository.deleteById(orcamento.getId());
                 log.info("Orcamento apagado {}", orcamento.getId());
             }
         }
