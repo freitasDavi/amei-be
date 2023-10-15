@@ -46,25 +46,7 @@ public class OrcamentoService {
         return orcamento.orElseThrow(() -> new RecursoNaoEncontrado(taskName, id));
     }
 
-
-
-//  Precisa configurar Cron expression
-    @Scheduled(fixedRate = 10000)
-    public void excluiOrcamentoMaiorTresMeses(){
-
-//        log.info("Hora vindo do Orçamento Service {}", dateFormat.format(new Date()));
-
-        int tempoMaximoExpurgoOrcamento = 90;
-
-        for(Orcamento orcamento : findAll()){
-            if(orcamento.getDataEmissaoOrcamento().until(Instant.now(), ChronoUnit.DAYS) > tempoMaximoExpurgoOrcamento){
-
-//                delete(orcamento.getId());
-            }
-        }
-    }
-
-    public Orcamento insert(Orcamento orcamento){
+        public Orcamento insert(Orcamento orcamento){
         return repository.save(orcamento);
     }
 
