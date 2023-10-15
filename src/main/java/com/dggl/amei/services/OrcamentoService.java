@@ -11,14 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,16 +48,16 @@ public class OrcamentoService {
 
 
 
-//  15/10/2023 - 10h10 - Ainda não testei pra ver se funciona.
+//  Precisa configurar Cron expression
     @Scheduled(fixedRate = 10000)
     public void excluiOrcamentoMaiorTresMeses(){
 
 //        log.info("Hora vindo do Orçamento Service {}", dateFormat.format(new Date()));
 
-        int tempoMaximoExpurgoOrcamento = 10;
+        int tempoMaximoExpurgoOrcamento = 0;
 
         for(Orcamento orcamento : findAll()){
-            if(orcamento.getDataEmissaoOrcamento().until(Instant.now(), ChronoUnit.DAYS) > tempoMaximoExpurgoOrcamento){
+            if(orcamento.getDataValidadeOrcamento().until(Instant.now(), ChronoUnit.DAYS) == tempoMaximoExpurgoOrcamento){
                 delete(orcamento.getId());
             }
         }
