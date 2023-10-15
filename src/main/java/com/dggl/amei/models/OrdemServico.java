@@ -1,5 +1,7 @@
 package com.dggl.amei.models;
 
+import com.dggl.amei.models.enums.StatusOrcamentoEnum;
+import com.dggl.amei.models.enums.StatusOrdemServicoEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -18,6 +20,8 @@ public class OrdemServico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    private Integer statusOrdemServico;
 
     @Size(max = 11)
     @Column(name = "TELEFONE")
@@ -55,6 +59,17 @@ public class OrdemServico {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    public StatusOrdemServicoEnum getStatusOrdemServico() {
+        return StatusOrdemServicoEnum.valueOf(statusOrdemServico);
+    }
+
+    public void setStatusOrdemServico(StatusOrdemServicoEnum statusOrdemServico) {
+        if(statusOrdemServico != null){
+            this.statusOrdemServico = statusOrdemServico.getCodigoEnum();
+        }
     }
 
     public String getTelefoneOrdem() {

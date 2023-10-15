@@ -39,6 +39,7 @@ public class OrcamentoService {
         return orcamento.orElseThrow(() -> new RecursoNaoEncontrado(taskName, id));
     }
 
+//  15/10/2023 - 10h10 - Ainda não testei pra ver se funciona.
     @Scheduled(cron = "0 1 1 * ?")
     public void excluiOrcamentoMaiorTresMeses(){
 
@@ -57,7 +58,7 @@ public class OrcamentoService {
 
     public void delete(Long id){
         try{
-            if(verificaOrdemServico()){
+            if(!verificaExisteOrdemServicoNoOrcamento(id)){
                 repository.deleteById(id);
             }
         }catch (EmptyResultDataAccessException e){
@@ -67,9 +68,9 @@ public class OrcamentoService {
         }
     }
 
-    public boolean verificaOrdemServico() {
-        Orcamento orcamento = new Orcamento();
-        if(orcamento.getOrcamentoOrdemServico() == null){
+    private boolean verificaExisteOrdemServicoNoOrcamento(Long id) {
+        Orcamento orcamento = findById(id);
+        if(orcamento.getOrcamentoOrdemServico() != null){
             return true;
         }
         return false;
