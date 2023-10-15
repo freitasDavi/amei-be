@@ -90,7 +90,7 @@ public class Clientes {
 
     @JsonIgnore
     @OneToMany(mappedBy = "clienteAgendamento")
-    private List<Clientes> clientesAgendamento;
+    private List<Agendamento> clientesAgendamento;
 
 //    ---
 
