@@ -5,22 +5,31 @@ import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.repositories.OrcamentoRepository;
 import com.dggl.amei.repositories.OrdemServicoRepository;
-import org.joda.time.Period;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.InstantSource;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class OrcamentoService {
+
+    private static final Logger log = LoggerFactory.getLogger(OrcamentoService.class);
+
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+
 
     @Autowired
     private OrcamentoRepository repository;
@@ -39,11 +48,15 @@ public class OrcamentoService {
         return orcamento.orElseThrow(() -> new RecursoNaoEncontrado(taskName, id));
     }
 
+
+
 //  15/10/2023 - 10h10 - Ainda não testei pra ver se funciona.
-    @Scheduled(cron = "0 1 1 * ?")
+    @Scheduled(fixedRate = 10000)
     public void excluiOrcamentoMaiorTresMeses(){
 
-        int tempoMaximoExpurgoOrcamento = 90;
+//        log.info("Hora vindo do Orçamento Service {}", dateFormat.format(new Date()));
+
+        int tempoMaximoExpurgoOrcamento = 10;
 
         for(Orcamento orcamento : findAll()){
             if(orcamento.getDataEmissaoOrcamento().until(Instant.now(), ChronoUnit.DAYS) > tempoMaximoExpurgoOrcamento){

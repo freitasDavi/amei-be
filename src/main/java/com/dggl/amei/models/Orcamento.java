@@ -72,7 +72,6 @@ public class Orcamento {
 
 //    ----
 
-
     /**
      * Atenção Davi:
      * Quando criar algum construtor, que vá utilizar o status do orcamento, me avisa.
