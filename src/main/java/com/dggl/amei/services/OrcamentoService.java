@@ -5,14 +5,19 @@ import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.repositories.OrcamentoRepository;
 import com.dggl.amei.repositories.OrdemServicoRepository;
+import org.joda.time.Period;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
-import java.util.Optional;
+import java.time.Instant;
+import java.time.InstantSource;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 @Service
 public class OrcamentoService {
@@ -32,6 +37,18 @@ public class OrcamentoService {
     public Orcamento findById(Long id){
         Optional<Orcamento> orcamento = repository.findById(id);
         return orcamento.orElseThrow(() -> new RecursoNaoEncontrado(taskName, id));
+    }
+
+    @Scheduled(cron = "0 1 1 * ?")
+    public void excluiOrcamentoMaiorTresMeses(){
+
+        int tempoMaximoExpurgoOrcamento = 90;
+
+        for(Orcamento orcamento : findAll()){
+            if(orcamento.getDataEmissaoOrcamento().until(Instant.now(), ChronoUnit.DAYS) > tempoMaximoExpurgoOrcamento){
+                delete(orcamento.getId());
+            }
+        }
     }
 
     public Orcamento insert(Orcamento orcamento){
