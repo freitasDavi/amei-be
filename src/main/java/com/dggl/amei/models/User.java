@@ -97,6 +97,22 @@ public class User {
     @JoinColumn(name = "BAIRRO_USUARIO", referencedColumnName = "id")
     private Bairro usuarioBairro;
 
+//    ---
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuarioCliente")
+    private List<Clientes> clientesUsuario;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuarioOrcamento")
+    private List<Orcamento> orcamentosUsuario;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuarioAgendamento")
+    private List<Agendamento> agendamentosUsuario;
+
+//    ---
+
 
     public User() {
     }

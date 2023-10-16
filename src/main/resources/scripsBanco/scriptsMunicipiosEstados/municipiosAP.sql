@@ -1,0 +1,17 @@
+Insert into cidade (nome_cidade, cidade_estado) values
+('Amapá', 3),
+('Calçoene', 3),
+('Cutias', 3),
+('Ferreira Gomes', 3),
+('Itaubal', 3),
+('Laranjal do Jari', 3),
+('Macapá', 3),
+('Mazagão', 3),
+('Oiapoque', 3),
+('Pedra Branca do Amapari', 3),
+('Porto Grande', 3),
+('Pracuúba', 3),
+('Santana', 3),
+('Serra do Navio', 3),
+('Tartarugalzinho', 3),
+('Vitória do Jari', 3);

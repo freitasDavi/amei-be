@@ -20,7 +20,7 @@ public class Cidade {
     private Long id;
 
     @NotBlank
-    @Size(max = 30)
+    @Size(max = 100)
     @Column(name = "NOME_CIDADE")
     private String nomeCidade;
 
@@ -31,7 +31,25 @@ public class Cidade {
     @JoinColumn(name = "CIDADE_ESTADO", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_CIDADE_ESTADO"))
     private Estado estadoCidade;
 
-//    --
+//    ----
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "clienteCidade")
+    private List<Clientes> clientesCidade;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "agendamentoCidade")
+    private List<Agendamento> agendamentosCidade;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "bairroCidade")
+    private List<Bairro> bairrosCidade;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "cidadeCurso")
+    private List<Curso> cursosCidade;
+
+//    ----
 
     public Cidade() {
     }

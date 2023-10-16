@@ -1,0 +1,16 @@
+INSERT INTO cidade (nome_cidade, cidade_estado) VALUES
+('Alto Alegre', 23),
+('Amajari', 23),
+('Boa Vista', 23),
+('Bonfim', 23),
+('Cantá', 23),
+('Caracaraí', 23),
+('Caroebe', 23),
+('Iracema', 23),
+('Mucajaí', 23),
+('Normandia', 23),
+('Pacaraima', 23),
+('Rorainópolis', 23),
+('São João da Baliza', 23),
+('São Luiz', 23),
+('Uiramutã', 23);

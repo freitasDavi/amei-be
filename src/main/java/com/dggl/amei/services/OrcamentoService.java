@@ -8,18 +8,30 @@ import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.repositories.ItensOrcamentoRepository;
 import com.dggl.amei.repositories.OrcamentoRepository;
 import com.dggl.amei.repositories.OrdemServicoRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class OrcamentoService {
+
+    private static final Logger log = LoggerFactory.getLogger(OrcamentoService.class);
+
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+
 
     @Autowired
     private OrcamentoRepository repository;
@@ -72,7 +84,7 @@ public class OrcamentoService {
 
     public void delete(Long id){
         try{
-            if(verificaOrdemServico()){
+            if(!verificaExisteOrdemServicoNoOrcamento(id)){
                 repository.deleteById(id);
             }
         }catch (EmptyResultDataAccessException e){
@@ -82,9 +94,9 @@ public class OrcamentoService {
         }
     }
 
-    public boolean verificaOrdemServico() {
-        Orcamento orcamento = new Orcamento();
-        if(orcamento.getOrcamentoOrdemServico() == null){
+    private boolean verificaExisteOrdemServicoNoOrcamento(Long id) {
+        Orcamento orcamento = findById(id);
+        if(orcamento.getOrcamentoOrdemServico() != null){
             return true;
         }
         return false;
