@@ -16,14 +16,17 @@ public class ItensOrcamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Long id;
 
-    @NotBlank
+    @Column(name = "QUANTIDADE")
+    private Long quantidade;
+
+    //@NotBlank
     @Column(name = "VALOR_UNITARIO")
     private BigDecimal valorUnitario;
 
-    @NotBlank
+    //@NotBlank
     @Column(name = "VALOR_TOTAL")
     private BigDecimal valorTotal;
 
@@ -32,16 +35,37 @@ public class ItensOrcamento {
     private String descricao;
 
 //    ----
-
-    @NotBlank
     @ManyToOne
-    @JoinColumn(name = "ORCAMENTO_ITENS")
-    private Orcamento orcamentoItens;
+    @JsonIgnore
+    @JoinColumn(name = "ORCAMENTO_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_ITENS_ORCAMENTO_ORCAMENTO"))
+    private Orcamento orcamento;
 
 //    ----
 
+    public ItensOrcamento() {
+    }
 
-//    ----
+    public ItensOrcamento(Long id) {
+        this.id = id;
+    }
+
+    public ItensOrcamento(BigDecimal valorUnitario, BigDecimal valorTotal, String descricao, Long quantidade) {
+        this.valorUnitario = valorUnitario;
+        this.valorTotal = valorTotal;
+        this.descricao = descricao;
+        this.quantidade = quantidade;
+        //this.orcamento = orcamento;
+    }
+
+    public ItensOrcamento(BigDecimal valorUnitario, BigDecimal valorTotal, String descricao, Orcamento orcamento, Long quantidade) {
+        this.valorUnitario = valorUnitario;
+        this.valorTotal = valorTotal;
+        this.descricao = descricao;
+        this.orcamento = orcamento;
+        this.quantidade = quantidade;
+    }
+
+    //    ----
 
 
     public Long getId() {
@@ -76,12 +100,19 @@ public class ItensOrcamento {
         this.descricao = descricao;
     }
 
-    public Orcamento getOrcamentoItens() {
-        return orcamentoItens;
+    public Long getQuantidade() {
+        return quantidade;
     }
 
-    public void setOrcamentoItens(Orcamento orcamentoItens) {
-        this.orcamentoItens = orcamentoItens;
+    public void setQuantidade(Long quantidade) {
+        this.quantidade = quantidade;
     }
 
+    public Orcamento getOrcamento() {
+        return orcamento;
+    }
+
+    public void setOrcamento(Orcamento orcamento) {
+        this.orcamento = orcamento;
+    }
 }

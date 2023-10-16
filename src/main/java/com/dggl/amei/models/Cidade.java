@@ -28,7 +28,7 @@ public class Cidade {
 
     @NotBlank
     @ManyToOne
-    @JoinColumn(name = "CIDADE_ESTADO", referencedColumnName = "id")
+    @JoinColumn(name = "CIDADE_ESTADO", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_CIDADE_ESTADO"))
     private Estado estadoCidade;
 
 //    ----

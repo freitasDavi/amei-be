@@ -1,8 +1,11 @@
 package com.dggl.amei.services;
 
+import com.dggl.amei.dtos.requests.NovoOrcamentoRequest;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
+import com.dggl.amei.models.ItensOrcamento;
 import com.dggl.amei.models.Orcamento;
+import com.dggl.amei.repositories.ItensOrcamentoRepository;
 import com.dggl.amei.repositories.OrcamentoRepository;
 import com.dggl.amei.repositories.OrdemServicoRepository;
 import org.slf4j.Logger;
@@ -17,6 +20,7 @@ import javax.persistence.EntityNotFoundException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +39,9 @@ public class OrcamentoService {
     @Autowired
     OrdemServicoRepository ordemServicoRepository;
 
+    @Autowired
+    ItensOrcamentoRepository itensOrcamentoRepository;
+
     private String taskName = "Orçamento";
 
     public List<Orcamento> findAll(){
@@ -46,8 +53,33 @@ public class OrcamentoService {
         return orcamento.orElseThrow(() -> new RecursoNaoEncontrado(taskName, id));
     }
 
-        public Orcamento insert(Orcamento orcamento){
-        return repository.save(orcamento);
+    public Orcamento insert(NovoOrcamentoRequest dto){
+        var orcamento = new Orcamento(
+                dto.getNomeCliente(),
+                dto.getTelefoneCliente(),
+                dto.getDataValidadeOrcamento(),
+                dto.getValorTotalDoOrcamento(),
+                dto.getObservacoesOrcamento(),
+                dto.getUsuarioOrcamento(),
+                dto.getClienteOrcamento(),
+                dto.getItensOrcamentos()
+        );
+
+        var orc = repository.save(orcamento);
+
+        List<ItensOrcamento> listaDeItensOrcamento = new LinkedList<>();
+
+        dto.getItensOrcamentos().forEach(item -> listaDeItensOrcamento.add(new ItensOrcamento(
+                item.getValorUnitario(),
+                item.getValorTotal(),
+                item.getDescricao(),
+                orc,
+                item.getQuantidade())));
+
+        if (!listaDeItensOrcamento.isEmpty())
+            itensOrcamentoRepository.saveAll(listaDeItensOrcamento);
+
+        return orc;
     }
 
     public void delete(Long id){
@@ -90,7 +122,7 @@ public class OrcamentoService {
         orcamentoBanco.setClienteOrcamento(orcamento.getClienteOrcamento());
         orcamentoBanco.setDataValidadeOrcamento(orcamento.getDataValidadeOrcamento());
         orcamentoBanco.setObservacoesOrcamento(orcamento.getObservacoesOrcamento());
-        orcamentoBanco.setTelefoneClienteOrcamento(orcamento.getTelefoneClienteOrcamento());
+        orcamentoBanco.setTelefoneCliente(orcamento.getTelefoneCliente());
         orcamentoBanco.setValorTotalDoOrcamento(orcamento.getValorTotalDoOrcamento());
 
 

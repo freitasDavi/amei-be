@@ -4,6 +4,7 @@ package com.dggl.amei.models;
 import com.dggl.amei.models.enums.StatusOrcamentoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -27,20 +28,22 @@ public class Orcamento {
 
     @NotBlank
     @Size(max = 11)
-    @Column(name = "TELEFONE_CLIENTE_ORCAMENTO")
-    private String telefoneClienteOrcamento;
+    @Column(name = "TELEFONE_CLIENTE")
+    private String telefoneCliente;
 
     @NotBlank
+    @Column(name = "NOME_CLIENTE")
+    private String nomeCliente;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-    @Column(name = "HORARIO_GERACAO")
+    @CreationTimestamp
+    @Column(name = "DATA_EMISSAO")
     private Instant dataEmissaoOrcamento;
 
-    @NotBlank
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "DATA_VALIDADE")
     private LocalDate dataValidadeOrcamento;
 
-    @NotBlank
     @Column(name = "VALOR_TOTAL")
     private BigDecimal valorTotalDoOrcamento;
 
@@ -50,17 +53,17 @@ public class Orcamento {
 
 //    ----
 
-    @NotBlank
+    //@NotBlank
     @ManyToOne
-    @JoinColumn(name = "USUARIO_ORCAMENTO", referencedColumnName = "id")
+    @JoinColumn(name = "USUARIO_ORCAMENTO", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_ORCAMENTO_USUARIO"))
     private User usuarioOrcamento;
 
     @ManyToOne
-    @JoinColumn(name = "CLIENTE_ORCAMENTO", referencedColumnName = "id")
+    @JoinColumn(name = "CLIENTE_ORCAMENTO", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_ORCAMENTO_CLIENTE"))
     private Clientes clienteOrcamento;
 
     @ManyToOne
-    @JoinColumn(name = "ORDEM_ORCAMENTO", referencedColumnName = "id")
+    @JoinColumn(name = "ORDEM_ORCAMENTO", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_ORCAMENTO_ORDEMS"))
     private OrdemServico orcamentoOrdemServico;
 
 
@@ -77,6 +80,27 @@ public class Orcamento {
      * Quando criar algum construtor, que vá utilizar o status do orcamento, me avisa.
      * ass: Hahn
      */
+
+   
+    //    --
+    public Orcamento() {
+    }
+
+    public Orcamento(String nomeCliente, String telefoneCliente, LocalDate dataValidadeOrcamento, BigDecimal valorTotalDoOrcamento, String observacoesOrcamento, User usuarioOrcamento, Clientes clienteOrcamento, List<ItensOrcamento> itensOrcamentos) {
+        this.nomeCliente = nomeCliente;
+        this.telefoneCliente = telefoneCliente;
+        this.dataValidadeOrcamento = dataValidadeOrcamento;
+        this.valorTotalDoOrcamento = valorTotalDoOrcamento;
+        this.observacoesOrcamento = observacoesOrcamento;
+        this.usuarioOrcamento = usuarioOrcamento;
+        this.clienteOrcamento = clienteOrcamento;
+        this.itensOrcamentos = itensOrcamentos;
+        this.dataEmissaoOrcamento = Instant.now();
+    }
+
+    public Orcamento(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
@@ -96,12 +120,13 @@ public class Orcamento {
         }
     }
 
-    public String getTelefoneClienteOrcamento() {
-        return telefoneClienteOrcamento;
+    public String getTelefoneCliente() {
+        return telefoneCliente;
+
     }
 
-    public void setTelefoneClienteOrcamento(String telefoneClienteOrcamento) {
-        this.telefoneClienteOrcamento = telefoneClienteOrcamento;
+    public void setTelefoneCliente(String telefoneCliente) {
+        this.telefoneCliente = telefoneCliente;
     }
 
     public Instant getDataEmissaoOrcamento() {
@@ -160,8 +185,15 @@ public class Orcamento {
         this.orcamentoOrdemServico = orcamentoOrdemServico;
     }
 
+    public List<ItensOrcamento> getItensOrcamentos() {
+        return itensOrcamentos;
+    }
 
-//    ----
+    public void setItensOrcamentos(List<ItensOrcamento> itensOrcamentos) {
+        this.itensOrcamentos = itensOrcamentos;
+    }
+
+    //    ----
 
 
     @Override
