@@ -30,11 +30,10 @@ public class TarefasAgendadas {
 
         int tempoMaximoExpurgoOrcamento = 90;
 
-//        orcamentoRepository.findById((long)32);
 
-        for(Orcamento orcamento : orcamentoRepository.findAll()){
+        for(Orcamento orcamento : orcamentoService.findAll()){
             if(orcamento.getDataEmissaoOrcamento().until(Instant.now(), ChronoUnit.DAYS) > tempoMaximoExpurgoOrcamento){
-                orcamentoRepository.deleteById(orcamento.getId());
+                orcamentoService.delete(orcamento.getId());
                 log.info("Orcamento apagado {}", orcamento.getId());
             }
         }
