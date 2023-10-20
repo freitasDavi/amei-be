@@ -24,7 +24,9 @@ public class Orcamento {
     @Column(name = "id")
     private Long id;
 
-    private Integer statusOrcamento;
+    @Column(name = "STATUS")
+    @Enumerated(EnumType.ORDINAL)
+    private StatusOrcamentoEnum status;
 
     @NotBlank
     @Size(max = 11)
@@ -66,11 +68,10 @@ public class Orcamento {
     @JoinColumn(name = "ORDEM_ORCAMENTO", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_ORCAMENTO_ORDEMS"))
     private OrdemServico orcamentoOrdemServico;
 
-
 //    ----
 
     @JsonIgnore
-    @OneToMany(mappedBy = "orcamentoItens")
+    @OneToMany(mappedBy = "orcamento")
     private List<ItensOrcamento> itensOrcamentos;
 
 //    ----
@@ -96,6 +97,7 @@ public class Orcamento {
         this.clienteOrcamento = clienteOrcamento;
         this.itensOrcamentos = itensOrcamentos;
         this.dataEmissaoOrcamento = Instant.now();
+        this.status = StatusOrcamentoEnum.ABERTO;
     }
 
     public Orcamento(Long id) {
@@ -110,15 +112,23 @@ public class Orcamento {
         this.id = id;
     }
 
-    public StatusOrcamentoEnum getStatusOrcamento() {
-        return StatusOrcamentoEnum.valueOf(statusOrcamento);
+    public StatusOrcamentoEnum getStatus() {
+        return status;
     }
 
-    public void setStatusOrcamento(StatusOrcamentoEnum statusOrcamento) {
-        if(statusOrcamento != null){
-            this.statusOrcamento = statusOrcamento.getCodigoEnum();
-        }
+    public void setStatus(StatusOrcamentoEnum status) {
+        this.status = status;
     }
+
+    //    public StatusOrcamentoEnum getStatusOrcamento() {
+//        return StatusOrcamentoEnum.valueOf(statusOrcamento);
+//    }
+
+//    public void setStatusOrcamento(StatusOrcamentoEnum statusOrcamento) {
+//        if(statusOrcamento != null){
+//            this.statusOrcamento = statusOrcamento;
+//        }
+//    }
 
     public String getTelefoneCliente() {
         return telefoneCliente;
