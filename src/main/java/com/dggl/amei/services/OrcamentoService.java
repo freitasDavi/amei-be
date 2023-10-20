@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -44,8 +46,8 @@ public class OrcamentoService {
 
     private String taskName = "Orçamento";
 
-    public List<Orcamento> findAll(){
-        return repository.findAll();
+    public Page<Orcamento> findAll(String filter, Pageable pageable){
+        return repository.findAll(filter, Orcamento.class, pageable);
     }
 
     public Orcamento findById(Long id){

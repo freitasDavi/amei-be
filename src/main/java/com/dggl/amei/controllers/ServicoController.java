@@ -4,6 +4,8 @@ import com.dggl.amei.dtos.requests.NovoServicoRequest;
 import com.dggl.amei.models.Servico;
 import com.dggl.amei.services.ServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,9 +21,13 @@ public class ServicoController {
     private ServicoService service;
 
     @GetMapping
-    public ResponseEntity<List<Servico>> findAll(){
-        List<Servico> listaServico = service.findAll();
-        return ResponseEntity.ok().body(listaServico);
+    public ResponseEntity<List<Servico>> findAll(
+            @RequestParam(required = false) String filter,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        Page<Servico> listaServico = service.findAll(filter, PageRequest.of(page, size));
+        return ResponseEntity.ok().body(listaServico.getContent());
     }
 
     @GetMapping(value = "/{id}")
