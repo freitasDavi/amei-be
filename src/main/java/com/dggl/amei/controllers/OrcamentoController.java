@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/orcamentos")
-public class OrcamentoController {
+public class OrcamentoController extends AbstractController {
 
     @Autowired
     private OrcamentoService service;

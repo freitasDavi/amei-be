@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/servicos")
-public class ServicoController {
+public class ServicoController extends AbstractController {
 
     @Autowired
     private ServicoService service;

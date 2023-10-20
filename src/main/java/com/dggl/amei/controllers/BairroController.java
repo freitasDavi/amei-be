@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/bairro")
-public class BairroController {
+public class BairroController extends AbstractController {
 
     @Autowired
     private BairroService service;

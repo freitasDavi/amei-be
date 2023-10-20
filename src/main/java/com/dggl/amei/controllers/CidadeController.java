@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/cidade")
-public class CidadeController {
+public class CidadeController extends AbstractController {
 
     @Autowired
     private CidadeService service;
