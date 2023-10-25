@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/cursos")
@@ -32,5 +29,12 @@ public class CursosController extends AbstractController {
         return ResponseEntity.ok().body(cursosDTO);
     }
 
-    ///@GetMapping(value = "/{id}")
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<CursoResponseDTO> findById (PathVariable Long id) {
+        var curso = service.findById(id);
+
+        CursoResponseDTO responseDTO = CursoResponseDTO.fromEntity(curso);
+
+        return  ResponseEntity.ok().body(responseDTO);
+    }
 }
