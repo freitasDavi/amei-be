@@ -101,6 +101,110 @@ public class Clientes {
         this.id = id;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+    public String getEmailCliente() {
+        return emailCliente;
+    }
+
+    public void setEmailCliente(String emailCliente) {
+        this.emailCliente = emailCliente;
+    }
+
+    public String getTelefoneCliente() {
+        return telefoneCliente;
+    }
+
+    public void setTelefoneCliente(String telefoneCliente) {
+        this.telefoneCliente = telefoneCliente;
+    }
+
+    public String getCepCliente() {
+        return cepCliente;
+    }
+
+    public void setCepCliente(String cepCliente) {
+        this.cepCliente = cepCliente;
+    }
+
+    public String getEnderecoCliente() {
+        return enderecoCliente;
+    }
+
+    public void setEnderecoCliente(String enderecoCliente) {
+        this.enderecoCliente = enderecoCliente;
+    }
+
+    public String getNumeroCliente() {
+        return numeroCliente;
+    }
+
+    public void setNumeroCliente(String numeroCliente) {
+        this.numeroCliente = numeroCliente;
+    }
+
+    public String getComplementoCliente() {
+        return complementoCliente;
+    }
+
+    public void setComplementoCliente(String complementoCliente) {
+        this.complementoCliente = complementoCliente;
+    }
+
+    public String getCnpjCliente() {
+        return cnpjCliente;
+    }
+
+    public void setCnpjCliente(String cnpjCliente) {
+        this.cnpjCliente = cnpjCliente;
+    }
+
+    public String getInscricaoMunicipal() {
+        return inscricaoMunicipal;
+    }
+
+    public void setInscricaoMunicipal(String inscricaoMunicipal) {
+        this.inscricaoMunicipal = inscricaoMunicipal;
+    }
+
+    public User getUsuarioCliente() {
+        return usuarioCliente;
+    }
+
+    public void setUsuarioCliente(User usuarioCliente) {
+        this.usuarioCliente = usuarioCliente;
+    }
+
+    public Cidade getClienteCidade() {
+        return clienteCidade;
+    }
+
+    public void setClienteCidade(Cidade clienteCidade) {
+        this.clienteCidade = clienteCidade;
+    }
+
+    public Bairro getClienteBairro() {
+        return clienteBairro;
+    }
+
+    public void setClienteBairro(Bairro clienteBairro) {
+        this.clienteBairro = clienteBairro;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

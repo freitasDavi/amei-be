@@ -4,6 +4,8 @@ import com.dggl.amei.dtos.requests.NovoOrcamentoRequest;
 import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.services.OrcamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -13,15 +15,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/orcamentos")
-public class OrcamentoController {
+public class OrcamentoController extends AbstractController {
 
     @Autowired
     private OrcamentoService service;
 
     @GetMapping
-    public ResponseEntity<List<Orcamento>> findAll(){
-        List<Orcamento> listaOrcamento = service.findAll();
-        return ResponseEntity.ok().body(listaOrcamento);
+    public ResponseEntity<List<Orcamento>> findAll(
+            @RequestParam(required = false) String filter,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        Page<Orcamento> orcamentos = service.findAll(filter, PageRequest.of(page, size));
+
+        return ResponseEntity.ok().body(orcamentos.getContent());
     }
 
     @GetMapping(value = "/{id}")

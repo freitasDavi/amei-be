@@ -31,11 +31,11 @@ public class TarefasAgendadas {
         int tempoMaximoExpurgoOrcamento = 90;
 
 
-        for(Orcamento orcamento : orcamentoService.findAll()){
-            if(orcamento.getDataEmissaoOrcamento().until(Instant.now(), ChronoUnit.DAYS) > tempoMaximoExpurgoOrcamento){
-                orcamentoService.delete(orcamento.getId());
-                log.info("Orcamento apagado {}", orcamento.getId());
-            }
-        }
+//        for(Orcamento orcamento : orcamentoService.findAll()){
+//            if(orcamento.getDataEmissaoOrcamento().until(Instant.now(), ChronoUnit.DAYS) > tempoMaximoExpurgoOrcamento){
+//                orcamentoService.delete(orcamento.getId());
+//                log.info("Orcamento apagado {}", orcamento.getId());
+//            }
+//        }
     }
 }

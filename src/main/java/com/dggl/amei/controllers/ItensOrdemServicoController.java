@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/itensordemservico")
-public class ItensOrdemServicoController {
+public class ItensOrdemServicoController extends AbstractController {
 
     @Autowired
     private ItensOrdemServicoService service;

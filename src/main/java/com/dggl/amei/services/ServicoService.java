@@ -8,6 +8,8 @@ import com.dggl.amei.repositories.ServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -21,8 +23,8 @@ public class ServicoService {
     private ServicoRepository repository;
     private String task = "Serviço";
 
-    public List<Servico> findAll(){
-        return repository.findAll();
+    public Page<Servico> findAll(String filter, Pageable pageable){
+        return repository.findAll(filter, Servico.class, pageable);
     }
 
     public Servico findById(Long id){
