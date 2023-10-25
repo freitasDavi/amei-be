@@ -4,6 +4,8 @@ import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Cidade;
 import com.dggl.amei.repositories.CidadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +18,9 @@ public class CidadeService {
     private CidadeRepository repository;
     private String task = "Cidade";
 
-    public List<Cidade> findAll(){
-        return repository.findAll();
+    public Page<Cidade> findAll(String filter, Pageable pageable){
+
+        return repository.findAll(filter, Cidade.class, pageable);
     }
 
     public Cidade findById(Long id){

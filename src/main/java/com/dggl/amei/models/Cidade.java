@@ -46,7 +46,7 @@ public class Cidade {
     private List<Bairro> bairrosCidade;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "cidadeCurso")
+    @OneToMany(mappedBy = "cidade")
     private List<Curso> cursosCidade;
 
 //    ----

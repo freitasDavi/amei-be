@@ -30,11 +30,18 @@ public class CursosController extends AbstractController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<CursoResponseDTO> findById (PathVariable Long id) {
+    public ResponseEntity<CursoResponseDTO> findById (@PathVariable Long id) {
         var curso = service.findById(id);
 
         CursoResponseDTO responseDTO = CursoResponseDTO.fromEntity(curso);
 
         return  ResponseEntity.ok().body(responseDTO);
+    }
+
+    @PostMapping
+    public ResponseEntity createNewCurso(@RequestBody CursoResponseDTO dto) {
+        service.insert(dto);
+
+        return ResponseEntity.ok("Sucessagem");
     }
 }
