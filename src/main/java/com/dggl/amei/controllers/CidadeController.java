@@ -3,11 +3,10 @@ package com.dggl.amei.controllers;
 import com.dggl.amei.models.Cidade;
 import com.dggl.amei.services.CidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,8 +18,13 @@ public class CidadeController extends AbstractController {
     private CidadeService service;
 
     @GetMapping
-    public ResponseEntity<List<Cidade>> findall(){
-        List<Cidade> listaCidades = service.findAll();
+    public ResponseEntity<Page<Cidade>> findall(
+            @RequestParam(required = false) String filter,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        Page<Cidade> listaCidades = service.findAll(filter, PageRequest.of(page, size));
+
         return ResponseEntity.ok().body(listaCidades);
     }
 

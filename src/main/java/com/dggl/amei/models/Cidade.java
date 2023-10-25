@@ -46,7 +46,7 @@ public class Cidade {
     private List<Bairro> bairrosCidade;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "cidadeCurso")
+    @OneToMany(mappedBy = "cidade")
     private List<Curso> cursosCidade;
 
 //    ----
@@ -56,6 +56,62 @@ public class Cidade {
 
     public Cidade(Long id) {
         this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNomeCidade() {
+        return nomeCidade;
+    }
+
+    public void setNomeCidade(String nomeCidade) {
+        this.nomeCidade = nomeCidade;
+    }
+
+    public Estado getEstadoCidade() {
+        return estadoCidade;
+    }
+
+    public void setEstadoCidade(Estado estadoCidade) {
+        this.estadoCidade = estadoCidade;
+    }
+
+    public List<Clientes> getClientesCidade() {
+        return clientesCidade;
+    }
+
+    public void setClientesCidade(List<Clientes> clientesCidade) {
+        this.clientesCidade = clientesCidade;
+    }
+
+    public List<Agendamento> getAgendamentosCidade() {
+        return agendamentosCidade;
+    }
+
+    public void setAgendamentosCidade(List<Agendamento> agendamentosCidade) {
+        this.agendamentosCidade = agendamentosCidade;
+    }
+
+    public List<Bairro> getBairrosCidade() {
+        return bairrosCidade;
+    }
+
+    public void setBairrosCidade(List<Bairro> bairrosCidade) {
+        this.bairrosCidade = bairrosCidade;
+    }
+
+    public List<Curso> getCursosCidade() {
+        return cursosCidade;
+    }
+
+    public void setCursosCidade(List<Curso> cursosCidade) {
+        this.cursosCidade = cursosCidade;
     }
 
     @Override
