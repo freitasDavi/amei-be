@@ -1,6 +1,8 @@
 package com.dggl.amei.controllers;
 
+import com.dggl.amei.dtos.responses.ClientsResponseDTO;
 import com.dggl.amei.models.Clientes;
+import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.services.ClientesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,12 +23,15 @@ public class ClienteController {
     private ClientesService service;
 
     @GetMapping
-    public ResponseEntity<List<Clientes>> findAll(
+    public ResponseEntity<Page<ClientsResponseDTO>> findAll(
             @RequestParam(required = false) String filter,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ){
-        Page<Clientes> listaClientes = service.findAll(filter, PageRequest.of(page, size));
-        return ResponseEntity.ok().body(listaClientes.getContent());
+        Page<Clientes> clientes = service.findAll(filter, PageRequest.of(page, size));
+
+        Page<ClientsResponseDTO> clientesDTO = ClientsResponseDTO.fromEntity(clientes);
+
+        return ResponseEntity.ok().body(clientesDTO);
     }
 }
