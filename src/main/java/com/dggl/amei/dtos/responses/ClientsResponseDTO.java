@@ -4,10 +4,6 @@ import com.dggl.amei.models.Clientes;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
-import javax.persistence.Column;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -87,11 +83,11 @@ public class ClientsResponseDTO {
     }
 
     public static List<ClientsResponseDTO> fromEntity(List<Clientes> clientes) {
-        return clientes.stream().map(cliente -> fromEntity(cliente)).collect(Collectors.toList());
+        return clientes.stream().map(ClientsResponseDTO::fromEntity).collect(Collectors.toList());
     }
 
     public static Page<ClientsResponseDTO> fromEntity(Page<Clientes> clientes) {
-        List<ClientsResponseDTO> produtosFind = clientes.stream().map(cliente -> fromEntity(cliente)).collect(Collectors.toList());
+        List<ClientsResponseDTO> produtosFind = clientes.stream().map(ClientsResponseDTO::fromEntity).collect(Collectors.toList());
         Page<ClientsResponseDTO> produtosDTO = new PageImpl<>(produtosFind, clientes.getPageable(), clientes.getTotalElements());
         return produtosDTO;
     }
