@@ -1,5 +1,7 @@
 package com.dggl.amei.services;
 
+import com.dggl.amei.dtos.requests.AgendamentoRequestDTO;
+import com.dggl.amei.dtos.responses.AgendamentoResponseDTO;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Agendamento;
@@ -7,6 +9,8 @@ import com.dggl.amei.repositories.AgendamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -20,8 +24,10 @@ public class AgendamentoService {
     private AgendamentoRepository repository;
     private String task = "Agendamento";
 
-    public List<Agendamento> findAll(){
-        return repository.findAll();
+    public Page<Agendamento> findAll(
+            String filter, Pageable pageable
+    ){
+        return repository.findAll(filter, Agendamento.class, pageable);
     }
 
     public Agendamento findById(Long id){
@@ -29,8 +35,10 @@ public class AgendamentoService {
         return obj.orElseThrow(()-> new RecursoNaoEncontrado(task, id));
     }
 
-    public Agendamento insert(Agendamento obj){
-        return repository.save(obj);
+    public void insert(AgendamentoRequestDTO obj){
+        var novoAgendamento = obj.toEntity();
+
+        repository.save(novoAgendamento);
     }
 
     public void delete(Long id){

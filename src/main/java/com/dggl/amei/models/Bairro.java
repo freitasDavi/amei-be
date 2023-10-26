@@ -49,6 +49,22 @@ public class Bairro {
         this.id = id;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNomeBairro() {
+        return nomeBairro;
+    }
+
+    public void setNomeBairro(String nomeBairro) {
+        this.nomeBairro = nomeBairro;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
