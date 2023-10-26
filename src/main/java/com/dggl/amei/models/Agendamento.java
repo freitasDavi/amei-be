@@ -17,6 +17,9 @@ public class Agendamento {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "NOME")
+    private String nomeAgendamento;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "DATA_AGENDAMENTO")
     private LocalDate dataAgendamento;
@@ -67,8 +70,9 @@ public class Agendamento {
         this.id = id;
     }
 
-    public Agendamento(Long id, LocalDate dataAgendamento, String enderecoAgendamento, String responsavelAgendamento, String telefoneAgendamento, String telefoneSecundario, Clientes clienteAgendamento, Cidade agendamentoCidade, Bairro agendamentoBairro, User usuarioAgendamento) {
+    public Agendamento(Long id, LocalDate dataAgendamento, String nomeAgendamento, String enderecoAgendamento, String responsavelAgendamento, String telefoneAgendamento, String telefoneSecundario, Clientes clienteAgendamento, Cidade agendamentoCidade, Bairro agendamentoBairro, User usuarioAgendamento) {
         this.id = id;
+        this.nomeAgendamento = nomeAgendamento;
         this.dataAgendamento = dataAgendamento;
         this.enderecoAgendamento = enderecoAgendamento;
         this.responsavelAgendamento = responsavelAgendamento;
@@ -88,6 +92,14 @@ public class Agendamento {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNomeAgendamento() {
+        return nomeAgendamento;
+    }
+
+    public void setNomeAgendamento(String nomeAgendamento) {
+        this.nomeAgendamento = nomeAgendamento;
     }
 
     public LocalDate getDataAgendamento() {
