@@ -4,6 +4,8 @@ import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Bairro;
 import com.dggl.amei.repositories.BairroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +18,8 @@ public class BairroService {
     private BairroRepository repository;
     private String task = "Bairro";
 
-    public List<Bairro> findAll(){
-        return repository.findAll();
+    public Page<Bairro> findAll(String filter, Pageable pageable){
+        return repository.findAll(filter, Bairro.class, pageable);
     }
 
     public Bairro findById(Long id){
