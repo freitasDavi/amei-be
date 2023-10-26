@@ -17,7 +17,6 @@ public class Agendamento {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "DATA_AGENDAMENTO")
     private LocalDate dataAgendamento;
@@ -41,20 +40,17 @@ public class Agendamento {
 //    ----
 
     @ManyToOne
-    @JoinColumn(name = "CLIENTE_AGENDAMENTO", referencedColumnName = "id")
+    @JoinColumn(name = "CLIENTE_AGENDAMENTO", referencedColumnName = "id", nullable = true)
     private Clientes clienteAgendamento;
 
-    @NotBlank
     @ManyToOne
     @JoinColumn(name = "CIDADE_AGENDAMENTO", referencedColumnName = "id")
     private Cidade agendamentoCidade;
 
-    @NotBlank
     @ManyToOne
     @JoinColumn(name = "BAIRRO_AGENDAMENTO", referencedColumnName = "id")
     private Bairro agendamentoBairro;
 
-    @NotBlank
     @ManyToOne
     @JoinColumn(name = "AGENDAMENTO_USUARIO", referencedColumnName = "id")
     private User usuarioAgendamento;
@@ -67,7 +63,24 @@ public class Agendamento {
     public Agendamento() {
     }
 
-//    ----
+    public Agendamento(Long id) {
+        this.id = id;
+    }
+
+    public Agendamento(Long id, LocalDate dataAgendamento, String enderecoAgendamento, String responsavelAgendamento, String telefoneAgendamento, String telefoneSecundario, Clientes clienteAgendamento, Cidade agendamentoCidade, Bairro agendamentoBairro, User usuarioAgendamento) {
+        this.id = id;
+        this.dataAgendamento = dataAgendamento;
+        this.enderecoAgendamento = enderecoAgendamento;
+        this.responsavelAgendamento = responsavelAgendamento;
+        this.telefoneAgendamento = telefoneAgendamento;
+        this.telefoneSecundario = telefoneSecundario;
+        this.clienteAgendamento = clienteAgendamento;
+        this.agendamentoCidade = agendamentoCidade;
+        this.agendamentoBairro = agendamentoBairro;
+        this.usuarioAgendamento = usuarioAgendamento;
+    }
+
+    //    ----
 
     public Long getId() {
         return id;

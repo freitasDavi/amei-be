@@ -54,9 +54,8 @@ public class CursoResponseDTO {
 
     public static Page<CursoResponseDTO> fromEntity(Page<Curso> cursos) {
         List<CursoResponseDTO> cursosList = cursos.stream().map(CursoResponseDTO::fromEntity).toList();
-        Page<CursoResponseDTO> cursoDTOS = new PageImpl<>(cursosList, cursos.getPageable(), cursos.getTotalElements());
 
-        return cursoDTOS;
+        return new PageImpl<>(cursosList, cursos.getPageable(), cursos.getTotalElements());
     }
 
     public Long getId() {
