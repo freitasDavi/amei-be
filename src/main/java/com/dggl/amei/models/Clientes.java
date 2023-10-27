@@ -56,7 +56,7 @@ public class Clientes {
     @Column(name = "COMPLEMENTO")
     private String complementoCliente;
 
-    @Size(max = 13)
+    @Size(max = 14)
     @Column(name = "CNPJ")
     private String cnpjCliente;
 

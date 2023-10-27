@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 
 @RestController
@@ -26,7 +26,7 @@ public class ClienteController {
             @RequestParam(required = false) String filter,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
-    ){
+    ) {
         Page<Clientes> clientes = service.findAll(filter, PageRequest.of(page, size));
 
         Page<ClientsComboResponseDTO> clientesDTO = ClientsComboResponseDTO.fromEntity(clientes);
@@ -39,11 +39,20 @@ public class ClienteController {
             @RequestParam(required = false) String filter,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
-    ){
+    ) {
         Page<Clientes> clientes = service.findAll(filter, PageRequest.of(page, size));
 
         Page<ClienteResponseDTO> clientesDTO = ClienteResponseDTO.fromEntity(clientes);
 
         return ResponseEntity.ok().body(clientesDTO);
+    }
+
+    @PostMapping
+    public ResponseEntity create(@RequestBody ClienteResponseDTO dto) {
+        service.create(dto);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
     }
 }

@@ -27,6 +27,13 @@ public class BairrosResponseDTO {
         return new PageImpl<>(bairrosList, bairros.getPageable(), bairros.getTotalElements());
     }
 
+    public BairrosResponseDTO() {
+    }
+
+    public BairrosResponseDTO(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
