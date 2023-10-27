@@ -7,7 +7,7 @@ import org.springframework.data.domain.PageImpl;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ClientsResponseDTO {
+public class ClientsComboResponseDTO {
 
     private Long id;
 
@@ -64,8 +64,8 @@ public class ClientsResponseDTO {
         this.telefone = telefone;
     }
 
-    public static ClientsResponseDTO fromEntity(Clientes clientes) {
-        ClientsResponseDTO dto = new ClientsResponseDTO();
+    public static ClientsComboResponseDTO fromEntity(Clientes clientes) {
+        ClientsComboResponseDTO dto = new ClientsComboResponseDTO();
         dto.setId(clientes.getId());
         dto.setNome(clientes.getNomeCliente());
         dto.setEmail(clientes.getEmailCliente());
@@ -82,13 +82,13 @@ public class ClientsResponseDTO {
         return cliente;
     }
 
-    public static List<ClientsResponseDTO> fromEntity(List<Clientes> clientes) {
-        return clientes.stream().map(ClientsResponseDTO::fromEntity).collect(Collectors.toList());
+    public static List<ClientsComboResponseDTO> fromEntity(List<Clientes> clientes) {
+        return clientes.stream().map(ClientsComboResponseDTO::fromEntity).collect(Collectors.toList());
     }
 
-    public static Page<ClientsResponseDTO> fromEntity(Page<Clientes> clientes) {
-        List<ClientsResponseDTO> produtosFind = clientes.stream().map(ClientsResponseDTO::fromEntity).collect(Collectors.toList());
-        Page<ClientsResponseDTO> produtosDTO = new PageImpl<>(produtosFind, clientes.getPageable(), clientes.getTotalElements());
+    public static Page<ClientsComboResponseDTO> fromEntity(Page<Clientes> clientes) {
+        List<ClientsComboResponseDTO> produtosFind = clientes.stream().map(ClientsComboResponseDTO::fromEntity).collect(Collectors.toList());
+        Page<ClientsComboResponseDTO> produtosDTO = new PageImpl<>(produtosFind, clientes.getPageable(), clientes.getTotalElements());
         return produtosDTO;
     }
 
