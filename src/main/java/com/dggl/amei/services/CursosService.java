@@ -1,10 +1,13 @@
 package com.dggl.amei.services;
 
 import com.dggl.amei.dtos.responses.CursoResponseDTO;
+import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Curso;
 import com.dggl.amei.repositories.CursosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -49,5 +52,14 @@ public class CursosService {
         cursoAtualizado.setCidade(curso.getCidade());
 
         repository.save(cursoAtualizado);
+    }
+
+    public void delete(Long id){
+        try{
+        }catch (EmptyResultDataAccessException e){
+            throw new RecursoNaoEncontrado(taskName, id);
+        }catch (DataIntegrityViolationException e){
+            throw new DataBaseException(e.getMessage());
+        }
     }
 }
