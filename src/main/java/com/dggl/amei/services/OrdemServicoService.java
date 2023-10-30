@@ -7,6 +7,8 @@ import com.dggl.amei.repositories.OrdemServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -21,8 +23,8 @@ public class OrdemServicoService {
 
     private String taskName = "Ordem de Serviço";
 
-    public List<OrdemServico> findAll(){
-        return repository.findAll();
+    public Page<OrdemServico> findAll(String filter, Pageable pageable){
+        return repository.findAll(filter, OrdemServico.class, pageable);
     }
 
     public OrdemServico findById(Long id){

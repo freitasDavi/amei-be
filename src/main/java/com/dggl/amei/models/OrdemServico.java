@@ -101,6 +101,13 @@ public class OrdemServico {
         this.clienteOrdem = clienteOrdem;
     }
 
+    public List<ItensOrdemServico> getItensOrdemServicos() {
+        return itensOrdemServicos;
+    }
+
+    public void setItensOrdemServicos(List<ItensOrdemServico> itensOrdemServicos) {
+        this.itensOrdemServicos = itensOrdemServicos;
+    }
 
     @Override
     public boolean equals(Object o) {
