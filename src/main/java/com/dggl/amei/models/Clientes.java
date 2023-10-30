@@ -56,8 +56,7 @@ public class Clientes {
     @Column(name = "COMPLEMENTO")
     private String complementoCliente;
 
-    @NotBlank
-    @Size(max = 13)
+    @Size(max = 14)
     @Column(name = "CNPJ")
     private String cnpjCliente;
 
@@ -67,17 +66,14 @@ public class Clientes {
 
 //    ---
 
-    @NotBlank
     @ManyToOne
     @JoinColumn(name = "CLIENTE_USUARIO", referencedColumnName = "id")
     private User usuarioCliente;
 
-    @NotBlank
     @ManyToOne
     @JoinColumn(name = "CIDADE_CLIENTE", referencedColumnName = "id")
     private Cidade clienteCidade;
 
-    @NotBlank
     @ManyToOne
     @JoinColumn(name = "BAIRRO_CLIENTE", referencedColumnName = "id")
     private Bairro clienteBairro;
