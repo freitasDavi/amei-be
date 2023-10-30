@@ -14,7 +14,7 @@ public class OrdemServicoResponseDTO {
     private String telefoneOrdem;
     private BigDecimal valorTotal;
     private User usuarioOrdem;
-    private ClientsResponseDTO clienteOrdem;
+    private ClientsComboResponseDTO clienteOrdem;
     private List<ItensOrdemServico> itensOrdemServicos;
     //private List<ItensOrcamento> items;
 
@@ -25,7 +25,7 @@ public class OrdemServicoResponseDTO {
         dto.setTelefoneOrdem(ordemServico.getTelefoneOrdem());
         dto.setValorTotal(ordemServico.getValorTotal());
         //dto.setUsuarioOrdem(new User(ordemServico.getUsuarioOrdem().getId()));
-        dto.setClienteOrdem(ClientsResponseDTO.fromEntity(ordemServico.getClienteOrdem()));
+        dto.setClienteOrdem(ClientsComboResponseDTO.fromEntity(ordemServico.getClienteOrdem()));
         dto.setItensOrdemServicos(ordemServico.getItensOrdemServicos());
 
         return dto;
@@ -77,11 +77,11 @@ public class OrdemServicoResponseDTO {
         this.usuarioOrdem = usuarioOrdem;
     }
 
-    public ClientsResponseDTO getClienteOrdem() {
+    public ClientsComboResponseDTO getClienteOrdem() {
         return clienteOrdem;
     }
 
-    public void setClienteOrdem(ClientsResponseDTO clienteOrdem) {
+    public void setClienteOrdem(ClientsComboResponseDTO clienteOrdem) {
         this.clienteOrdem = clienteOrdem;
     }
 
