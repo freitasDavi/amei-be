@@ -5,6 +5,8 @@ import com.dggl.amei.services.CronometroService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/api/cronometro")
 public class CronometroController {
@@ -13,6 +15,13 @@ public class CronometroController {
 
     public CronometroController(CronometroService service) {
         this.service = service;
+    }
+
+    @GetMapping("/{codigoUsuario}")
+    public ResponseEntity<List<Cronometro>> getTodos (@PathVariable Long codigoUsuario) {
+        var cronometros = service.getAllByUserId(codigoUsuario);
+
+        return ResponseEntity.ok(cronometros);
     }
 
     @GetMapping("/ultimoAtivo/{codigoUsuario}")

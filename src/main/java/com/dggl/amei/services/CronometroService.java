@@ -9,12 +9,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 
 @Service
 public class CronometroService {
 
     @Autowired
     private CronometroRepository repository;
+
+    public List<Cronometro> getAllByUserId (Long id) {
+        return repository.getCronometrosByUsuario_Id(id);
+    }
 
     public Cronometro getUltimoCronometroAtivo(Long id) {
         return repository.getCronometroByUsuario_IdAndAndCompletoEquals(id, false);
