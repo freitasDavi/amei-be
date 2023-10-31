@@ -24,6 +24,10 @@ public class AgendamentoService {
     private AgendamentoRepository repository;
     private String task = "Agendamento";
 
+    public List<Agendamento> getLatestFive (Long id) {
+        return repository.getAgendamentosByUsuarioAgendamento_IdOrderByDataAgendamentoDesc(id);
+    }
+
     public Page<Agendamento> findAll(
             String filter, Pageable pageable
     ){
