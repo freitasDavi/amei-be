@@ -16,7 +16,7 @@ import static com.dggl.amei.AmeiApplication.STRIPE_API_KEY;
 
 @RestController
 @RequestMapping("/api/pagamentos")
-public class Pagamentos extends AbstractController {
+public class PagamentosController extends AbstractController {
 
 
 
@@ -25,7 +25,7 @@ public class Pagamentos extends AbstractController {
         Stripe.apiKey = STRIPE_API_KEY;
 
         PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
-                .setAmount(10L)
+                .setAmount(1000L)
                 .setCurrency("brl")
                 .setAutomaticPaymentMethods(
                         PaymentIntentCreateParams.AutomaticPaymentMethods
@@ -40,7 +40,7 @@ public class Pagamentos extends AbstractController {
         Map<String, String> map = new HashMap<>();
         map.put("client_secret", paymentIntent.getClientSecret());
 
-        return ResponseEntity.ok().body("Novo pagamento");
+        return ResponseEntity.ok().body(map);
     }
 
 }
