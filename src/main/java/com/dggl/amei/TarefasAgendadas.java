@@ -5,6 +5,7 @@ import com.dggl.amei.repositories.OrcamentoRepository;
 import com.dggl.amei.services.OrcamentoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -20,22 +21,19 @@ public class TarefasAgendadas {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
+    @Autowired
     private OrcamentoService orcamentoService;
 
-    private OrcamentoRepository orcamentoRepository;
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(cron = "0 0 8 * * *" )
     public void excluiOrcamentoMaiorTresMeses(){
+        var orcamentos = orcamentoService.recuperarParaExpurgo();
 
-        log.info("The time is now {}", dateFormat.format(new Date()));
+        if (orcamentos == null) return;
 
-        int tempoMaximoExpurgoOrcamento = 90;
-
-
-//        for(Orcamento orcamento : orcamentoService.findAll()){
-//            if(orcamento.getDataEmissaoOrcamento().until(Instant.now(), ChronoUnit.DAYS) > tempoMaximoExpurgoOrcamento){
-//                orcamentoService.delete(orcamento.getId());
-//                log.info("Orcamento apagado {}", orcamento.getId());
-//            }
-//        }
+        log.info("Recuperamos orçamentos para excluir");
+        for (Orcamento orcamento: orcamentos) {
+            orcamentoService.delete(orcamento.getId());
+            log.info("Orçamento {} excluido", orcamento.getId());
+        }
     }
 }

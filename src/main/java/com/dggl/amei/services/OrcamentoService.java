@@ -8,6 +8,7 @@ import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.repositories.ItensOrcamentoRepository;
 import com.dggl.amei.repositories.OrcamentoRepository;
 import com.dggl.amei.repositories.OrdemServicoRepository;
+import org.joda.time.Instant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,6 +49,12 @@ public class OrcamentoService {
 
     public Page<Orcamento> findAll(String filter, Pageable pageable){
         return repository.findAll(filter, Orcamento.class, pageable);
+    }
+
+    public List<Orcamento> recuperarParaExpurgo () {
+        LocalDateTime dias = LocalDateTime.now().plus(90, ChronoUnit.DAYS);
+
+        return repository.findAllByDataEmissaoOrcamentoGreaterThan(dias);
     }
 
     public Orcamento findById(Long id){
