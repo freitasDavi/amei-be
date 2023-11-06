@@ -5,6 +5,7 @@ import com.dggl.amei.configuration.security.services.UserDetailsImpl;
 import com.dggl.amei.dtos.requests.SignupRequest;
 import com.dggl.amei.dtos.responses.JwtResponse;
 import com.dggl.amei.dtos.responses.MessageResponse;
+import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.RefreshToken;
 import com.dggl.amei.models.Role;
 import com.dggl.amei.models.User;
@@ -140,5 +141,13 @@ public class UserService {
                 signupRequest.getBairroUsuario()
         );
 
+    }
+
+    public User getUserData (Long id) {
+        var user = userRepository.findById(id);
+
+        if (user.isEmpty()) throw new RecursoNaoEncontrado("Usuário", id);
+
+        return user.get();
     }
 }

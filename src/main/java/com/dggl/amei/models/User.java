@@ -1,6 +1,7 @@
 package com.dggl.amei.models;
 
 import com.dggl.amei.models.Role;
+import com.dggl.amei.models.enums.EnumPlanoAtivo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -85,6 +86,10 @@ public class User {
     @Column(name = "COMPLEMENTO")
     private String complementoUsuario;
 
+    @Column(name = "PLANO")
+    @Enumerated(EnumType.ORDINAL)
+    private EnumPlanoAtivo plano;
+
 //    ---
 
     //@NotBlank
@@ -142,6 +147,7 @@ public class User {
         this.complementoUsuario = complementoUsuario;
         this.usuarioCidade = usuarioCidade;
         this.usuarioBairro = usuarioBairro;
+        this.plano = EnumPlanoAtivo.FREE;
     }
 
     public Long getId() {
@@ -150,6 +156,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public EnumPlanoAtivo getPlano() {
+        return plano;
+    }
+
+    public void setPlano(EnumPlanoAtivo plano) {
+        this.plano = plano;
     }
 
     public String getUsername() {
