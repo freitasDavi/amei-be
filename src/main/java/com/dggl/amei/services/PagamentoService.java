@@ -37,7 +37,8 @@ public class PagamentoService {
 
         pagamentosRepository.save(novoPagamento);
 
-        user.setPlano(EnumPlanoAtivo.MEI);
+        var plano = invoice.getAmountPaid() == 10L ? EnumPlanoAtivo.MEI : EnumPlanoAtivo.ME;
+        user.setPlano(plano);
         userRepository.save(user);
     }
 

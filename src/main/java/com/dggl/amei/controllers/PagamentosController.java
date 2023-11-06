@@ -1,6 +1,7 @@
 package com.dggl.amei.controllers;
 
 import com.dggl.amei.configuration.security.services.UserDetailsImpl;
+import com.dggl.amei.models.enums.EnumPlanoAtivo;
 import com.dggl.amei.services.PagamentoService;
 import com.google.gson.JsonSyntaxException;
 import com.stripe.Stripe;
@@ -106,17 +107,22 @@ public class PagamentosController extends AbstractController {
         return ResponseEntity.ok().body("Pagamento Recebido com sucesso!");
     }
 
-    @GetMapping("/novaAssinatura")
-    public ResponseEntity novaAssinatura (Authentication authentication) throws StripeException {
+    @GetMapping("/novaAssinatura/{plano}")
+    public ResponseEntity novaAssinatura (
+            Authentication authentication,
+            @PathVariable EnumPlanoAtivo plano) throws StripeException {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         Stripe.apiKey = STRIPE_API_KEY;
+        var planoEscolhido =  plano == EnumPlanoAtivo.MEI ?
+                "price_1O9UTjEz6oa2bkpUtU8UNakW"
+                : "price_1O9a2gEz6oa2bkpU3Uy6o72i";
 
         SessionCreateParams params =
                 SessionCreateParams.builder()
                         .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
                         .addLineItem(
                                 SessionCreateParams.LineItem.builder()
-                                        .setPrice("price_1O9UTjEz6oa2bkpUtU8UNakW")
+                                        .setPrice(planoEscolhido)
                                         .setQuantity(1L)
                                         .build()
                         )
