@@ -3,8 +3,7 @@ package com.dggl.amei.controllers;
 import com.google.gson.JsonSyntaxException;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
-import com.stripe.model.Event;
-import com.stripe.model.PaymentIntent;
+import com.stripe.model.*;
 import com.stripe.net.ApiResource;
 import com.stripe.param.PaymentIntentCreateParams;
 import org.apache.coyote.Response;
@@ -55,10 +54,41 @@ public class PagamentosController extends AbstractController {
             return ResponseEntity.badRequest().body("Webhook error while parsing basic request.");
         }
 
+        System.out.println(event.getId());
+        System.out.println(event.getType());
+        System.out.println(event.getData().getObject().getClass());
 
+        System.out.println("versão a API + " + Stripe.API_VERSION);
+        System.out.println("versão do evento + " + event.getApiVersion());
 
+        // Deserializae the nested object inside the event
+        EventDataObjectDeserializer dataObjectDeserializer = event.getDataObjectDeserializer();
+        StripeObject stripeObject = null;
+        if (dataObjectDeserializer.getObject().isPresent()) {
+            stripeObject = dataObjectDeserializer.getObject().get();
+        } else {
+            // Deserialization failed, probably due to an API version mismatch.
+            // Refer to the Javadoc documentation on `EventDataObjectDeserializer` for
+            // instructions on how to handle this case, or return an error here.
+        }
 
-        return ResponseEntity.ok().body("ok");
+        switch (event.getType()) {
+            case "payment_intent.succeeded":
+                PaymentIntent paymentIntent = (PaymentIntent) stripeObject;
+                System.out.println("Payment for " + paymentIntent.getAmount() + " succeeded");
+                // Then define and call a method to handle the successful payment intent.
+                // handlePaymentIntentSucceeded(paymentIntent);
+                break;
+            case "payment_method.attached":
+                PaymentMethod paymentMethod = (PaymentMethod) stripeObject;
+                // Then define and call a method to handle the successful attachment of a PaymentMethod.
+                // handlePaymentMethodAttached(paymentMethod);
+                break;
+            default:
+                System.out.println("Unhandled event type: " + event.getType());
+        }
+
+        return ResponseEntity.ok().body("Pagamento Recebido com sucesso!");
     }
 
 }
