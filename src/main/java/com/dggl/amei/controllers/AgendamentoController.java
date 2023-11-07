@@ -62,8 +62,11 @@ public class AgendamentoController extends AbstractController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Agendamento> update(@PathVariable Long id, @RequestBody Agendamento obj){
-        obj = service.update(id, obj);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<AgendamentoResponseDTO> update(@PathVariable Long id, @RequestBody AgendamentoRequestDTO obj){
+        var entity  = service.update(id, obj);
+
+        var dto = AgendamentoResponseDTO.fromEntity(entity);
+
+        return ResponseEntity.ok().body(dto);
     }
 }

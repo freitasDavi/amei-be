@@ -55,11 +55,20 @@ public class AgendamentoService {
         }
     }
 
-    public Agendamento update(Long id, Agendamento obj){
+    public Agendamento update(Long id, AgendamentoRequestDTO obj){
         try {
-            Agendamento entity = repository.getReferenceById(id);
-            updateDados(entity, obj);
-            return repository.save(entity);
+            Optional<Agendamento> entity = repository.findById(id);
+
+            if (entity.isEmpty()) throw new RecursoNaoEncontrado(task, id);
+
+            var entidade = entity.get();
+
+            obj.toEntity(entidade);
+
+            repository.save(entidade);
+
+            return entidade;
+
         }catch (EntityNotFoundException e){
             throw new RecursoNaoEncontrado(task, id);
         }

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class AgendamentoResponseDTO {
 
     private Long id;
-
+    private String nomeAgendamento;
     private LocalDate dataAgendamento;
 
     private String enderecoAgendamento;
@@ -42,6 +42,7 @@ public class AgendamentoResponseDTO {
         dto.setClienteAgendamento(agendamento.getClienteAgendamento());
         dto.setAgendamentoCidade(agendamento.getAgendamentoCidade());
         dto.setAgendamentoBairro(agendamento.getAgendamentoBairro());
+        dto.setNomeAgendamento(agendamento.getNomeAgendamento());
 
         return dto;
     }
@@ -62,6 +63,14 @@ public class AgendamentoResponseDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNomeAgendamento() {
+        return nomeAgendamento;
+    }
+
+    public void setNomeAgendamento(String nomeAgendamento) {
+        this.nomeAgendamento = nomeAgendamento;
     }
 
     public void setDataAgendamento(LocalDate dataAgendamento) {
