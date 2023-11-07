@@ -44,12 +44,6 @@ public class OrdemServico {
     @OneToMany(mappedBy = "ordemItens")
     private List<ItensOrdemServico> itensOrdemServicos;
 
-//    ----
-    @OneToMany
-    @JoinColumn(name = "ITEMS_ORDEM", referencedColumnName = "id")
-    private List<ItensOrcamento> items;
-
-
     public Long getId() {
         return id;
     }

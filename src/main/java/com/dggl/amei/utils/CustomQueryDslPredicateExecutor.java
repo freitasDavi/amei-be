@@ -21,4 +21,6 @@ public interface CustomQueryDslPredicateExecutor<T> extends QuerydslPredicateExe
         BooleanBuilder booleanBuilder = BooleanBuilderUtil.buildPredicateFromFilter(filter, entityType);
         return this.findAll(booleanBuilder, pageable);
     }
+
+    // ContextHolder interceptor
 }
