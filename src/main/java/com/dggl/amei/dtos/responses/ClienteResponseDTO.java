@@ -64,6 +64,22 @@ public class ClienteResponseDTO {
         return clientes;
     }
 
+    public void toEntity(Clientes clientes) {
+        clientes.setCepCliente(getCepCliente());
+        clientes.setEmailCliente(getEmailCliente());
+        clientes.setCnpjCliente(getCnpjCliente());
+        clientes.setComplementoCliente(getComplementoCliente());
+        clientes.setInscricaoMunicipal(getInscricaoMunicipal());
+        clientes.setEnderecoCliente(getEnderecoCliente());
+        clientes.setNomeCliente(getNomeCliente());
+        clientes.setTelefoneCliente(getTelefoneCliente());
+        clientes.setNumeroCliente(getNumeroCliente());
+        clientes.setUsuarioCliente(new User(getUsuarioCliente()));
+        clientes.setClienteCidade(new Cidade(getClienteCidade()));
+        clientes.setClienteBairro(new Bairro(getClienteBairro().getId()));
+
+    }
+
     public static Page<ClienteResponseDTO> fromEntity(Page<Clientes> clientes)
     {
         List<ClienteResponseDTO> clientsL = clientes.stream().map(ClienteResponseDTO::fromEntity).toList();
