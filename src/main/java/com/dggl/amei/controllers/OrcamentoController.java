@@ -21,14 +21,14 @@ public class OrcamentoController extends AbstractController {
     private OrcamentoService service;
 
     @GetMapping
-    public ResponseEntity<List<Orcamento>> findAll(
+    public ResponseEntity<Page<Orcamento>> findAll(
             @RequestParam(required = false) String filter,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ){
         Page<Orcamento> orcamentos = service.findAll(filter, PageRequest.of(page, size));
 
-        return ResponseEntity.ok().body(orcamentos.getContent());
+        return ResponseEntity.ok().body(orcamentos);
     }
 
     @GetMapping(value = "/{id}")
