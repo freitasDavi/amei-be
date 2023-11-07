@@ -44,4 +44,11 @@ public class CursosController extends AbstractController {
 
         return ResponseEntity.ok("Sucessagem");
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity update(@PathVariable Long id, @RequestBody CursoResponseDTO dto) {
+        service.update(id, dto);
+
+        return ResponseEntity.ok("Sucessagem");
+    }
 }
