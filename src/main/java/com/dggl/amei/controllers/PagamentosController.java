@@ -110,10 +110,10 @@ public class PagamentosController extends AbstractController {
     @GetMapping("/novaAssinatura/{plano}")
     public ResponseEntity novaAssinatura (
             Authentication authentication,
-            @PathVariable EnumPlanoAtivo plano) throws StripeException {
+            @PathVariable int plano) throws StripeException {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         Stripe.apiKey = STRIPE_API_KEY;
-        var planoEscolhido =  plano == EnumPlanoAtivo.MEI ?
+        var planoEscolhido =  plano == 1 ?
                 "price_1O9UTjEz6oa2bkpUtU8UNakW"
                 : "price_1O9a2gEz6oa2bkpU3Uy6o72i";
 
