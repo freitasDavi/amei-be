@@ -1,6 +1,7 @@
 package com.dggl.amei.services;
 
 import com.dggl.amei.dtos.requests.NovoServicoRequest;
+import com.dggl.amei.dtos.requests.UpdateServicoRequest;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Servico;
@@ -50,21 +51,24 @@ public class ServicoService {
         }
     }
 
-    public Servico update(Long id, Servico update){
-        try {
-            Servico servicoBanco = repository.getReferenceById(id);
+    public void update(Long id, UpdateServicoRequest update){
+        var servicoBanco = repository.findById(id);
 
-            updateDados(servicoBanco, update);
+        if (servicoBanco.isPresent()) {
+            var entidade = servicoBanco.get();
+            updateDados(entidade, update);
 
-            return repository.save(servicoBanco);
-        }catch (EntityNotFoundException e){
-            throw new RecursoNaoEncontrado(task, id);
+            repository.save(entidade);
+            return;
         }
+
+        throw new RecursoNaoEncontrado(task, id);
     }
 
-    private void updateDados(Servico servicoBanco, Servico novoServico){
-        servicoBanco.setDescricaoServico(novoServico.getDescricaoServico());
-        servicoBanco.setValorServico(novoServico.getValorServico());
+    private void updateDados(Servico servicoBanco, UpdateServicoRequest request){
+        servicoBanco.setCodigoCNAE(request.getCodigoCNAE());
+        servicoBanco.setDescricaoServico(request.getDescricaoServico());
+        servicoBanco.setValorServico(request.getValorServico());
     }
 
 }
