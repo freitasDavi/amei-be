@@ -3,8 +3,11 @@ package com.dggl.amei.services;
 import com.dggl.amei.configuration.security.jwt.JwtUtils;
 import com.dggl.amei.configuration.security.services.UserDetailsImpl;
 import com.dggl.amei.dtos.requests.SignupRequest;
+import com.dggl.amei.dtos.requests.UserEnderecoRequestDTO;
+import com.dggl.amei.dtos.requests.UserGeralRequestDTO;
 import com.dggl.amei.dtos.responses.JwtResponse;
 import com.dggl.amei.dtos.responses.MessageResponse;
+import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.RefreshToken;
 import com.dggl.amei.models.Role;
 import com.dggl.amei.models.User;
@@ -140,5 +143,41 @@ public class UserService {
                 signupRequest.getBairroUsuario()
         );
 
+    }
+
+    public User getUserData (Long id) {
+        var user = userRepository.findById(id);
+
+        if (user.isEmpty()) throw new RecursoNaoEncontrado("Usuário", id);
+
+        return user.get();
+    }
+
+    public User updateInfosGerais (Long id, UserGeralRequestDTO dto) {
+        var user = userRepository.findById(id);
+
+        if (user.isEmpty()) throw new RecursoNaoEncontrado("Usuário", id);
+
+        var userFound = user.get();
+
+        dto.toEntity(userFound);
+
+        userRepository.save(userFound);
+
+        return userFound;
+    }
+
+    public User updateEndereco (Long id, UserEnderecoRequestDTO dto) {
+        var user = userRepository.findById(id);
+
+        if (user.isEmpty()) throw new RecursoNaoEncontrado("Usuário", id);
+
+        var userFound = user.get();
+
+        dto.toEntity(userFound);
+
+        userRepository.save(userFound);
+
+        return userFound;
     }
 }

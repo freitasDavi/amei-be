@@ -2,6 +2,7 @@ package com.dggl.amei.services;
 
 import com.dggl.amei.dtos.responses.CursoResponseDTO;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
+import com.dggl.amei.models.Cidade;
 import com.dggl.amei.models.Curso;
 import com.dggl.amei.repositories.CursosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,20 +35,20 @@ public class CursosService {
         repository.save(novoCurso);
     }
 
-    public void update(Long id, Curso curso) {
+    public void update(Long id, CursoResponseDTO dto) {
         Optional<Curso> cursoOptional = repository.findById(id);
 
         if (cursoOptional.isEmpty()) {
             throw new RecursoNaoEncontrado(taskName, id);
         }
 
-        Curso cursoAtualizado = cursoOptional.get();
-        cursoAtualizado.setNomeCurso(curso.getNomeCurso());
-        cursoAtualizado.setDescricao(curso.getDescricao());
-        cursoAtualizado.setUrlCurso(curso.getUrlCurso());
-        cursoAtualizado.setDataCurso(curso.getDataCurso());
-        cursoAtualizado.setCidade(curso.getCidade());
+        Curso entidade = cursoOptional.get();
+        entidade.setNomeCurso(dto.getNome());
+        entidade.setDescricao(dto.getDescricao());
+        entidade.setUrlCurso(dto.getUrl());
+        entidade.setDataCurso(dto.getData());
+        entidade.setCidade(new Cidade(dto.getCodigoCidade()));
 
-        repository.save(cursoAtualizado);
+        repository.save(entidade);
     }
 }

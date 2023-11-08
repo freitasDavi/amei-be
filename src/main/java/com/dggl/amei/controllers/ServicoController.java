@@ -1,6 +1,7 @@
 package com.dggl.amei.controllers;
 
 import com.dggl.amei.dtos.requests.NovoServicoRequest;
+import com.dggl.amei.dtos.requests.UpdateServicoRequest;
 import com.dggl.amei.models.Servico;
 import com.dggl.amei.services.ServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,13 @@ public class ServicoController extends AbstractController {
     private ServicoService service;
 
     @GetMapping
-    public ResponseEntity<List<Servico>> findAll(
+    public ResponseEntity<Page<Servico>> findAll(
             @RequestParam(required = false) String filter,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ){
         Page<Servico> listaServico = service.findAll(filter, PageRequest.of(page, size));
-        return ResponseEntity.ok().body(listaServico.getContent());
+        return ResponseEntity.ok().body(listaServico);
     }
 
     @GetMapping(value = "/{id}")
@@ -50,8 +51,8 @@ public class ServicoController extends AbstractController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Servico> update(@PathVariable Long id, @RequestBody Servico servico){
-        servico = service.update(id, servico);
-        return ResponseEntity.ok().body(servico);
+    public ResponseEntity update(@PathVariable Long id, @RequestBody UpdateServicoRequest servico){
+        service.update(id, servico);
+        return ResponseEntity.ok().body("Registro atualizado com sucesso");
     }
 }

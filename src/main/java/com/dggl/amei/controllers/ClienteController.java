@@ -55,4 +55,11 @@ public class ClienteController {
 
         return ResponseEntity.created(uri).build();
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<ClienteResponseDTO> update (@PathVariable Long id, @RequestBody ClienteResponseDTO dto) {
+        var res = service.update(id, dto);
+
+        return ResponseEntity.ok(ClienteResponseDTO.fromEntity(res));
+    }
 }

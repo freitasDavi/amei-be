@@ -26,15 +26,6 @@ public class Servico {
     @Column(name = "CODIGO_CNAE")
     private String codigoCNAE;
 
-//    ----
-
-    @ManyToOne
-    @JoinColumn(name = "ITENS_ORDEM_SERVICO", referencedColumnName = "id")
-    private ItensOrdemServico itensServico;
-
-    @ManyToOne
-    @JoinColumn(name = "ITENS_ORCAMENTO", referencedColumnName = "id")
-    private ItensOrcamento itensOrcamento;
 
     //@NotBlank
     @ManyToOne
@@ -85,22 +76,6 @@ public class Servico {
 
     public void setCodigoCNAE(String codigoCNAE) {
         this.codigoCNAE = codigoCNAE;
-    }
-
-    public ItensOrdemServico getItensServico() {
-        return itensServico;
-    }
-
-    public void setItensServico(ItensOrdemServico itensServico) {
-        this.itensServico = itensServico;
-    }
-
-    public ItensOrcamento getItensOrcamento() {
-        return itensOrcamento;
-    }
-
-    public void setItensOrcamento(ItensOrcamento itensOrcamento) {
-        this.itensOrcamento = itensOrcamento;
     }
 
     public User getServicoUsuario() {

@@ -29,22 +29,38 @@ public class AgendamentoRequestDTO {
 
     public Agendamento toEntity() {
         Agendamento agendamento = new Agendamento();
-        agendamento.setId(this.id);
-        agendamento.setNomeAgendamento(this.nomeAgendamento);
-        agendamento.setDataAgendamento(this.dataAgendamento);
-        agendamento.setEnderecoAgendamento(this.enderecoAgendamento);
-        agendamento.setResponsavelAgendamento(this.responsavelAgendamento);
-        agendamento.setTelefoneAgendamento(this.telefoneAgendamento);
-        agendamento.setTelefoneSecundario(this.telefoneSecundario);
-        agendamento.setAgendamentoCidade(new Cidade(this.codigoCidade));
-        agendamento.setAgendamentoBairro(new Bairro(this.codigoBairro));
-        agendamento.setUsuarioAgendamento(new User(this.codigoUsuario));
+        agendamento.setId(getId());
+        agendamento.setNomeAgendamento(getNomeAgendamento());
+        agendamento.setDataAgendamento(getDataAgendamento());
+        agendamento.setEnderecoAgendamento(getEnderecoAgendamento());
+        agendamento.setResponsavelAgendamento(getResponsavelAgendamento());
+        agendamento.setTelefoneAgendamento(getTelefoneAgendamento());
+        agendamento.setTelefoneSecundario(getTelefoneSecundario());
+        agendamento.setAgendamentoCidade(new Cidade(getCodigoCidade()));
+        agendamento.setAgendamentoBairro(new Bairro(getCodigoBairro()));
+        agendamento.setUsuarioAgendamento(new User(getCodigoUsuario()));
 
         if (this.codigoBairro == 0) {
-            agendamento.setClienteAgendamento(new Clientes(this.codigoCliente));
+            agendamento.setClienteAgendamento(new Clientes(getCodigoCliente()));
         }
 
         return agendamento;
+    }
+
+    public void toEntity(Agendamento agendamento) {
+        agendamento.setNomeAgendamento(getNomeAgendamento());
+        agendamento.setDataAgendamento(getDataAgendamento());
+        agendamento.setEnderecoAgendamento(getEnderecoAgendamento());
+        agendamento.setResponsavelAgendamento(getResponsavelAgendamento());
+        agendamento.setTelefoneAgendamento(getTelefoneAgendamento());
+        agendamento.setTelefoneSecundario(getTelefoneSecundario());
+        agendamento.setAgendamentoCidade(new Cidade(getCodigoCidade()));
+        agendamento.setAgendamentoBairro(new Bairro(getCodigoBairro()));
+        agendamento.setUsuarioAgendamento(new User(getCodigoUsuario()));
+
+        if (getCodigoCliente() != 0) {
+            agendamento.setClienteAgendamento(new Clientes(getCodigoCliente()));
+        }
     }
 
     public Long getId() {

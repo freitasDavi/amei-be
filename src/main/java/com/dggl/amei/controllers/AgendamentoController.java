@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/agendamentos")
@@ -19,6 +20,13 @@ public class AgendamentoController extends AbstractController {
 
     @Autowired
     private AgendamentoService service;
+
+    @GetMapping("/ultimos/{codigoUsuario}")
+    public ResponseEntity<List<AgendamentoResponseDTO>> getLatest (@PathVariable Long codigoUsuario) {
+        List<Agendamento> listaAgendamentos = service.getLatestFive(codigoUsuario);
+
+        return ResponseEntity.ok(AgendamentoResponseDTO.fromEntity(listaAgendamentos));
+    }
 
     @GetMapping
     public ResponseEntity<Page<AgendamentoResponseDTO>> findAll(
@@ -54,8 +62,11 @@ public class AgendamentoController extends AbstractController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Agendamento> update(@PathVariable Long id, @RequestBody Agendamento obj){
-        obj = service.update(id, obj);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<AgendamentoResponseDTO> update(@PathVariable Long id, @RequestBody AgendamentoRequestDTO obj){
+        var entity  = service.update(id, obj);
+
+        var dto = AgendamentoResponseDTO.fromEntity(entity);
+
+        return ResponseEntity.ok().body(dto);
     }
 }
