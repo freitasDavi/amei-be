@@ -37,6 +37,10 @@ public class ItensOrdemServicoService {
         return repository.save(itensOrdemServico);
     }
 
+    public void saveAll(List<ItensOrdemServico> listaItensOrdemServico) {
+        repository.saveAll(listaItensOrdemServico);
+    }
+
     public void delete(Long id) {
         try {
         } catch (EmptyResultDataAccessException e) {

@@ -48,6 +48,21 @@ public class ItensOrdemServico {
 //  ----
 
 
+    public ItensOrdemServico(Long id, BigDecimal valorUnitario, BigDecimal valorTotal, String descricaoItemOrdem, OrdemServico ordemItens) {
+        this.id = id;
+        this.valorUnitario = valorUnitario;
+        this.valorTotal = valorTotal;
+        this.descricaoItemOrdem = descricaoItemOrdem;
+        this.ordemItens = ordemItens;
+    }
+
+    public ItensOrdemServico(BigDecimal valorUnitario, BigDecimal valorTotal, String descricaoItemOrdem, OrdemServico ordemItens) {
+        this.valorUnitario = valorUnitario;
+        this.valorTotal = valorTotal;
+        this.descricaoItemOrdem = descricaoItemOrdem;
+        this.ordemItens = ordemItens;
+    }
+
     public Long getId() {
         return id;
     }

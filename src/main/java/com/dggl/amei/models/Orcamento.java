@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,7 +41,7 @@ public class Orcamento {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     @CreationTimestamp
     @Column(name = "DATA_EMISSAO")
-    private Instant dataEmissaoOrcamento;
+    private LocalDateTime dataEmissaoOrcamento;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "DATA_VALIDADE")
@@ -76,13 +77,6 @@ public class Orcamento {
 
 //    ----
 
-    /**
-     * Atenção Davi:
-     * Quando criar algum construtor, que vá utilizar o status do orcamento, me avisa.
-     * ass: Hahn
-     */
-
-   
     //    --
     public Orcamento() {
     }
@@ -96,7 +90,7 @@ public class Orcamento {
         this.usuarioOrcamento = usuarioOrcamento;
         this.clienteOrcamento = clienteOrcamento;
         this.itensOrcamentos = itensOrcamentos;
-        this.dataEmissaoOrcamento = Instant.now();
+        this.dataEmissaoOrcamento = LocalDateTime.now();
         this.status = StatusOrcamentoEnum.ABERTO;
     }
 
@@ -139,11 +133,11 @@ public class Orcamento {
         this.telefoneCliente = telefoneCliente;
     }
 
-    public Instant getDataEmissaoOrcamento() {
+    public LocalDateTime getDataEmissaoOrcamento() {
         return dataEmissaoOrcamento;
     }
 
-    public void setDataEmissaoOrcamento(Instant dataEmissaoOrcamento) {
+    public void setDataEmissaoOrcamento(LocalDateTime dataEmissaoOrcamento) {
         this.dataEmissaoOrcamento = dataEmissaoOrcamento;
     }
 

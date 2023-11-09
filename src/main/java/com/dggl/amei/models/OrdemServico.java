@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,7 +20,7 @@ public class OrdemServico {
     @Column(name = "id")
     private Long id;
 
-    private Integer statusOrdemServico;
+    private StatusOrdemServicoEnum statusOrdemServico;
 
     @Size(max = 11)
     @Column(name = "TELEFONE")
@@ -28,6 +29,11 @@ public class OrdemServico {
     @NotBlank
     @Column(name = "VALOR_TOTAL")
     private BigDecimal valorTotal;
+
+    @NotBlank
+    @Column(name = "DATA_EMISSÃO")
+    private LocalDateTime dataEmissaoOrdemServico;
+
 
     @NotBlank
     @ManyToOne
@@ -45,10 +51,23 @@ public class OrdemServico {
     private List<ItensOrdemServico> itensOrdemServicos;
 
 //    ----
-    @OneToMany
-    @JoinColumn(name = "ITEMS_ORDEM", referencedColumnName = "id")
-    private List<ItensOrcamento> items;
 
+    public OrdemServico() {
+    }
+
+    public OrdemServico(Long id) {
+        this.id = id;
+    }
+
+    public OrdemServico(StatusOrdemServicoEnum statusOrdemServico, String telefoneOrdem, BigDecimal valorTotal, LocalDateTime dataEmissaoOrdemServico, User usuarioOrdem, Clientes clienteOrdem, List<ItensOrdemServico> itensOrdemServicos) {
+        this.statusOrdemServico = StatusOrdemServicoEnum.AGUARDANDO_EMISSAO;
+        this.telefoneOrdem = telefoneOrdem;
+        this.valorTotal = valorTotal;
+        this.dataEmissaoOrdemServico = dataEmissaoOrdemServico;
+        this.usuarioOrdem = usuarioOrdem;
+        this.clienteOrdem = clienteOrdem;
+        this.itensOrdemServicos = itensOrdemServicos;
+    }
 
     public Long getId() {
         return id;
@@ -59,14 +78,14 @@ public class OrdemServico {
     }
 
 
-    public StatusOrdemServicoEnum getStatusOrdemServico() {
-        return StatusOrdemServicoEnum.valueOf(statusOrdemServico);
-    }
-
     public void setStatusOrdemServico(StatusOrdemServicoEnum statusOrdemServico) {
         if(statusOrdemServico != null){
-            this.statusOrdemServico = statusOrdemServico.getCodigoEnum();
+            this.statusOrdemServico = statusOrdemServico;
         }
+    }
+
+    public StatusOrdemServicoEnum getStatusOrdemServico() {
+        return statusOrdemServico;
     }
 
     public String getTelefoneOrdem() {
@@ -108,6 +127,16 @@ public class OrdemServico {
     public void setItensOrdemServicos(List<ItensOrdemServico> itensOrdemServicos) {
         this.itensOrdemServicos = itensOrdemServicos;
     }
+
+
+    public LocalDateTime getDataEmissaoOrdemServico() {
+        return dataEmissaoOrdemServico;
+    }
+
+    public void setDataEmissaoOrdemServico(LocalDateTime dataEmissaoOrdemServico) {
+        this.dataEmissaoOrdemServico = dataEmissaoOrdemServico;
+    }
+
 
     @Override
     public boolean equals(Object o) {
