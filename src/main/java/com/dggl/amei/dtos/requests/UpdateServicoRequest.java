@@ -1,6 +1,6 @@
 package com.dggl.amei.dtos.requests;
 
-public class UpdateServicoRequest extends NovoServicoRequest {
+public class UpdateServicoRequest extends NovoServicoRequest{
     public Long id;
 
     public Long getId() {

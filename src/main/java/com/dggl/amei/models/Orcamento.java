@@ -113,6 +113,14 @@ public class Orcamento {
         this.id = id;
     }
 
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
     public StatusOrcamentoEnum getStatus() {
         return status;
     }
@@ -120,16 +128,6 @@ public class Orcamento {
     public void setStatus(StatusOrcamentoEnum status) {
         this.status = status;
     }
-
-    //    public StatusOrcamentoEnum getStatusOrcamento() {
-//        return StatusOrcamentoEnum.valueOf(statusOrcamento);
-//    }
-
-//    public void setStatusOrcamento(StatusOrcamentoEnum statusOrcamento) {
-//        if(statusOrcamento != null){
-//            this.statusOrcamento = statusOrcamento;
-//        }
-//    }
 
     public String getTelefoneCliente() {
         return telefoneCliente;
