@@ -1,6 +1,7 @@
 package com.dggl.amei.services;
 
 import com.dggl.amei.dtos.requests.NovoOrcamentoRequest;
+import com.dggl.amei.dtos.requests.UpdateOrcamentoRequest;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.ItensOrcamento;
@@ -8,6 +9,7 @@ import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.repositories.ItensOrcamentoRepository;
 import com.dggl.amei.repositories.OrcamentoRepository;
 import com.dggl.amei.repositories.OrdemServicoRepository;
+import org.aspectj.weaver.ast.Or;
 import org.joda.time.Instant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -111,29 +114,75 @@ public class OrcamentoService {
         return false;
     }
 
-    public Orcamento update(Long id, Orcamento orcamento){
+    @Transactional
+    public void update(Long id, UpdateOrcamentoRequest dto){
         try{
-            if(orcamento.getOrcamentoOrdemServico() != null){
+            if(dto.getOrcamentoOrdemServico() != null){
 //                Tratar como enviar o erro para o front
             }else {
-                Orcamento orcamentoBanco = repository.getReferenceById(id);
-                updateDados(orcamentoBanco, orcamento);
-                return repository.save(orcamentoBanco);
+                Optional<Orcamento> value = repository.findById(id);
+
+                if (value.isEmpty()) {
+                    throw new RecursoNaoEncontrado(taskName, id);
+                }
+
+                var entidade = value.get();
+
+                updateDados(entidade, dto);
+
+                repository.save(entidade);
+
+                updateItemsOrcamento(id, dto.getItensOrcamentos());
+
+
             }
         }catch (EntityNotFoundException e){
             throw new RecursoNaoEncontrado(taskName, id);
         }
-        return null;
     }
 
-    private void updateDados(Orcamento orcamentoBanco, Orcamento orcamento){
-//        Ver questão de como editar os itens do orçamento
-        orcamentoBanco.setClienteOrcamento(orcamento.getClienteOrcamento());
-        orcamentoBanco.setDataValidadeOrcamento(orcamento.getDataValidadeOrcamento());
-        orcamentoBanco.setObservacoesOrcamento(orcamento.getObservacoesOrcamento());
-        orcamentoBanco.setTelefoneCliente(orcamento.getTelefoneCliente());
-        orcamentoBanco.setValorTotalDoOrcamento(orcamento.getValorTotalDoOrcamento());
+    private void updateDados(Orcamento entidade, UpdateOrcamentoRequest dto){
+        entidade.setClienteOrcamento(dto.getClienteOrcamento());
+        entidade.setDataValidadeOrcamento(dto.getDataValidadeOrcamento());
+        entidade.setObservacoesOrcamento(dto.getObservacoesOrcamento());
+        entidade.setTelefoneCliente(dto.getTelefoneCliente());
+        entidade.setValorTotalDoOrcamento(dto.getValorTotalDoOrcamento());
+        entidade.setNomeCliente(dto.getNomeCliente());
+    }
 
+    private void updateItemsOrcamento(Long codigoOrcamento, List<ItensOrcamento> items) {
+        List<ItensOrcamento> listaNovos = new LinkedList<>();
 
+        items.forEach(item -> {
+            if (item.getOrcamento() == null) {
+                listaNovos.add(new ItensOrcamento(
+                        item.getValorUnitario(),
+                        item.getValorTotal(),
+                        item.getDescricao(),
+                        new Orcamento(codigoOrcamento),
+                        item.getQuantidade()));
+            } else {
+                updateItemOrcamento(item);
+            }
+        });
+
+        itensOrcamentoRepository.saveAll(listaNovos);
+    }
+
+    private void updateItemOrcamento(ItensOrcamento item) {
+        Optional<ItensOrcamento> value = itensOrcamentoRepository.findById(item.getId());
+
+        if (value.isEmpty()) {
+            throw new RecursoNaoEncontrado(taskName, item.getId());
+        }
+
+        var entidade = value.get();
+
+        entidade.setDescricao(item.getDescricao());
+        entidade.setQuantidade(item.getQuantidade());
+        entidade.setValorTotal(item.getValorTotal());
+        entidade.setValorUnitario(item.getValorUnitario());
+
+        itensOrcamentoRepository.save(entidade);
     }
 }

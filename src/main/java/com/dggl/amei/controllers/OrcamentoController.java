@@ -1,6 +1,7 @@
 package com.dggl.amei.controllers;
 
 import com.dggl.amei.dtos.requests.NovoOrcamentoRequest;
+import com.dggl.amei.dtos.requests.UpdateOrcamentoRequest;
 import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.services.OrcamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,9 +54,9 @@ public class OrcamentoController extends AbstractController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Orcamento> update(@PathVariable Long id, @RequestBody Orcamento orcamento){
-        orcamento = service.update(id, orcamento);
-        return ResponseEntity.ok().body(orcamento);
+    public ResponseEntity update(@PathVariable Long id, @RequestBody UpdateOrcamentoRequest orcamento){
+        service.update(id, orcamento);
+        return ResponseEntity.ok().build();
     }
 
 }
