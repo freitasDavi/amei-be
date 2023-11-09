@@ -28,11 +28,11 @@ public class OrdemServico {
     @Column(name = "TELEFONE")
     private String telefoneOrdem;
 
-    @NotBlank
+//    @NotBlank
     @Column(name = "VALOR_TOTAL")
     private BigDecimal valorTotal;
 
-    @NotBlank
+//    @NotBlank
     @ManyToOne
     @JoinColumn(name = "USUARIO_ORDEM", referencedColumnName = "id")
     private User usuarioOrdem;
@@ -57,7 +57,7 @@ public class OrdemServico {
     }
 
 
-    public OrdemServico(Clientes clienteOrdem, String telefoneOrdem, BigDecimal valorTotal, User usuarioOrdem,  LocalDateTime dataEmissaoOrdemServico, StatusOrdemServicoEnum statusOrdemServico) {
+    public OrdemServico(Clientes clienteOrdem, String telefoneOrdem, BigDecimal valorTotal, User usuarioOrdem,  LocalDateTime dataEmissaoOrdemServico) {
         this.clienteOrdem = clienteOrdem;
         this.telefoneOrdem = telefoneOrdem;
         this.valorTotal = valorTotal;

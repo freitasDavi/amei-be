@@ -54,8 +54,7 @@ public class OrdemServicoService {
                 dto.getTelefoneOrdem(),
                 dto.getValorTotal(),
                 dto.getUsuarioOrdem(),
-                dto.getDataEmissaoOrdemServico(),
-                StatusOrdemServicoEnum.AGUARDANDO_EMISSAO
+                dto.getDataEmissaoOrdemServico()
         );
 
         var ordem = repository.save(ordemServico);
@@ -171,8 +170,8 @@ public class OrdemServicoService {
 
         var entidade = value.get();
 
-        entidade.setDescricaoItemOrdem(item.getDescricaoItemOrdem(),
-        entidade.setValorUnitario(item.getValorUnitario(),
+        entidade.setDescricaoItemOrdem(item.getDescricaoItemOrdem());
+        entidade.setValorUnitario(item.getValorUnitario());
         entidade.setValorTotal(item.getValorTotal());
 
         itensOrdemServicoRepository.save(entidade);

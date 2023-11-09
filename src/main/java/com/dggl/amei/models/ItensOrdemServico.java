@@ -17,11 +17,11 @@ public class ItensOrdemServico {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank
+//    @NotBlank
     @Column(name = "VALOR_UNITARIO")
     private BigDecimal valorUnitario;
 
-    @NotBlank
+//    @NotBlank
     @Column(name = "VALOR_TOTAL")
     private BigDecimal valorTotal;
 
@@ -31,7 +31,7 @@ public class ItensOrdemServico {
 
 //    ----
 
-    @NotBlank
+//    @NotBlank
     @ManyToOne
     @JoinColumn(name = "ORDEM_ITENS", referencedColumnName = "id")
     private OrdemServico OrdemDeServico;
