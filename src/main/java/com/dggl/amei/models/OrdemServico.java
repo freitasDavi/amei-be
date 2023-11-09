@@ -1,12 +1,15 @@
 package com.dggl.amei.models;
 
-import com.dggl.amei.models.enums.StatusOrcamentoEnum;
 import com.dggl.amei.models.enums.StatusOrdemServicoEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,7 +22,7 @@ public class OrdemServico {
     @Column(name = "id")
     private Long id;
 
-    private Integer statusOrdemServico;
+    private StatusOrdemServicoEnum statusOrdemServico;
 
     @Size(max = 11)
     @Column(name = "TELEFONE")
@@ -38,11 +41,34 @@ public class OrdemServico {
     @JoinColumn(name = "CLIENTE_ORDEM", referencedColumnName = "id")
     private Clientes clienteOrdem;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+    @CreationTimestamp
+    @Column(name = "DATA_EMISSAO_ORDEM")
+    private LocalDateTime dataEmissaoOrdemServico;
+
 //    ----
 
     @JsonIgnore
-    @OneToMany(mappedBy = "ordemItens")
+    @OneToMany(mappedBy = "OrdemDeServico")
     private List<ItensOrdemServico> itensOrdemServicos;
+
+    public OrdemServico() {
+
+    }
+
+
+    public OrdemServico(Clientes clienteOrdem, String telefoneOrdem, BigDecimal valorTotal, User usuarioOrdem,  LocalDateTime dataEmissaoOrdemServico, StatusOrdemServicoEnum statusOrdemServico) {
+        this.clienteOrdem = clienteOrdem;
+        this.telefoneOrdem = telefoneOrdem;
+        this.valorTotal = valorTotal;
+        this.usuarioOrdem = usuarioOrdem;
+        this.dataEmissaoOrdemServico = LocalDateTime.now();
+        this.statusOrdemServico = StatusOrdemServicoEnum.AGUARDANDO_EMISSAO;
+    }
+
+    public OrdemServico(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
@@ -52,14 +78,13 @@ public class OrdemServico {
         this.id = id;
     }
 
-
     public StatusOrdemServicoEnum getStatusOrdemServico() {
-        return StatusOrdemServicoEnum.valueOf(statusOrdemServico);
+        return statusOrdemServico;
     }
 
     public void setStatusOrdemServico(StatusOrdemServicoEnum statusOrdemServico) {
         if(statusOrdemServico != null){
-            this.statusOrdemServico = statusOrdemServico.getCodigoEnum();
+            this.statusOrdemServico = statusOrdemServico;
         }
     }
 
@@ -101,6 +126,14 @@ public class OrdemServico {
 
     public void setItensOrdemServicos(List<ItensOrdemServico> itensOrdemServicos) {
         this.itensOrdemServicos = itensOrdemServicos;
+    }
+
+    public LocalDateTime getDataEmissaoOrdemServico() {
+        return dataEmissaoOrdemServico;
+    }
+
+    public void setDataEmissaoOrdemServico(LocalDateTime dataEmissaoOrdemServico) {
+        this.dataEmissaoOrdemServico = dataEmissaoOrdemServico;
     }
 
     @Override
