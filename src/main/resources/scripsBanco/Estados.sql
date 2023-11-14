@@ -16,6 +16,7 @@ Insert into Estado (nome_estado, uf_estado) values ('Paraíba', 'PB');
 Insert into Estado (nome_estado, uf_estado) values ('Paraná', 'PR');
 Insert into Estado (nome_estado, uf_estado) values ('Pernambuco', 'PE');
 Insert into Estado (nome_estado, uf_estado) values ('Piauí', 'PI');
+Insert into Estado (nome_estado, uf_estado) values ('Santa Catarina', 'SC');
 Insert into Estado (nome_estado, uf_estado) values ('Rio de Janeiro', 'RJ');
 Insert into Estado (nome_estado, uf_estado) values ('Rio Grande do Norte', 'RN');
 Insert into Estado (nome_estado, uf_estado) values ('Rio Grande do Sul', 'RS');
