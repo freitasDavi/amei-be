@@ -26,6 +26,7 @@ import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -63,6 +64,19 @@ public class OrcamentoService {
     public Orcamento findById(Long id){
         Optional<Orcamento> orcamento = repository.findById(id);
         return orcamento.orElseThrow(() -> new RecursoNaoEncontrado(taskName, id));
+    }
+
+    public List<Orcamento> buscaOrcamentoPorPeriodo(LocalDateTime dataInicio, LocalDateTime dataFim){
+
+        List<Orcamento> orcamentos = repository.findAll();
+        List<Orcamento> orcamentosFiltrados = new LinkedList<>();
+        for(Orcamento orcamento : orcamentos){
+            if((orcamento.getDataEmissaoOrcamento().isAfter(dataInicio)) && orcamento.getDataEmissaoOrcamento().isBefore(dataFim)){
+                orcamentosFiltrados.add(orcamento);
+            }
+        }
+
+        return orcamentosFiltrados;
     }
 
     public Orcamento insert(NovoOrcamentoRequest dto){
@@ -141,7 +155,7 @@ public class OrcamentoService {
         }
     }
 
-    private void updateDados(Orcamento entidade, UpdateOrcamentoRequest dto){
+    public void updateDados(Orcamento entidade, UpdateOrcamentoRequest dto){
         entidade.setClienteOrcamento(dto.getClienteOrcamento());
         entidade.setDataValidadeOrcamento(dto.getDataValidadeOrcamento());
         entidade.setObservacoesOrcamento(dto.getObservacoesOrcamento());
@@ -150,7 +164,7 @@ public class OrcamentoService {
         entidade.setNomeCliente(dto.getNomeCliente());
     }
 
-    private void updateItemsOrcamento(Long codigoOrcamento, List<ItensOrcamento> items) {
+    public void updateItemsOrcamento(Long codigoOrcamento, List<ItensOrcamento> items) {
         List<ItensOrcamento> listaNovos = new LinkedList<>();
 
         items.forEach(item -> {
@@ -169,7 +183,7 @@ public class OrcamentoService {
         itensOrcamentoRepository.saveAll(listaNovos);
     }
 
-    private void updateItemOrcamento(ItensOrcamento item) {
+    public void updateItemOrcamento(ItensOrcamento item) {
         Optional<ItensOrcamento> value = itensOrcamentoRepository.findById(item.getId());
 
         if (value.isEmpty()) {
