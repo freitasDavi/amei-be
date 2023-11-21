@@ -9,8 +9,8 @@ import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.repositories.ItensOrcamentoRepository;
 import com.dggl.amei.repositories.OrcamentoRepository;
 import com.dggl.amei.repositories.OrdemServicoRepository;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
+import org.aspectj.weaver.ast.Or;
+import org.joda.time.Instant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +18,15 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import java.io.IOException;
-import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -66,9 +66,18 @@ public class OrcamentoService {
         return orcamento.orElseThrow(() -> new RecursoNaoEncontrado(taskName, id));
     }
 
-//    public List<Orcamento> buscarRegistroEntreDatas(LocalDateTime dataInicio, LocalDateTime dataFim){
-//        return repository.findByDataBetween(dataInicio, dataFim);
-//    }
+    public List<Orcamento> buscaOrcamentoPorPeriodo(LocalDateTime dataInicio, LocalDateTime dataFim){
+
+        List<Orcamento> orcamentos = repository.findAll();
+        List<Orcamento> orcamentosFiltrados = new LinkedList<>();
+        for(Orcamento orcamento : orcamentos){
+            if((orcamento.getDataEmissaoOrcamento().isAfter(dataInicio)) && orcamento.getDataEmissaoOrcamento().isBefore(dataFim)){
+                orcamentosFiltrados.add(orcamento);
+            }
+        }
+
+        return orcamentosFiltrados;
+    }
 
     public Orcamento insert(NovoOrcamentoRequest dto){
         var orcamento = new Orcamento(
@@ -190,44 +199,4 @@ public class OrcamentoService {
 
         itensOrcamentoRepository.save(entidade);
     }
-
-//    ---
-
-    public void exportaOrcamentoParaCsvPorPeriodo(Writer writer, LocalDateTime dataInicio, LocalDateTime dataFim){
-
-        List<Orcamento> orcamentos = repository.findByDataBetween(dataInicio, dataFim);
-
-        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
-            csvPrinter.printRecord("Cliente", "Status Orçamento", "Data Emissão", "Valor Total");
-            for(Orcamento orcamento : orcamentos){
-                csvPrinter.printRecord(
-                        orcamento.getNomeCliente(),
-                        orcamento.getStatus(),
-                        orcamento.getDataEmissaoOrcamento(),
-                        orcamento.getValorTotalDoOrcamento()
-                );
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void exportaOrcamentoParaCsv(Writer writer){
-
-        List<Orcamento> orcamentos = repository.findAll();
-        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
-            csvPrinter.printRecord("Cliente", "Status Orçamento", "Data Emissão", "Valor Total");
-            for(Orcamento orcamento : orcamentos){
-                csvPrinter.printRecord(
-                        orcamento.getNomeCliente(),
-                        orcamento.getStatus(),
-                        orcamento.getDataEmissaoOrcamento(),
-                        orcamento.getValorTotalDoOrcamento()
-                );
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }
