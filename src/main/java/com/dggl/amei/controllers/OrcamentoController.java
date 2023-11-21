@@ -51,15 +51,15 @@ public class  OrcamentoController extends AbstractController {
         servletResponse.setContentType("text/csv");
         servletResponse.addHeader("Contente-Disposition", "attachment; filename=\"orcamentos.csv\"");
 
-        csvExportService.exportaOrcamentoParaCsvPorPeriodo(servletResponse.getWriter(), dto.getDataInicio(), dto.getDataFim());
+        service.exportaOrcamentoParaCsvPorPeriodo(servletResponse.getWriter(), dto.getDataInicio(), dto.getDataFim());
 
     }
 
-    @GetMapping(value = "/downloadCsv")
+    @RequestMapping(value = "/api/orcamentos/download")
     public void exportaOrcamentoParaCsv(HttpServletResponse servletResponse) throws IOException {
         servletResponse.setContentType("text/csv");
         servletResponse.addHeader("Content-Disposition", "attachment; filename=\"orcamentos.csv\"");
-        csvExportService.exportaOrcamentoParaCsv(servletResponse.getWriter());
+        service.exportaOrcamentoParaCsv(servletResponse.getWriter());
     }
 
 
