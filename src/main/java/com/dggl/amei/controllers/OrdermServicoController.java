@@ -1,9 +1,6 @@
 package com.dggl.amei.controllers;
 
-import com.dggl.amei.dtos.requests.NovoOrcamentoRequest;
-import com.dggl.amei.dtos.requests.NovoOrdemServicoRequest;
-import com.dggl.amei.dtos.requests.UpdateOrcamentoRequest;
-import com.dggl.amei.dtos.requests.UpdateOrdemServicoRequest;
+import com.dggl.amei.dtos.requests.*;
 import com.dggl.amei.dtos.responses.OrdemServicoResponseDTO;
 import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.models.OrdemServico;
@@ -15,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -41,6 +40,22 @@ public class OrdermServicoController extends AbstractController {
         OrdemServico obj = service.findById(id);
 
         return ResponseEntity.ok().body(OrdemServicoResponseDTO.fromEntity(obj));
+    }
+
+    @PostMapping(value = "/downloadCsvPorDatas")
+    public void exportaOrdemDeServicioParaCsvPorPeriodo(HttpServletResponse servletResponse, @RequestBody PeriodoDTO dto) throws IOException {
+        servletResponse.setContentType("text/csv");
+        servletResponse.addHeader("Contente-Disposition", "attachment; filename=\"ordensDeServico.csv\"");
+
+        service.exportaOrdemDeServicoParaCsvPorPeriodo(servletResponse.getWriter(), dto.getDataInicio(), dto.getDataFim());
+
+    }
+
+    @RequestMapping(value = "/api/ordemDeServico/download")
+    public void exportaOrdemDeServicoParaCsv(HttpServletResponse servletResponse) throws IOException {
+        servletResponse.setContentType("text/csv");
+        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"ordensDeServico.csv\"");
+        service.exportaOrdemDeServicoParaCsv(servletResponse.getWriter());
     }
 
     @PostMapping

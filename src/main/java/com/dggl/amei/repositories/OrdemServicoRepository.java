@@ -15,6 +15,6 @@ import java.util.List;
 @Repository
 public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long>, CustomQueryDslPredicateExecutor<OrdemServico> {
 
-//    @Query("SELECT e FROM OrdemServico e WHERE e. >= :dataInicio AND e.dataEmissaoOrcamento <= :dataFim")
-//    List<Orcamento> findByDataBetween(@Param("dataInicio") LocalDateTime dataInicio, @Param("dataFim") LocalDateTime dataFim);
+    @Query("SELECT e FROM OrdemServico e WHERE e.dataEmissaoOrdemServico >= :dataInicio AND e.dataEmissaoOrdemServico <= :dataFim")
+    List<OrdemServico> findByDataBetween(@Param("dataInicio") LocalDateTime dataInicio, @Param("dataFim") LocalDateTime dataFim);
 }

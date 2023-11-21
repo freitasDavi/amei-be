@@ -6,10 +6,13 @@ import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.ItensOrcamento;
 import com.dggl.amei.models.ItensOrdemServico;
+import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.models.OrdemServico;
 import com.dggl.amei.models.enums.StatusOrdemServicoEnum;
 import com.dggl.amei.repositories.ItensOrdemServicoRepository;
 import com.dggl.amei.repositories.OrdemServicoRepository;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -19,6 +22,8 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.io.Writer;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -175,6 +180,45 @@ public class OrdemServicoService {
         entidade.setValorTotal(item.getValorTotal());
 
         itensOrdemServicoRepository.save(entidade);
+    }
+
+
+    public void exportaOrdemDeServicoParaCsvPorPeriodo(Writer writer, LocalDateTime dataInicio, LocalDateTime dataFim){
+
+        List<OrdemServico> ordens = repository.findByDataBetween(dataInicio, dataFim);
+
+        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
+            csvPrinter.printRecord("Cliente", "Status da Ordem", "Data de Emissão", "Valor Total");
+            for(OrdemServico ordemDeServico : ordens){
+                csvPrinter.printRecord(
+                        ordemDeServico.getClienteOrdem(),
+                        ordemDeServico.getStatusOrdemServico(),
+                        ordemDeServico.getDataEmissaoOrdemServico(),
+                        ordemDeServico.getValorTotal()
+                );
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void exportaOrdemDeServicoParaCsv(Writer writer){
+
+        List<OrdemServico> ordens = repository.findAll();
+
+        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
+            csvPrinter.printRecord("Cliente", "Status da Ordem", "Data de Emissão", "Valor Total");
+            for(OrdemServico ordemDeServico : ordens){
+                csvPrinter.printRecord(
+                        ordemDeServico.getClienteOrdem(),
+                        ordemDeServico.getStatusOrdemServico(),
+                        ordemDeServico.getDataEmissaoOrdemServico(),
+                        ordemDeServico.getValorTotal()
+                );
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
