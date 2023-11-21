@@ -1,6 +1,11 @@
 package com.dggl.amei.controllers;
 
+import com.dggl.amei.dtos.requests.NovoOrcamentoRequest;
+import com.dggl.amei.dtos.requests.NovoOrdemServicoRequest;
+import com.dggl.amei.dtos.requests.UpdateOrcamentoRequest;
+import com.dggl.amei.dtos.requests.UpdateOrdemServicoRequest;
 import com.dggl.amei.dtos.responses.OrdemServicoResponseDTO;
+import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.models.OrdemServico;
 import com.dggl.amei.services.OrdemServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +44,12 @@ public class OrdermServicoController extends AbstractController {
     }
 
     @PostMapping
-    public ResponseEntity<OrdemServico> insert(@RequestBody OrdemServico ordemServico){
-        ordemServico = service.insert(ordemServico);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(ordemServico.getId()).toUri();
-        return ResponseEntity.created(uri).body(ordemServico);
+    public ResponseEntity<OrdemServico> insert(@RequestBody NovoOrdemServicoRequest ordemServico){
+        var ordemSalva = service.insert(ordemServico);
+
+        //URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(orcamento.getId()).toUri();
+
+        return ResponseEntity.ok(ordemSalva);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -52,9 +59,9 @@ public class OrdermServicoController extends AbstractController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<OrdemServico> update(@PathVariable Long id, @RequestBody OrdemServico ordemServico){
-        ordemServico = service.update(id, ordemServico);
-        return ResponseEntity.ok().body(ordemServico);
+    public ResponseEntity update(@PathVariable Long id, @RequestBody UpdateOrdemServicoRequest ordemServico){
+        service.update(id, ordemServico);
+        return ResponseEntity.ok().build();
     }
 
 
