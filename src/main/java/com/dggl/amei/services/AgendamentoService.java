@@ -25,7 +25,7 @@ public class AgendamentoService {
     private String task = "Agendamento";
 
     public List<Agendamento> getLatestFive (Long id) {
-        return repository.getAgendamentosByUsuarioAgendamento_IdOrderByDataAgendamentoDesc(id);
+        return repository.getAgendamentosByUsuarioAgendamento_IdOrderByDataAgendamentoAsc(id);
     }
 
     public Page<Agendamento> findAll(

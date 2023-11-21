@@ -54,7 +54,7 @@ public class ClienteResponseDTO {
         clientes.setComplementoCliente(this.complementoCliente);
         clientes.setInscricaoMunicipal(this.inscricaoMunicipal);
         clientes.setEnderecoCliente(this.enderecoCliente);
-        clientes.setNomeCliente(this.numeroCliente);
+        clientes.setNomeCliente(this.nomeCliente);
         clientes.setTelefoneCliente(this.telefoneCliente);
         clientes.setNumeroCliente(this.numeroCliente);
         clientes.setUsuarioCliente(new User(this.usuarioCliente));

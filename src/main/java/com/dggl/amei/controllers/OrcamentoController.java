@@ -1,6 +1,7 @@
 package com.dggl.amei.controllers;
 
 import com.dggl.amei.dtos.requests.NovoOrcamentoRequest;
+import com.dggl.amei.dtos.requests.PeriodoDTO;
 import com.dggl.amei.dtos.requests.UpdateOrcamentoRequest;
 import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.services.CsvExportService;
@@ -45,19 +46,19 @@ public class  OrcamentoController extends AbstractController {
         return ResponseEntity.ok().body(obj);
     }
 
-    @GetMapping(value = "/downloadCsv/{dataInicio},{dataFim}")
-    public void exportaOrcamentoParaCsvPorPeriodo(HttpServletResponse servletResponse, @RequestParam LocalDateTime dataInicio, @RequestParam LocalDateTime dataFim) throws IOException {
+    @PostMapping(value = "/downloadCsvPorDatas")
+    public void exportaOrcamentoParaCsvPorPeriodo(HttpServletResponse servletResponse, @RequestBody PeriodoDTO dto) throws IOException {
         servletResponse.setContentType("text/csv");
         servletResponse.addHeader("Contente-Disposition", "attachment; filename=\"orcamentos.csv\"");
 
-        csvExportService.exportaOrcamentoParaCsvPorPeriodo(servletResponse.getWriter(), dataInicio, dataFim);
+        csvExportService.exportaOrcamentoParaCsvPorPeriodo(servletResponse.getWriter(), dto.getDataInicio(), dto.getDataFim());
 
     }
 
     @GetMapping(value = "/downloadCsv")
     public void exportaOrcamentoParaCsv(HttpServletResponse servletResponse) throws IOException {
         servletResponse.setContentType("text/csv");
-        servletResponse.addHeader("Contente-Disposition", "attachment; filename=\"orcamentos.csv\"");
+        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"orcamentos.csv\"");
         csvExportService.exportaOrcamentoParaCsv(servletResponse.getWriter());
     }
 
