@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface AgendamentoRepository extends JpaRepository<Agendamento, Long>, CustomQueryDslPredicateExecutor<Agendamento> {
 
-    List<Agendamento> getAgendamentosByUsuarioAgendamento_IdOrderByDataAgendamentoDesc(Long userId);
+    List<Agendamento> getAgendamentosByUsuarioAgendamento_IdOrderByDataAgendamentoAsc(Long userId);
 }
