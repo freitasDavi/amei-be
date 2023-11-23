@@ -5,7 +5,10 @@ import com.dggl.amei.dtos.responses.AgendamentoResponseDTO;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Agendamento;
+import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.repositories.AgendamentoRepository;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -14,6 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.IOException;
+import java.io.Writer;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +49,10 @@ public class AgendamentoService {
         var novoAgendamento = obj.toEntity();
 
         repository.save(novoAgendamento);
+    }
+
+    public List<Agendamento> buscarRegistroEntreDatas(LocalDateTime dataInicio, LocalDateTime dataFim){
+        return repository.findByDataBetween(dataInicio, dataFim);
     }
 
     public void delete(Long id){
@@ -84,6 +94,50 @@ public class AgendamentoService {
         entity.setTelefoneAgendamento(obj.getTelefoneAgendamento());
         entity.setTelefoneSecundario(obj.getTelefoneSecundario());
 
+    }
+
+
+//    --
+
+    public void exportaAgendamentoParaCsvPorPeriodo(Writer writer, LocalDateTime dataInicio, LocalDateTime dataFim){
+
+        List<Agendamento> agendamentos = repository.findByDataBetween(dataInicio, dataFim);
+
+        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
+            csvPrinter.printRecord("Cliente", "Cidade" , "Bairro", "Endereço", "Responsavel", "Data");
+            for(Agendamento agendamento : agendamentos){
+                csvPrinter.printRecord(
+                        agendamento.getClienteAgendamento(),
+                        agendamento.getAgendamentoCidade(),
+                        agendamento.getAgendamentoBairro(),
+                        agendamento.getEnderecoAgendamento(),
+                        agendamento.getResponsavelAgendamento(),
+                        agendamento.getDataAgendamento()
+                );
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void exportaAgendamentoParaCsv(Writer writer){
+
+        List<Agendamento> agendamentos = repository.findAll();
+        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
+            csvPrinter.printRecord("Cliente", "Cidade" , "Bairro", "Endereço", "Responsavel", "Data");
+            for(Agendamento agendamento : agendamentos){
+                csvPrinter.printRecord(
+                        agendamento.getClienteAgendamento(),
+                        agendamento.getAgendamentoCidade(),
+                        agendamento.getAgendamentoBairro(),
+                        agendamento.getEnderecoAgendamento(),
+                        agendamento.getResponsavelAgendamento(),
+                        agendamento.getDataAgendamento()
+                );
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

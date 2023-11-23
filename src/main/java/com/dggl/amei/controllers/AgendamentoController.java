@@ -1,6 +1,7 @@
 package com.dggl.amei.controllers;
 
 import com.dggl.amei.dtos.requests.AgendamentoRequestDTO;
+import com.dggl.amei.dtos.requests.PeriodoDTO;
 import com.dggl.amei.dtos.responses.AgendamentoResponseDTO;
 import com.dggl.amei.models.Agendamento;
 import com.dggl.amei.services.AgendamentoService;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -44,6 +47,22 @@ public class AgendamentoController extends AbstractController {
         Agendamento obj = service.findById(id);
 
         return ResponseEntity.ok().body(AgendamentoResponseDTO.fromEntity(obj));
+    }
+
+    @PostMapping(value = "/downloadCsvPorDatas")
+    public void exportaAgendamentoParaCsvPorPeriodo(HttpServletResponse servletResponse, @RequestBody PeriodoDTO dto) throws IOException {
+        servletResponse.setContentType("text/csv");
+        servletResponse.addHeader("Contente-Disposition", "attachment; filename=\"agendamentos.csv\"");
+
+        service.exportaAgendamentoParaCsvPorPeriodo(servletResponse.getWriter(), dto.getDataInicio(), dto.getDataFim());
+
+    }
+
+    @RequestMapping(value = "/api/agendamentos/download")
+    public void exportaAgendamentoParaCsv(HttpServletResponse servletResponse) throws IOException {
+        servletResponse.setContentType("text/csv");
+        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"agendamentos.csv\"");
+        service.exportaAgendamentoParaCsv(servletResponse.getWriter());
     }
 
     @PostMapping

@@ -4,11 +4,14 @@ import com.dggl.amei.dtos.requests.NovoOrcamentoRequest;
 import com.dggl.amei.dtos.requests.UpdateOrcamentoRequest;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
+import com.dggl.amei.models.Agendamento;
 import com.dggl.amei.models.ItensOrcamento;
 import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.repositories.ItensOrcamentoRepository;
 import com.dggl.amei.repositories.OrcamentoRepository;
 import com.dggl.amei.repositories.OrdemServicoRepository;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.aspectj.weaver.ast.Or;
 import org.joda.time.Instant;
 import org.slf4j.Logger;
@@ -23,6 +26,8 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -198,5 +203,40 @@ public class OrcamentoService {
         entidade.setValorUnitario(item.getValorUnitario());
 
         itensOrcamentoRepository.save(entidade);
+    }
+
+    public void exportaOrcamentoParaCsvPorPeriodo(Writer writer, LocalDateTime dataInicio, LocalDateTime dataFim){
+
+        List<Orcamento> orcamentos = repository.findByDataBetween(dataInicio, dataFim);
+
+        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
+            csvPrinter.printRecord("Cliente", "Data Emissão", "Valor Total");
+            for(Orcamento orcamento : orcamentos){
+                csvPrinter.printRecord(
+                       orcamento.getNomeCliente(),
+                       orcamento.getDataEmissaoOrcamento(),
+                       orcamento.getValorTotalDoOrcamento()
+                );
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void exportaOrcamentoParaCsv(Writer writer){
+
+        List<Orcamento> orcamentos = repository.findAll();
+        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
+            csvPrinter.printRecord("Cliente", "Data Emissão", "Valor Total");
+            for(Orcamento orcamento : orcamentos){
+                csvPrinter.printRecord(
+                        orcamento.getNomeCliente(),
+                        orcamento.getDataEmissaoOrcamento(),
+                        orcamento.getValorTotalDoOrcamento()
+                );
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
