@@ -56,7 +56,7 @@ public class Agendamento {
 
     @ManyToOne
     @JoinColumn(name = "AGENDAMENTO_USUARIO", referencedColumnName = "id")
-    private User usuarioAgendamento;
+        private User usuarioAgendamento;
 
 //    ----
 

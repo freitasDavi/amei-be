@@ -1,14 +1,17 @@
 package com.dggl.amei.controllers;
 
+import com.dggl.amei.configuration.security.services.UserDetailsImpl;
 import com.dggl.amei.dtos.requests.AgendamentoRequestDTO;
 import com.dggl.amei.dtos.requests.PeriodoDTO;
 import com.dggl.amei.dtos.responses.AgendamentoResponseDTO;
+import com.dggl.amei.dtos.responses.relatorios.AgendamentoPorClienteDTO;
 import com.dggl.amei.models.Agendamento;
 import com.dggl.amei.services.AgendamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -35,9 +38,11 @@ public class AgendamentoController extends AbstractController {
     public ResponseEntity<Page<AgendamentoResponseDTO>> findAll(
             @RequestParam(required = false) String filter,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            Authentication authentication
     ){
-        Page<Agendamento> agendamentos = service.findAll(filter, PageRequest.of(page, size));
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        Page<Agendamento> agendamentos = service.findAll(filter, PageRequest.of(page, size), userDetails.getId());
 
         return ResponseEntity.ok().body(AgendamentoResponseDTO.fromEntity(agendamentos));
     }
@@ -85,6 +90,14 @@ public class AgendamentoController extends AbstractController {
         var entity  = service.update(id, obj);
 
         var dto = AgendamentoResponseDTO.fromEntity(entity);
+
+        return ResponseEntity.ok().body(dto);
+    }
+
+
+    @GetMapping(value = "/emitirRel/{codigoUsuario}")
+    public ResponseEntity<List<AgendamentoPorClienteDTO>> emitirRelatorio(@PathVariable Long codigoUsuario){
+        List<AgendamentoPorClienteDTO> dto = service.emitirRelatorio(codigoUsuario);
 
         return ResponseEntity.ok().body(dto);
     }

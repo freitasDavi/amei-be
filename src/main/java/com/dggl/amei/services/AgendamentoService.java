@@ -2,10 +2,13 @@ package com.dggl.amei.services;
 
 import com.dggl.amei.dtos.requests.AgendamentoRequestDTO;
 import com.dggl.amei.dtos.responses.AgendamentoResponseDTO;
+import com.dggl.amei.dtos.responses.relatorios.AgendamentoPorClienteDTO;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Agendamento;
 import com.dggl.amei.models.Orcamento;
+import com.dggl.amei.models.QAgendamento;
+import com.dggl.amei.models.User;
 import com.dggl.amei.repositories.AgendamentoRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -35,9 +38,9 @@ public class AgendamentoService {
     }
 
     public Page<Agendamento> findAll(
-            String filter, Pageable pageable
+            String filter, Pageable pageable, Long codigoUsuario
     ){
-        return repository.findAll(filter, Agendamento.class, pageable);
+        return repository.findAll(filter, Agendamento.class, pageable, QAgendamento.agendamento.usuarioAgendamento.id.eq(codigoUsuario));
     }
 
     public Agendamento findById(Long id){
@@ -98,6 +101,9 @@ public class AgendamentoService {
 
 
 //    --
+    public List<AgendamentoPorClienteDTO> emitirRelatorio (Long codigoUsuario) {
+        return repository.exportRelatorioAgendamentosAgrupadoPorCliente(new User(codigoUsuario));
+    }
 
     public void exportaAgendamentoParaCsvPorPeriodo(Writer writer, LocalDateTime dataInicio, LocalDateTime dataFim){
 

@@ -1,7 +1,9 @@
 package com.dggl.amei.repositories;
 
+import com.dggl.amei.dtos.responses.relatorios.AgendamentoPorClienteDTO;
 import com.dggl.amei.models.Agendamento;
 import com.dggl.amei.models.Orcamento;
+import com.dggl.amei.models.User;
 import com.dggl.amei.utils.CustomQueryDslPredicateExecutor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +20,8 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Long>,
 
     @Query("SELECT e FROM Agendamento e WHERE e.dataAgendamento >= :dataInicio AND e.dataAgendamento <= :dataFim")
     List<Agendamento> findByDataBetween(@Param("dataInicio") LocalDateTime dataInicio, @Param("dataFim") LocalDateTime dataFim);
+
+    @Query("SELECT NEW com.dggl.amei.dtos.responses.relatorios.AgendamentoPorClienteDTO(cl.nomeCliente, cl.cnpjCliente, cl.telefoneCliente, COUNT(ag.id)) " +
+            "FROM Agendamento ag  INNER JOIN Clientes cl ON ag.clienteAgendamento = cl WHERE ag.usuarioAgendamento = :codigoUsuario GROUP BY cl.nomeCliente, cl.id")
+    List<AgendamentoPorClienteDTO> exportRelatorioAgendamentosAgrupadoPorCliente(User codigoUsuario);
 }

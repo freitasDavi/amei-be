@@ -39,6 +39,7 @@ public class AgendamentoRequestDTO {
         agendamento.setAgendamentoCidade(new Cidade(getCodigoCidade()));
         agendamento.setAgendamentoBairro(new Bairro(getCodigoBairro()));
         agendamento.setUsuarioAgendamento(new User(getCodigoUsuario()));
+        agendamento.setClienteAgendamento(new Clientes(getCodigoCliente()));
 
         if (this.codigoBairro == 0) {
             agendamento.setClienteAgendamento(new Clientes(getCodigoCliente()));
