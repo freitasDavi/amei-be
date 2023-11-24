@@ -2,6 +2,7 @@ package com.dggl.amei.controllers;
 
 import com.dggl.amei.configuration.security.services.UserDetailsImpl;
 import com.dggl.amei.dtos.requests.AgendamentoRequestDTO;
+import com.dggl.amei.dtos.requests.EmissaoRelBaseRequestDTO;
 import com.dggl.amei.dtos.requests.PeriodoDTO;
 import com.dggl.amei.dtos.responses.AgendamentoResponseDTO;
 import com.dggl.amei.dtos.responses.relatorios.AgendamentoPorClienteDTO;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -98,6 +100,14 @@ public class AgendamentoController extends AbstractController {
     @GetMapping(value = "/emitirRel/{codigoUsuario}")
     public ResponseEntity<List<AgendamentoPorClienteDTO>> emitirRelatorio(@PathVariable Long codigoUsuario){
         List<AgendamentoPorClienteDTO> dto = service.emitirRelatorio(codigoUsuario);
+
+        return ResponseEntity.ok().body(dto);
+    }
+
+    @PostMapping(value = "/emitirRel")
+    public ResponseEntity<List<AgendamentoPorClienteDTO>> emitirRelatorio(
+            @RequestBody EmissaoRelBaseRequestDTO request){
+        List<AgendamentoPorClienteDTO> dto = service.emitirRelatorio(request.getCodigoUsuario(), request.getDataInicio(), request.getDataFim());
 
         return ResponseEntity.ok().body(dto);
     }

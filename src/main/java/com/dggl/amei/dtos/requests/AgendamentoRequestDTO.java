@@ -1,6 +1,5 @@
 package com.dggl.amei.dtos.requests;
 
-import com.dggl.amei.dtos.responses.AgendamentoResponseDTO;
 import com.dggl.amei.models.*;
 
 import java.time.LocalDate;

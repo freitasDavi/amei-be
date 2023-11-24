@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
 import java.io.Writer;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -103,6 +104,10 @@ public class AgendamentoService {
 //    --
     public List<AgendamentoPorClienteDTO> emitirRelatorio (Long codigoUsuario) {
         return repository.exportRelatorioAgendamentosAgrupadoPorCliente(new User(codigoUsuario));
+    }
+
+    public List<AgendamentoPorClienteDTO> emitirRelatorio (Long codigoUsuario, LocalDate dataInicio, LocalDate dataFim) {
+        return repository.exportRelatorioAgendamentosAgrupadoPorCliente(new User(codigoUsuario), dataInicio, dataFim);
     }
 
     public void exportaAgendamentoParaCsvPorPeriodo(Writer writer, LocalDateTime dataInicio, LocalDateTime dataFim){
