@@ -14,8 +14,6 @@ import java.util.List;
 @Repository
 public interface OrcamentoRepository extends JpaRepository<Orcamento, Long>, CustomQueryDslPredicateExecutor<Orcamento> {
 
-    List<Orcamento> findAllByDataEmissaoOrcamentoGreaterThan(LocalDateTime test);
-
     @Query ("SELECT e FROM Orcamento e WHERE e.dataEmissaoOrcamento >= :dataInicio AND e.dataEmissaoOrcamento <= :dataFim")
     List<Orcamento> findByDataBetween(@Param("dataInicio") LocalDateTime dataInicio, @Param("dataFim") LocalDateTime dataFim);
 

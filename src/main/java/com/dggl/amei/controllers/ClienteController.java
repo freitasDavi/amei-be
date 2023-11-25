@@ -47,6 +47,17 @@ public class ClienteController {
         return ResponseEntity.ok().body(clientesDTO);
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<ClienteResponseDTO> findById(@PathVariable Long id) {
+        var res = service.findById(id);
+
+        if (!res.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(ClienteResponseDTO.fromEntity(res.get()));
+    }
+
     @PostMapping
     public ResponseEntity create(@RequestBody ClienteResponseDTO dto) {
         service.create(dto);

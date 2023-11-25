@@ -24,7 +24,7 @@ public class TarefasAgendadas {
     @Autowired
     private OrcamentoService orcamentoService;
 
-    @Scheduled(cron = "0 0 8 * * *" )
+    @Scheduled(cron = "0 42 21 * * *")
     public void excluiOrcamentoMaiorTresMeses(){
         var orcamentos = orcamentoService.recuperarParaExpurgo();
 

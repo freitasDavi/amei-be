@@ -7,6 +7,8 @@ import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Agendamento;
 import com.dggl.amei.models.ItensOrcamento;
 import com.dggl.amei.models.Orcamento;
+import com.dggl.amei.models.QOrcamento;
+import com.dggl.amei.models.enums.StatusOrcamentoEnum;
 import com.dggl.amei.repositories.ItensOrcamentoRepository;
 import com.dggl.amei.repositories.OrcamentoRepository;
 import com.dggl.amei.repositories.OrdemServicoRepository;
@@ -56,27 +58,27 @@ public class OrcamentoService {
 
     private String taskName = "Orçamento";
 
-    public Page<Orcamento> findAll(String filter, Pageable pageable){
+    public Page<Orcamento> findAll(String filter, Pageable pageable) {
         return repository.findAll(filter, Orcamento.class, pageable);
     }
 
-    public List<Orcamento> recuperarParaExpurgo () {
+    public List<Orcamento> recuperarParaExpurgo() {
         LocalDateTime dias = LocalDateTime.now().plus(90, ChronoUnit.DAYS);
 
-        return repository.findAllByDataEmissaoOrcamentoGreaterThan(dias);
+        return repository.findAll(QOrcamento.orcamento.dataEmissaoOrcamento.after(dias).and(QOrcamento.orcamento.status.eq(StatusOrcamentoEnum.ABERTO)));
     }
 
-    public Orcamento findById(Long id){
+    public Orcamento findById(Long id) {
         Optional<Orcamento> orcamento = repository.findById(id);
         return orcamento.orElseThrow(() -> new RecursoNaoEncontrado(taskName, id));
     }
 
-    public List<Orcamento> buscaOrcamentoPorPeriodo(LocalDateTime dataInicio, LocalDateTime dataFim){
+    public List<Orcamento> buscaOrcamentoPorPeriodo(LocalDateTime dataInicio, LocalDateTime dataFim) {
 
         List<Orcamento> orcamentos = repository.findAll();
         List<Orcamento> orcamentosFiltrados = new LinkedList<>();
-        for(Orcamento orcamento : orcamentos){
-            if((orcamento.getDataEmissaoOrcamento().isAfter(dataInicio)) && orcamento.getDataEmissaoOrcamento().isBefore(dataFim)){
+        for (Orcamento orcamento : orcamentos) {
+            if ((orcamento.getDataEmissaoOrcamento().isAfter(dataInicio)) && orcamento.getDataEmissaoOrcamento().isBefore(dataFim)) {
                 orcamentosFiltrados.add(orcamento);
             }
         }
@@ -84,7 +86,7 @@ public class OrcamentoService {
         return orcamentosFiltrados;
     }
 
-    public Orcamento insert(NovoOrcamentoRequest dto){
+    public Orcamento insert(NovoOrcamentoRequest dto) {
         var orcamento = new Orcamento(
                 dto.getNomeCliente(),
                 dto.getTelefoneCliente(),
@@ -113,32 +115,35 @@ public class OrcamentoService {
         return orc;
     }
 
-    public void delete(Long id){
-        try{
-            if(!verificaExisteOrdemServicoNoOrcamento(id)){
+    public void delete(Long id) {
+        try {
+            if (!verificaExisteOrdemServicoNoOrcamento(id)) {
+                var items = itensOrcamentoRepository.findAllByOrcamento(id);
+
+                itensOrcamentoRepository.deleteAll(items);
                 repository.deleteById(id);
             }
-        }catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             throw new RecursoNaoEncontrado(taskName, id);
-        }catch (DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             throw new DataBaseException(e.getMessage());
         }
     }
 
     private boolean verificaExisteOrdemServicoNoOrcamento(Long id) {
         Orcamento orcamento = findById(id);
-        if(orcamento.getOrcamentoOrdemServico() != null){
+        if (orcamento.getOrcamentoOrdemServico() != null) {
             return true;
         }
         return false;
     }
 
     @Transactional
-    public void update(Long id, UpdateOrcamentoRequest dto){
-        try{
-            if(dto.getOrcamentoOrdemServico() != null){
+    public void update(Long id, UpdateOrcamentoRequest dto) {
+        try {
+            if (dto.getOrcamentoOrdemServico() != null) {
 //                Tratar como enviar o erro para o front
-            }else {
+            } else {
                 Optional<Orcamento> value = repository.findById(id);
 
                 if (value.isEmpty()) {
@@ -155,12 +160,12 @@ public class OrcamentoService {
 
 
             }
-        }catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             throw new RecursoNaoEncontrado(taskName, id);
         }
     }
 
-    public void updateDados(Orcamento entidade, UpdateOrcamentoRequest dto){
+    public void updateDados(Orcamento entidade, UpdateOrcamentoRequest dto) {
         entidade.setClienteOrcamento(dto.getClienteOrcamento());
         entidade.setDataValidadeOrcamento(dto.getDataValidadeOrcamento());
         entidade.setObservacoesOrcamento(dto.getObservacoesOrcamento());
@@ -205,17 +210,17 @@ public class OrcamentoService {
         itensOrcamentoRepository.save(entidade);
     }
 
-    public void exportaOrcamentoParaCsvPorPeriodo(Writer writer, LocalDateTime dataInicio, LocalDateTime dataFim){
+    public void exportaOrcamentoParaCsvPorPeriodo(Writer writer, LocalDateTime dataInicio, LocalDateTime dataFim) {
 
         List<Orcamento> orcamentos = repository.findByDataBetween(dataInicio, dataFim);
 
-        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
+        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)) {
             csvPrinter.printRecord("Cliente", "Data Emissão", "Valor Total");
-            for(Orcamento orcamento : orcamentos){
+            for (Orcamento orcamento : orcamentos) {
                 csvPrinter.printRecord(
-                       orcamento.getNomeCliente(),
-                       orcamento.getDataEmissaoOrcamento(),
-                       orcamento.getValorTotalDoOrcamento()
+                        orcamento.getNomeCliente(),
+                        orcamento.getDataEmissaoOrcamento(),
+                        orcamento.getValorTotalDoOrcamento()
                 );
             }
         } catch (IOException e) {
@@ -223,12 +228,12 @@ public class OrcamentoService {
         }
     }
 
-    public void exportaOrcamentoParaCsv(Writer writer){
+    public void exportaOrcamentoParaCsv(Writer writer) {
 
         List<Orcamento> orcamentos = repository.findAll();
-        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
+        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)) {
             csvPrinter.printRecord("Cliente", "Data Emissão", "Valor Total");
-            for(Orcamento orcamento : orcamentos){
+            for (Orcamento orcamento : orcamentos) {
                 csvPrinter.printRecord(
                         orcamento.getNomeCliente(),
                         orcamento.getDataEmissaoOrcamento(),
