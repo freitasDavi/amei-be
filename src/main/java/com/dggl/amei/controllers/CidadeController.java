@@ -1,5 +1,6 @@
 package com.dggl.amei.controllers;
 
+import com.dggl.amei.dtos.responses.RetornoCEP;
 import com.dggl.amei.models.Cidade;
 import com.dggl.amei.services.CidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,17 @@ public class CidadeController extends AbstractController {
     public ResponseEntity<Cidade> findById(@PathVariable Long id){
         Cidade cidade = service.findById(id);
         return ResponseEntity.ok().body(cidade);
+    }
+
+    @GetMapping(value= "/getByCEP/{cep}")
+    public ResponseEntity<RetornoCEP> findByCEP(@PathVariable String cep){
+        try {
+            RetornoCEP retornoCEP = service.findByCEP(cep);
+
+            return ResponseEntity.ok().body(retornoCEP);
+        } catch (NullPointerException exception) {
+            return null;
+        }
+
     }
 }

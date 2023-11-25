@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CidadeRepository extends JpaRepository<Cidade, Long>, CustomQueryDslPredicateExecutor<Cidade> {
+
+    Cidade findByNomeCidadeContaining(String nomeCidade);
 }
