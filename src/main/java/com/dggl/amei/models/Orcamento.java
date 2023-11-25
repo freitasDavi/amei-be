@@ -71,7 +71,6 @@ public class Orcamento {
 
 //    ----
 
-    @JsonIgnore
     @OneToMany(mappedBy = "orcamento")
     private List<ItensOrcamento> itensOrcamentos;
 
