@@ -2,7 +2,6 @@ package com.dggl.amei.controllers;
 
 import com.dggl.amei.dtos.requests.*;
 import com.dggl.amei.dtos.responses.OrdemServicoResponseDTO;
-import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.models.OrdemServico;
 import com.dggl.amei.services.OrdemServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/ordemServico")

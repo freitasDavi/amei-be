@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrdemServicoResponseDTO {
@@ -13,9 +14,10 @@ public class OrdemServicoResponseDTO {
     private Integer statusOrdemServico;
     private String telefoneOrdem;
     private BigDecimal valorTotal;
+    private LocalDateTime dataEmissaoOrdemServico;
     private User usuarioOrdem;
     private ClientsComboResponseDTO clienteOrdem;
-    private List<ItensOrdemServico> itensOrdemServicos;
+    private List<ItemOrdemServicoResponseDTO> itensOrdemServicos;
     //private List<ItensOrcamento> items;
 
     public static OrdemServicoResponseDTO fromEntity(OrdemServico ordemServico) {
@@ -24,9 +26,10 @@ public class OrdemServicoResponseDTO {
         dto.setStatusOrdemServico(ordemServico.getStatusOrdemServico().getCodigoEnum());
         dto.setTelefoneOrdem(ordemServico.getTelefoneOrdem());
         dto.setValorTotal(ordemServico.getValorTotal());
+        dto.setDataEmissaoOrdemServico(ordemServico.getDataEmissaoOrdemServico());
         //dto.setUsuarioOrdem(new User(ordemServico.getUsuarioOrdem().getId()));
         dto.setClienteOrdem(ClientsComboResponseDTO.fromEntity(ordemServico.getClienteOrdem()));
-        dto.setItensOrdemServicos(ordemServico.getItensOrdemServicos());
+        dto.setItensOrdemServicos(ItemOrdemServicoResponseDTO.fromEntity(ordemServico.getItensOrdemServicos()));
 
         return dto;
     }
@@ -35,6 +38,14 @@ public class OrdemServicoResponseDTO {
         List<OrdemServicoResponseDTO> ordensServicoList = ordemServicos.stream().map(OrdemServicoResponseDTO::fromEntity).toList();
 
         return new PageImpl<>(ordensServicoList, ordemServicos.getPageable(), ordemServicos.getTotalElements());
+    }
+
+    public LocalDateTime getDataEmissaoOrdemServico() {
+        return dataEmissaoOrdemServico;
+    }
+
+    public void setDataEmissaoOrdemServico(LocalDateTime dataEmissaoOrdemServico) {
+        this.dataEmissaoOrdemServico = dataEmissaoOrdemServico;
     }
 
     public Long getId() {
@@ -85,11 +96,11 @@ public class OrdemServicoResponseDTO {
         this.clienteOrdem = clienteOrdem;
     }
 
-    public List<ItensOrdemServico> getItensOrdemServicos() {
+    public List<ItemOrdemServicoResponseDTO> getItensOrdemServicos() {
         return itensOrdemServicos;
     }
 
-    public void setItensOrdemServicos(List<ItensOrdemServico> itensOrdemServicos) {
+    public void setItensOrdemServicos(List<ItemOrdemServicoResponseDTO> itensOrdemServicos) {
         this.itensOrdemServicos = itensOrdemServicos;
     }
 }

@@ -25,6 +25,9 @@ public class ItensOrdemServico {
     @Column(name = "VALOR_TOTAL")
     private BigDecimal valorTotal;
 
+    @Column(name = "QUANTIDADE")
+    private Long quantidade;
+
     @Size
     @Column(name = "DESCRICAO")
     private String descricaoItemOrdem;
@@ -33,6 +36,7 @@ public class ItensOrdemServico {
 
 //    @NotBlank
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "ORDEM_ITENS", referencedColumnName = "id")
     private OrdemServico OrdemDeServico;
 
@@ -46,7 +50,8 @@ public class ItensOrdemServico {
 
 //  ----
 
-    public ItensOrdemServico(BigDecimal valorUnitario, BigDecimal valorTotal, String descricaoItemOrdem, OrdemServico ordemDeServico) {
+    public ItensOrdemServico(Long quantidade, BigDecimal valorUnitario, BigDecimal valorTotal, String descricaoItemOrdem, OrdemServico ordemDeServico) {
+        this.quantidade = quantidade;
         this.valorUnitario = valorUnitario;
         this.valorTotal = valorTotal;
         this.descricaoItemOrdem = descricaoItemOrdem;
@@ -55,6 +60,14 @@ public class ItensOrdemServico {
 
     public ItensOrdemServico() {
 
+    }
+
+    public Long getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Long quantidade) {
+        this.quantidade = quantidade;
     }
 
     public Long getId() {

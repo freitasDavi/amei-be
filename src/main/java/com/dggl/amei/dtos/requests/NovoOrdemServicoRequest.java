@@ -12,7 +12,6 @@ import java.util.List;
 
 public class NovoOrdemServicoRequest {
 
-    @Size(max = 11)
     private String telefoneOrdem;
 
     @NotBlank

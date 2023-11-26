@@ -67,6 +67,7 @@ public class OrdemServicoService {
         List<ItensOrdemServico> listaDeItensDaOrdemServido = new LinkedList<>();
 
         dto.getItensOrdemServicos().forEach(item -> listaDeItensDaOrdemServido.add(new ItensOrdemServico(
+                item.getQuantidade(),
                 item.getValorUnitario(),
                 item.getValorTotal(),
                 item.getDescricaoItemOrdem(),
@@ -96,6 +97,7 @@ public class OrdemServicoService {
         List<ItensOrdemServico> listaItensOrdemServico = new ArrayList<>();
 
         itensOrc.forEach(item -> listaItensOrdemServico.add(new ItensOrdemServico(
+                item.getQuantidade(),
                 item.getValorUnitario(),
                 item.getValorTotal(),
                 item.getDescricao(),
@@ -154,6 +156,7 @@ public class OrdemServicoService {
         items.forEach(item -> {
             if (item.getOrdemDeServico() == null) {
                 listaNovos.add(new ItensOrdemServico(
+                        item.getQuantidade(),
                         item.getValorUnitario(),
                         item.getValorTotal(),
                         item.getDescricaoItemOrdem(),
