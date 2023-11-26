@@ -5,10 +5,8 @@ import com.dggl.amei.dtos.responses.AgendamentoResponseDTO;
 import com.dggl.amei.dtos.responses.relatorios.AgendamentoPorClienteDTO;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
-import com.dggl.amei.models.Agendamento;
-import com.dggl.amei.models.Orcamento;
-import com.dggl.amei.models.QAgendamento;
-import com.dggl.amei.models.User;
+import com.dggl.amei.models.*;
+import com.dggl.amei.models.enums.StatusOrcamentoEnum;
 import com.dggl.amei.repositories.AgendamentoRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -24,6 +22,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,6 +52,12 @@ public class AgendamentoService {
         var novoAgendamento = obj.toEntity();
 
         repository.save(novoAgendamento);
+    }
+
+    public List<Agendamento> recuperarAgendamentoParaExpurgo() {
+        LocalDate dias = LocalDate.now().plus(90, ChronoUnit.DAYS);
+
+        return repository.findAll(QAgendamento.agendamento.dataAgendamento.after(dias));
     }
 
     public List<Agendamento> buscarRegistroEntreDatas(LocalDateTime dataInicio, LocalDateTime dataFim){
