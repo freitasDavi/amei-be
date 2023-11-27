@@ -1,5 +1,6 @@
 package com.dggl.amei.controllers;
 
+import com.dggl.amei.configuration.security.services.UserDetailsImpl;
 import com.dggl.amei.dtos.requests.*;
 import com.dggl.amei.dtos.responses.OrdemServicoResponseDTO;
 import com.dggl.amei.models.OrdemServico;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -25,9 +27,11 @@ public class OrdermServicoController extends AbstractController {
     public ResponseEntity<Page<OrdemServicoResponseDTO>> findAll(
             @RequestParam(required = false) String filter,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            Authentication authentication
     ){
-        Page<OrdemServico> listaOrdemServivo = service.findAll(filter, PageRequest.of(page, size));
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        Page<OrdemServico> listaOrdemServivo = service.findAll(filter, PageRequest.of(page, size), userDetails.getId());
 
         return ResponseEntity.ok().body(OrdemServicoResponseDTO.fromEntity(listaOrdemServivo));
     }

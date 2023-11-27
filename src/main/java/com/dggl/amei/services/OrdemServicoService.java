@@ -4,10 +4,7 @@ import com.dggl.amei.dtos.requests.NovoOrdemServicoRequest;
 import com.dggl.amei.dtos.requests.UpdateOrdemServicoRequest;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
-import com.dggl.amei.models.ItensOrcamento;
-import com.dggl.amei.models.ItensOrdemServico;
-import com.dggl.amei.models.Orcamento;
-import com.dggl.amei.models.OrdemServico;
+import com.dggl.amei.models.*;
 import com.dggl.amei.models.enums.StatusOrdemServicoEnum;
 import com.dggl.amei.repositories.ItensOrdemServicoRepository;
 import com.dggl.amei.repositories.OrdemServicoRepository;
@@ -44,8 +41,8 @@ public class OrdemServicoService {
 
     private String taskName = "Ordem de Serviço";
 
-    public Page<OrdemServico> findAll(String filter, Pageable pageable){
-        return repository.findAll(filter, OrdemServico.class, pageable);
+    public Page<OrdemServico> findAll(String filter, Pageable pageable, Long id){
+        return repository.findAll(filter, OrdemServico.class, pageable, QOrdemServico.ordemServico.usuarioOrdem.id.eq(id));
     }
 
     public OrdemServico findById(Long id){
@@ -71,7 +68,7 @@ public class OrdemServicoService {
                 item.getValorUnitario(),
                 item.getValorTotal(),
                 item.getDescricaoItemOrdem(),
-                item.getOrdemDeServico()
+                ordem
                 )));
 
         if (!listaDeItensDaOrdemServido.isEmpty())

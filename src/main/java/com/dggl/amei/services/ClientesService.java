@@ -3,6 +3,7 @@ package com.dggl.amei.services;
 import com.dggl.amei.dtos.responses.ClienteResponseDTO;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Clientes;
+import com.dggl.amei.models.QClientes;
 import com.dggl.amei.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,11 +22,9 @@ public class ClientesService {
         return repository.findById(id);
     }
 
-    public Page<Clientes> findAll(String filter, Pageable pageable){
-
-
-
-        return repository.findAll(filter, Clientes.class, pageable);
+    public Page<Clientes> findAll(String filter, Pageable pageable, Long id){
+        return repository.findAll(filter, Clientes.class, pageable,
+                QClientes.clientes.usuarioCliente.id.eq(id));
     }
     public void create (ClienteResponseDTO dto) {
         var cliente = dto.toEntity();

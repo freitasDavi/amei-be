@@ -58,8 +58,8 @@ public class OrcamentoService {
 
     private String taskName = "Orçamento";
 
-    public Page<Orcamento> findAll(String filter, Pageable pageable) {
-        return repository.findAll(filter, Orcamento.class, pageable);
+    public Page<Orcamento> findAll(String filter, Pageable pageable, Long id) {
+        return repository.findAll(filter, Orcamento.class, pageable, QOrcamento.orcamento.usuarioOrcamento.id.eq(id));
     }
 
     public List<Orcamento> recuperarParaExpurgo() {

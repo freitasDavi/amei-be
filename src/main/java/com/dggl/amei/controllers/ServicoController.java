@@ -1,5 +1,6 @@
 package com.dggl.amei.controllers;
 
+import com.dggl.amei.configuration.security.services.UserDetailsImpl;
 import com.dggl.amei.dtos.requests.NovoServicoRequest;
 import com.dggl.amei.dtos.requests.UpdateServicoRequest;
 import com.dggl.amei.models.Servico;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -23,12 +25,13 @@ public class ServicoController extends AbstractController {
 
     @GetMapping
     public ResponseEntity<Page<Servico>> findAll(
-            @RequestParam Long codigoUsuario,
             @RequestParam(required = false) String filter,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            Authentication authentication
     ){
-        Page<Servico> listaServico = service.findAll(filter, PageRequest.of(page, size), codigoUsuario);
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        Page<Servico> listaServico = service.findAll(filter, PageRequest.of(page, size), userDetails.getId());
         return ResponseEntity.ok().body(listaServico);
     }
 
