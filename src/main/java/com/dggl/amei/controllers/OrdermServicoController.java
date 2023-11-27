@@ -4,6 +4,7 @@ import com.dggl.amei.dtos.requests.*;
 import com.dggl.amei.dtos.responses.OrdemServicoResponseDTO;
 import com.dggl.amei.models.OrdemServico;
 import com.dggl.amei.services.OrdemServicoService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -72,6 +73,13 @@ public class OrdermServicoController extends AbstractController {
     @PutMapping(value = "/{id}")
     public ResponseEntity update(@PathVariable Long id, @RequestBody UpdateOrdemServicoRequest ordemServico){
         service.update(id, ordemServico);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping(value="/emitir/{id}")
+    public ResponseEntity emitirNfe(@PathVariable Long id) {
+        service.emitirNfe(id);
+
         return ResponseEntity.ok().build();
     }
 

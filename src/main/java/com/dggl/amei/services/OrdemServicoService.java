@@ -224,4 +224,14 @@ public class OrdemServicoService {
         }
     }
 
+    public void emitirNfe(Long id) {
+        var ordem = repository.findById(id);
+
+        if (ordem.isEmpty()) throw new RecursoNaoEncontrado("Ordem", id);
+
+        var entidade = ordem.get();
+
+        entidade.setStatusOrdemServico(StatusOrdemServicoEnum.EMITIDA);
+        repository.save(entidade);
+    }
 }

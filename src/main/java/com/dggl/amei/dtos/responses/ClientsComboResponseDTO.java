@@ -25,7 +25,7 @@ public class ClientsComboResponseDTO {
 //
 //    private String complementoCliente;
 //
-//    private String cnpjCliente;
+    private String cnpjCliente;
 //
 //    private String inscricaoMunicipal;
 
@@ -64,12 +64,21 @@ public class ClientsComboResponseDTO {
         this.telefone = telefone;
     }
 
+    public String getCnpjCliente() {
+        return cnpjCliente;
+    }
+
+    public void setCnpjCliente(String cnpjCliente) {
+        this.cnpjCliente = cnpjCliente;
+    }
+
     public static ClientsComboResponseDTO fromEntity(Clientes clientes) {
         ClientsComboResponseDTO dto = new ClientsComboResponseDTO();
         dto.setId(clientes.getId());
         dto.setNome(clientes.getNomeCliente());
         dto.setEmail(clientes.getEmailCliente());
         dto.setTelefone(clientes.getTelefoneCliente());
+        dto.setCnpjCliente(clientes.getCnpjCliente());
         return dto;
     }
 
@@ -79,6 +88,7 @@ public class ClientsComboResponseDTO {
         cliente.setNomeCliente(this.getNome());
         cliente.setEmailCliente(this.getEmail());
         cliente.setTelefoneCliente(this.getTelefone());
+        cliente.setCnpjCliente(this.getCnpjCliente());
         return cliente;
     }
 
