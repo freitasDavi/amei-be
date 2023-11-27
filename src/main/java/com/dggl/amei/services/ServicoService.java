@@ -4,6 +4,7 @@ import com.dggl.amei.dtos.requests.NovoServicoRequest;
 import com.dggl.amei.dtos.requests.UpdateServicoRequest;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
+import com.dggl.amei.models.QServico;
 import com.dggl.amei.models.Servico;
 import com.dggl.amei.repositories.ServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class ServicoService {
     private ServicoRepository repository;
     private String task = "Serviço";
 
-    public Page<Servico> findAll(String filter, Pageable pageable){
-        return repository.findAll(filter, Servico.class, pageable);
+    public Page<Servico> findAll(String filter, Pageable pageable, Long codigoUsuario){
+        return repository.findAll(filter, Servico.class, pageable, QServico.servico.servicoUsuario.id.eq(codigoUsuario));
     }
 
     public Servico findById(Long id){

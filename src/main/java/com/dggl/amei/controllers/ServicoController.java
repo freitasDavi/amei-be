@@ -23,11 +23,12 @@ public class ServicoController extends AbstractController {
 
     @GetMapping
     public ResponseEntity<Page<Servico>> findAll(
+            @RequestParam Long codigoUsuario,
             @RequestParam(required = false) String filter,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ){
-        Page<Servico> listaServico = service.findAll(filter, PageRequest.of(page, size));
+        Page<Servico> listaServico = service.findAll(filter, PageRequest.of(page, size), codigoUsuario);
         return ResponseEntity.ok().body(listaServico);
     }
 
