@@ -1,17 +1,20 @@
 package com.dggl.amei.controllers;
 
+import com.dggl.amei.configuration.security.services.UserDetailsImpl;
+import com.dggl.amei.dtos.requests.*;
 import com.dggl.amei.dtos.responses.OrdemServicoResponseDTO;
 import com.dggl.amei.models.OrdemServico;
 import com.dggl.amei.services.OrdemServicoService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 @RequestMapping(value = "/api/ordemServico")
@@ -24,9 +27,11 @@ public class OrdermServicoController extends AbstractController {
     public ResponseEntity<Page<OrdemServicoResponseDTO>> findAll(
             @RequestParam(required = false) String filter,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            Authentication authentication
     ){
-        Page<OrdemServico> listaOrdemServivo = service.findAll(filter, PageRequest.of(page, size));
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        Page<OrdemServico> listaOrdemServivo = service.findAll(filter, PageRequest.of(page, size), userDetails.getId());
 
         return ResponseEntity.ok().body(OrdemServicoResponseDTO.fromEntity(listaOrdemServivo));
     }
@@ -38,11 +43,29 @@ public class OrdermServicoController extends AbstractController {
         return ResponseEntity.ok().body(OrdemServicoResponseDTO.fromEntity(obj));
     }
 
+    @PostMapping(value = "/downloadCsvPorDatas")
+    public void exportaOrdemDeServicioParaCsvPorPeriodo(HttpServletResponse servletResponse, @RequestBody PeriodoDTO dto) throws IOException {
+        servletResponse.setContentType("text/csv");
+        servletResponse.addHeader("Contente-Disposition", "attachment; filename=\"ordensDeServico.csv\"");
+
+        service.exportaOrdemDeServicoParaCsvPorPeriodo(servletResponse.getWriter(), dto.getDataInicio(), dto.getDataFim());
+
+    }
+
+    @RequestMapping(value = "/api/ordemDeServico/download")
+    public void exportaOrdemDeServicoParaCsv(HttpServletResponse servletResponse) throws IOException {
+        servletResponse.setContentType("text/csv");
+        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"ordensDeServico.csv\"");
+        service.exportaOrdemDeServicoParaCsv(servletResponse.getWriter());
+    }
+
     @PostMapping
-    public ResponseEntity<OrdemServico> insert(@RequestBody OrdemServico ordemServico){
-        ordemServico = service.insert(ordemServico);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(ordemServico.getId()).toUri();
-        return ResponseEntity.created(uri).body(ordemServico);
+    public ResponseEntity<OrdemServico> insert(@RequestBody NovoOrdemServicoRequest ordemServico){
+        var ordemSalva = service.insert(ordemServico);
+
+        //URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(orcamento.getId()).toUri();
+
+        return ResponseEntity.ok(ordemSalva);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -52,9 +75,16 @@ public class OrdermServicoController extends AbstractController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<OrdemServico> update(@PathVariable Long id, @RequestBody OrdemServico ordemServico){
-        ordemServico = service.update(id, ordemServico);
-        return ResponseEntity.ok().body(ordemServico);
+    public ResponseEntity update(@PathVariable Long id, @RequestBody UpdateOrdemServicoRequest ordemServico){
+        service.update(id, ordemServico);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping(value="/emitir/{id}")
+    public ResponseEntity emitirNfe(@PathVariable Long id) {
+        service.emitirNfe(id);
+
+        return ResponseEntity.ok().build();
     }
 
 

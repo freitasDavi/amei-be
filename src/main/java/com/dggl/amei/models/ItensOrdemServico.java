@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,13 +17,16 @@ public class ItensOrdemServico {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank
+//    @NotBlank
     @Column(name = "VALOR_UNITARIO")
     private BigDecimal valorUnitario;
 
-    @NotBlank
+//    @NotBlank
     @Column(name = "VALOR_TOTAL")
     private BigDecimal valorTotal;
+
+    @Column(name = "QUANTIDADE")
+    private Long quantidade;
 
     @Size
     @Column(name = "DESCRICAO")
@@ -32,10 +34,11 @@ public class ItensOrdemServico {
 
 //    ----
 
-    @NotBlank
+//    @NotBlank
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "ORDEM_ITENS", referencedColumnName = "id")
-    private OrdemServico ordemItens;
+    private OrdemServico OrdemDeServico;
 
 
 //    ----
@@ -47,6 +50,25 @@ public class ItensOrdemServico {
 
 //  ----
 
+    public ItensOrdemServico(Long quantidade, BigDecimal valorUnitario, BigDecimal valorTotal, String descricaoItemOrdem, OrdemServico ordemDeServico) {
+        this.quantidade = quantidade;
+        this.valorUnitario = valorUnitario;
+        this.valorTotal = valorTotal;
+        this.descricaoItemOrdem = descricaoItemOrdem;
+        OrdemDeServico = ordemDeServico;
+    }
+
+    public ItensOrdemServico() {
+
+    }
+
+    public Long getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Long quantidade) {
+        this.quantidade = quantidade;
+    }
 
     public Long getId() {
         return id;
@@ -80,12 +102,12 @@ public class ItensOrdemServico {
         this.descricaoItemOrdem = descricaoItemOrdem;
     }
 
-    public OrdemServico getOrdemItens() {
-        return ordemItens;
+    public OrdemServico getOrdemDeServico() {
+        return OrdemDeServico;
     }
 
-    public void setOrdemItens(OrdemServico ordemItens) {
-        this.ordemItens = ordemItens;
+    public void setOrdemDeServico(OrdemServico ordemItens) {
+        this.OrdemDeServico = ordemItens;
     }
 
 }

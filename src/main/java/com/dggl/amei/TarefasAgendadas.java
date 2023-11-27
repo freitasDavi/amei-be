@@ -1,7 +1,9 @@
 package com.dggl.amei;
 
+import com.dggl.amei.models.Agendamento;
 import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.repositories.OrcamentoRepository;
+import com.dggl.amei.services.AgendamentoService;
 import com.dggl.amei.services.OrcamentoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +26,10 @@ public class TarefasAgendadas {
     @Autowired
     private OrcamentoService orcamentoService;
 
-    @Scheduled(cron = "0 0 8 * * *" )
+    @Autowired
+    private AgendamentoService agendamentoService;
+
+    @Scheduled(cron = "0 0 8 * * *")
     public void excluiOrcamentoMaiorTresMeses(){
         var orcamentos = orcamentoService.recuperarParaExpurgo();
 
@@ -34,6 +39,19 @@ public class TarefasAgendadas {
         for (Orcamento orcamento: orcamentos) {
             orcamentoService.delete(orcamento.getId());
             log.info("Orçamento {} excluido", orcamento.getId());
+        }
+    }
+
+    @Scheduled(cron = "0 0 8 * * *")
+    public void excluiAgendamentoMaiorTresMeses(){
+        var agendamentos = agendamentoService.recuperarAgendamentoParaExpurgo();
+
+        if(agendamentos == null) return;
+
+        log.info("Recuperamos agendamentos para exlcuir");
+        for(Agendamento agendamento : agendamentos){
+            agendamentoService.delete(agendamento.getId());
+            log.info("Agendamento {} excluido", agendamento.getId());
         }
     }
 }

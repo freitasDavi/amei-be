@@ -1,6 +1,7 @@
 package com.dggl.amei.models;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Objects;
 
@@ -16,6 +17,9 @@ public class Cronometro {
     @Column(name = "NOME")
     private String nome;
 
+    @Column(name = "VALOR_HORA")
+    private BigDecimal valorHora;
+
     @Column(name = "DATA_INICIO")
     private Instant inicio;
 
@@ -28,6 +32,10 @@ public class Cronometro {
     @ManyToOne
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "id")
     private User usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_SERVICO", referencedColumnName = "id")
+    private Servico servico;
 
     public Cronometro() {
     }

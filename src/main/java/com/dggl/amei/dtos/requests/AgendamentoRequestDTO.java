@@ -1,6 +1,5 @@
 package com.dggl.amei.dtos.requests;
 
-import com.dggl.amei.dtos.responses.AgendamentoResponseDTO;
 import com.dggl.amei.models.*;
 
 import java.time.LocalDate;
@@ -39,6 +38,7 @@ public class AgendamentoRequestDTO {
         agendamento.setAgendamentoCidade(new Cidade(getCodigoCidade()));
         agendamento.setAgendamentoBairro(new Bairro(getCodigoBairro()));
         agendamento.setUsuarioAgendamento(new User(getCodigoUsuario()));
+        agendamento.setClienteAgendamento(new Clientes(getCodigoCliente()));
 
         if (this.codigoBairro == 0) {
             agendamento.setClienteAgendamento(new Clientes(getCodigoCliente()));

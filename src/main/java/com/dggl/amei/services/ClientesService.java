@@ -22,11 +22,9 @@ public class ClientesService {
         return repository.findById(id);
     }
 
-    public Page<Clientes> findAll(String filter, Pageable pageable){
-
-
-
-        return repository.findAll(filter, Clientes.class, pageable);
+    public Page<Clientes> findAll(String filter, Pageable pageable, Long id){
+        return repository.findAll(filter, Clientes.class, pageable,
+                QClientes.clientes.usuarioCliente.id.eq(id));
     }
     public void create (ClienteResponseDTO dto) {
         var cliente = dto.toEntity();

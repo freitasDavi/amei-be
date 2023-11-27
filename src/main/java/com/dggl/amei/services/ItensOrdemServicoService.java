@@ -28,6 +28,10 @@ public class ItensOrdemServicoService {
         return repository.findAll();
     }
 
+    public void saveAll(List<ItensOrdemServico> listaItensOrdemServico){
+        repository.saveAll(listaItensOrdemServico);
+    }
+
     public ItensOrdemServico findById(Long id) {
         Optional<ItensOrdemServico> obj = repository.findById(id);
         return obj.orElseThrow(() -> new RecursoNaoEncontrado(taskName, id));
@@ -62,7 +66,7 @@ public class ItensOrdemServicoService {
         itensOrdemServicoBanco.setValorTotal(novosItensOrdemServico.getValorTotal());
         itensOrdemServicoBanco.setValorUnitario(novosItensOrdemServico.getValorUnitario());
         itensOrdemServicoBanco.setDescricaoItemOrdem(novosItensOrdemServico.getDescricaoItemOrdem());
-        itensOrdemServicoBanco.setOrdemItens(novosItensOrdemServico.getOrdemItens());
+        itensOrdemServicoBanco.setOrdemDeServico(novosItensOrdemServico.getOrdemDeServico());
         
         
         
