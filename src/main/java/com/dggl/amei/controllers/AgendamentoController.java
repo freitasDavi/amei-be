@@ -30,8 +30,8 @@ public class AgendamentoController extends AbstractController {
     private AgendamentoService service;
 
     @GetMapping("/ultimos/{codigoUsuario}")
-    public ResponseEntity<List<AgendamentoResponseDTO>> getLatest (@PathVariable Long codigoUsuario) {
-        List<Agendamento> listaAgendamentos = service.getLatestFive(codigoUsuario);
+    public ResponseEntity<Page<AgendamentoResponseDTO>> getLatest (@PathVariable Long codigoUsuario) {
+        Page<Agendamento> listaAgendamentos = service.getLatestFive(codigoUsuario);
 
         return ResponseEntity.ok(AgendamentoResponseDTO.fromEntity(listaAgendamentos));
     }

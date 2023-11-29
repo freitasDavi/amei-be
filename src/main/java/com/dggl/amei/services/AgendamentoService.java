@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +34,10 @@ public class AgendamentoService {
     private AgendamentoRepository repository;
     private String task = "Agendamento";
 
-    public List<Agendamento> getLatestFive (Long id) {
-        return repository.getAgendamentosByUsuarioAgendamento_IdOrderByDataAgendamentoAsc(id);
+    public Page<Agendamento> getLatestFive (Long id) {
+        return repository.findAll(QAgendamento.agendamento.usuarioAgendamento.id.eq(id), PageRequest.of(0, 5));
+
+        //return repository.getAgendamentosByUsuarioAgendamento_IdOrderByDataAgendamentoAsc(id);
     }
 
     public Page<Agendamento> findAll(

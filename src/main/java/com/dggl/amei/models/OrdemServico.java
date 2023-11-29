@@ -56,7 +56,7 @@ public class OrdemServico {
     }
 
 
-    public OrdemServico(Clientes clienteOrdem, String telefoneOrdem, BigDecimal valorTotal, User usuarioOrdem,  LocalDateTime dataEmissaoOrdemServico) {
+    public OrdemServico(Clientes clienteOrdem, String telefoneOrdem, BigDecimal valorTotal, User usuarioOrdem) {
         this.clienteOrdem = clienteOrdem;
         this.telefoneOrdem = telefoneOrdem;
         this.valorTotal = valorTotal;

@@ -4,6 +4,7 @@ import com.dggl.amei.configuration.security.services.UserDetailsImpl;
 import com.dggl.amei.dtos.requests.NovoOrcamentoRequest;
 import com.dggl.amei.dtos.requests.PeriodoDTO;
 import com.dggl.amei.dtos.requests.UpdateOrcamentoRequest;
+import com.dggl.amei.dtos.responses.OrcamentoResponseDTO;
 import com.dggl.amei.dtos.responses.relatorios.ExportacaoOrcamentoDTO;
 import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.services.OrcamentoService;
@@ -25,7 +26,7 @@ public class  OrcamentoController extends AbstractController {
     private OrcamentoService service;
 
     @GetMapping
-    public ResponseEntity<Page<Orcamento>> findAll(
+    public ResponseEntity<Page<OrcamentoResponseDTO>> findAll(
             @RequestParam(required = false) String filter,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -34,7 +35,7 @@ public class  OrcamentoController extends AbstractController {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         Page<Orcamento> orcamentos = service.findAll(filter, PageRequest.of(page, size), userDetails.getId());
 
-        return ResponseEntity.ok().body(orcamentos);
+        return ResponseEntity.ok().body(OrcamentoResponseDTO.fromEntity(orcamentos));
     }
 
     @GetMapping(value = "/{id}")
