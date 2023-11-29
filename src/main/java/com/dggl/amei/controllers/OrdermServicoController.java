@@ -3,9 +3,10 @@ package com.dggl.amei.controllers;
 import com.dggl.amei.configuration.security.services.UserDetailsImpl;
 import com.dggl.amei.dtos.requests.*;
 import com.dggl.amei.dtos.responses.OrdemServicoResponseDTO;
+import com.dggl.amei.dtos.responses.relatorios.ExportacaoOrcamentoDTO;
+import com.dggl.amei.dtos.responses.relatorios.ExportacaoOrdemDTO;
 import com.dggl.amei.models.OrdemServico;
 import com.dggl.amei.services.OrdemServicoService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,6 +42,13 @@ public class OrdermServicoController extends AbstractController {
         OrdemServico obj = service.findById(id);
 
         return ResponseEntity.ok().body(OrdemServicoResponseDTO.fromEntity(obj));
+    }
+
+    @GetMapping(value = "/emitirOrdem/{id}")
+    public ResponseEntity<ExportacaoOrdemDTO> emissaoRel(@PathVariable Long id) {
+        var ordem = service.findById(id);
+
+        return ResponseEntity.ok().body(ExportacaoOrdemDTO.fromEntity(ordem));
     }
 
     @PostMapping(value = "/downloadCsvPorDatas")

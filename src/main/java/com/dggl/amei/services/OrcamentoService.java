@@ -56,6 +56,8 @@ public class OrcamentoService {
     @Autowired
     ItensOrcamentoRepository itensOrcamentoRepository;
 
+
+
     private String taskName = "Orçamento";
 
     public Page<Orcamento> findAll(String filter, Pageable pageable, Long id) {
@@ -72,7 +74,6 @@ public class OrcamentoService {
         Optional<Orcamento> orcamento = repository.findById(id);
         return orcamento.orElseThrow(() -> new RecursoNaoEncontrado(taskName, id));
     }
-
     public List<Orcamento> buscaOrcamentoPorPeriodo(LocalDateTime dataInicio, LocalDateTime dataFim) {
 
         List<Orcamento> orcamentos = repository.findAll();

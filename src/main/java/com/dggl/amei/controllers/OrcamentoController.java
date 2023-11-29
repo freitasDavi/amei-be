@@ -4,6 +4,7 @@ import com.dggl.amei.configuration.security.services.UserDetailsImpl;
 import com.dggl.amei.dtos.requests.NovoOrcamentoRequest;
 import com.dggl.amei.dtos.requests.PeriodoDTO;
 import com.dggl.amei.dtos.requests.UpdateOrcamentoRequest;
+import com.dggl.amei.dtos.responses.relatorios.ExportacaoOrcamentoDTO;
 import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.services.OrcamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,13 @@ public class  OrcamentoController extends AbstractController {
         return ResponseEntity.ok().body(obj);
     }
 
+    @GetMapping(value = "/emitirOrc/{id}")
+    public ResponseEntity<ExportacaoOrcamentoDTO> emissaoRel(@PathVariable Long id) {
+        var orcamento = service.findById(id);
+
+        return ResponseEntity.ok().body(ExportacaoOrcamentoDTO.fromEntity(orcamento));
+    }
+
     @PostMapping(value = "/downloadCsvPorDatas")
     public void exportaOrcamentoParaCsvPorPeriodo(HttpServletResponse servletResponse, @RequestBody PeriodoDTO dto) throws IOException {
         servletResponse.setContentType("text/csv");
@@ -57,7 +65,6 @@ public class  OrcamentoController extends AbstractController {
         servletResponse.addHeader("Content-Disposition", "attachment; filename=\"orcamentos.csv\"");
         service.exportaOrcamentoParaCsv(servletResponse.getWriter());
     }
-
 
     @PostMapping
     public ResponseEntity<Orcamento> insert(@RequestBody NovoOrcamentoRequest orcamento){
