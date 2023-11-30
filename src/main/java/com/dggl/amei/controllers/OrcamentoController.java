@@ -60,7 +60,7 @@ public class  OrcamentoController extends AbstractController {
 
     }
 
-    @RequestMapping(value = "/api/orcamentos/download")
+    @GetMapping(value = "/downloadCsv")
     public void exportaOrcamentoParaCsv(HttpServletResponse servletResponse) throws IOException {
         servletResponse.setContentType("text/csv");
         servletResponse.addHeader("Content-Disposition", "attachment; filename=\"orcamentos.csv\"");
