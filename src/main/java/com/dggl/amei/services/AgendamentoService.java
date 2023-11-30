@@ -25,6 +25,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -32,6 +33,10 @@ public class AgendamentoService {
 
     @Autowired
     private AgendamentoRepository repository;
+
+    @Autowired
+    private ClientesService clientesService;
+
     private String task = "Agendamento";
 
     public Page<Agendamento> getLatestFive (Long id) {
@@ -125,8 +130,14 @@ public class AgendamentoService {
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
             csvPrinter.printRecord("Cliente", "Cidade" , "Bairro", "Endereço", "Responsavel", "Data");
             for(Agendamento agendamento : agendamentos){
+
+                String nomeDoCliente = clientesService
+                        .findById(agendamento.getClienteAgendamento().getId())
+                        .map(Clientes::getNomeCliente)
+                        .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));
+
                 csvPrinter.printRecord(
-                        agendamento.getClienteAgendamento(),
+                        nomeDoCliente,
                         agendamento.getAgendamentoCidade(),
                         agendamento.getAgendamentoBairro(),
                         agendamento.getEnderecoAgendamento(),
@@ -145,8 +156,14 @@ public class AgendamentoService {
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
             csvPrinter.printRecord("Cliente", "Cidade" , "Bairro", "Endereço", "Responsavel", "Data");
             for(Agendamento agendamento : agendamentos){
+
+                String nomeDoCliente = clientesService
+                        .findById(agendamento.getClienteAgendamento().getId())
+                        .map(Clientes::getNomeCliente)
+                        .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));
+
                 csvPrinter.printRecord(
-                        agendamento.getClienteAgendamento(),
+                        nomeDoCliente,
                         agendamento.getAgendamentoCidade(),
                         agendamento.getAgendamentoBairro(),
                         agendamento.getEnderecoAgendamento(),

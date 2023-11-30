@@ -25,10 +25,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class OrdemServicoService {
@@ -197,10 +194,10 @@ public class OrdemServicoService {
             csvPrinter.printRecord("Cliente", "Status da Ordem", "Data que foi emitida", "Valor Total");
             for(OrdemServico ordemDeServico : ordens){
 
-                Optional<Clientes> clienteOrdem = clientesService.findById(ordemDeServico.getClienteOrdem().getId());
-
-                Clientes cliente = clienteOrdem.get();
-                String nomeDoCliente = cliente.getNomeCliente();
+                String nomeDoCliente = clientesService
+                        .findById(ordemDeServico.getClienteOrdem().getId())
+                        .map(Clientes::getNomeCliente)
+                        .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));
 
                 csvPrinter.printRecord(
                         nomeDoCliente,
@@ -214,8 +211,6 @@ public class OrdemServicoService {
         }
     }
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-
     public void exportaOrdemDeServicoParaCsv(Writer writer){
 
         List<OrdemServico> ordens = repository.findAll();
@@ -225,10 +220,10 @@ public class OrdemServicoService {
             csvPrinter.printRecord("Cliente", "Status da Ordem", "Data que foi emitida", "Valor Total");
             for(OrdemServico ordemDeServico : ordens){
 
-                Optional<Clientes> clienteOrdem = clientesService.findById(ordemDeServico.getClienteOrdem().getId());
-
-                Clientes cliente = clienteOrdem.get();
-                String nomeDoCliente = cliente.getNomeCliente();
+                String nomeDoCliente = clientesService
+                        .findById(ordemDeServico.getClienteOrdem().getId())
+                        .map(Clientes::getNomeCliente)
+                        .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));
 
                 csvPrinter.printRecord(
                         nomeDoCliente,
