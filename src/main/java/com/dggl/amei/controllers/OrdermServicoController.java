@@ -60,7 +60,7 @@ public class OrdermServicoController extends AbstractController {
 
     }
 
-    @RequestMapping(value = "/api/ordemDeServico/download")
+    @GetMapping(value = "/downloadCsv")
     public void exportaOrdemDeServicoParaCsv(HttpServletResponse servletResponse) throws IOException {
         servletResponse.setContentType("text/csv");
         servletResponse.addHeader("Content-Disposition", "attachment; filename=\"ordensDeServico.csv\"");

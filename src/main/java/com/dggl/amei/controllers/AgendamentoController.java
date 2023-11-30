@@ -65,7 +65,7 @@ public class AgendamentoController extends AbstractController {
 
     }
 
-    @RequestMapping(value = "/api/agendamentos/download")
+    @GetMapping(value = "/downloadCsv")
     public void exportaAgendamentoParaCsv(HttpServletResponse servletResponse) throws IOException {
         servletResponse.setContentType("text/csv");
         servletResponse.addHeader("Content-Disposition", "attachment; filename=\"agendamentos.csv\"");
