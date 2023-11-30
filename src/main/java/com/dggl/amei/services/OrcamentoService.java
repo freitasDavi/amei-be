@@ -237,7 +237,7 @@ public class OrcamentoService {
     public void exportaOrcamentoParaCsv(Writer writer) {
 
         List<Orcamento> orcamentos = repository.findAll();
-        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)) {
+        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.EXCEL)) {
             csvPrinter.printRecord("Cliente", "Data Emissão", "Valor Total");
             for (Orcamento orcamento : orcamentos) {
                 csvPrinter.printRecord(

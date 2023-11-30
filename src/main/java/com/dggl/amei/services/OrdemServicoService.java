@@ -22,7 +22,9 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.Writer;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,6 +46,8 @@ public class OrdemServicoService {
     private ClientesService clientesService;
 
     private String taskName = "Ordem de Serviço";
+
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public Page<OrdemServico> findAll(String filter, Pageable pageable, Long id){
         return repository.findAll(filter, OrdemServico.class, pageable, QOrdemServico.ordemServico.usuarioOrdem.id.eq(id));
@@ -190,12 +194,18 @@ public class OrdemServicoService {
         List<OrdemServico> ordens = repository.findByDataBetween(dataInicio, dataFim);
 
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
-            csvPrinter.printRecord("Cliente", "Status da Ordem", "Data de Emissão", "Valor Total");
+            csvPrinter.printRecord("Cliente", "Status da Ordem", "Data que foi emitida", "Valor Total");
             for(OrdemServico ordemDeServico : ordens){
+
+                Optional<Clientes> clienteOrdem = clientesService.findById(ordemDeServico.getClienteOrdem().getId());
+
+                Clientes cliente = clienteOrdem.get();
+                String nomeDoCliente = cliente.getNomeCliente();
+
                 csvPrinter.printRecord(
-                        ordemDeServico.getClienteOrdem(),
-                        ordemDeServico.getStatusOrdemServico(),
-                        ordemDeServico.getDataEmissaoOrdemServico(),
+                        nomeDoCliente,
+                        ordemDeServico.getStatusOrdemServico().toString(),
+                        ordemDeServico.getDataEmissaoOrdemServico().format(formatter),
                         ordemDeServico.getValorTotal()
                 );
             }
@@ -204,17 +214,26 @@ public class OrdemServicoService {
         }
     }
 
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+
     public void exportaOrdemDeServicoParaCsv(Writer writer){
 
         List<OrdemServico> ordens = repository.findAll();
 
-        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
-            csvPrinter.printRecord("Cliente", "Status da Ordem", "Data de Emissão", "Valor Total");
+
+        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.EXCEL)){
+            csvPrinter.printRecord("Cliente", "Status da Ordem", "Data que foi emitida", "Valor Total");
             for(OrdemServico ordemDeServico : ordens){
+
+                Optional<Clientes> clienteOrdem = clientesService.findById(ordemDeServico.getClienteOrdem().getId());
+
+                Clientes cliente = clienteOrdem.get();
+                String nomeDoCliente = cliente.getNomeCliente();
+
                 csvPrinter.printRecord(
-                        ordemDeServico.getClienteOrdem(),
-                        ordemDeServico.getStatusOrdemServico(),
-                        ordemDeServico.getDataEmissaoOrdemServico(),
+                        nomeDoCliente,
+                        ordemDeServico.getStatusOrdemServico().toString(),
+                        ordemDeServico.getDataEmissaoOrdemServico().format(formatter),
                         ordemDeServico.getValorTotal()
                 );
             }
