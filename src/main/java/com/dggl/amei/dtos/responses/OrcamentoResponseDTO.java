@@ -1,16 +1,12 @@
 package com.dggl.amei.dtos.responses;
 
 import com.dggl.amei.dtos.responses.relatorios.UserDTO;
-import com.dggl.amei.models.*;
+import com.dggl.amei.models.ItensOrcamento;
+import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.models.enums.StatusOrcamentoEnum;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -17,20 +17,9 @@ public class ClientsComboResponseDTO {
 
     private String telefone;
 
-//    private String cepCliente;
-//
-//    private String enderecoCliente;
-//
-//    private String numeroCliente;
-//
-//    private String complementoCliente;
-//
     private String cnpjCliente;
-//
-//    private String inscricaoMunicipal;
 
 //    ---
-
 
     public Long getId() {
         return id;

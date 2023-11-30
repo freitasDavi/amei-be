@@ -42,20 +42,12 @@ public class SignupRequest {
     @Size(max = 8, message = "CPE deve conter no máximo 8 caraceteres")
     private String cepUsuario;
 
-    //@NotBlank
-    //@Size(max = 30, message = "Cidade deve ter no máximo 30 caracteres")
     private Cidade cidadeUsuario;
-
-//    @NotBlank
-//    @Size(max = 10, message = "Estado deve ter no máximo 10 caracteres")
-//    private String estadoUsuario;
 
     @NotBlank
     @Size(max = 150, message = "Logradouro deve ter no máximo 150 caracteres")
     private String logradouroUsuario;
 
-    //@NotBlank
-    //@Size(max = 150, message = "Bairro deve ter no máximo 150 caracteres")
     private Bairro bairroUsuario;
 
     @NotBlank

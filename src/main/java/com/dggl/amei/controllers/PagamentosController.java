@@ -1,7 +1,6 @@
 package com.dggl.amei.controllers;
 
 import com.dggl.amei.configuration.security.services.UserDetailsImpl;
-import com.dggl.amei.models.enums.EnumPlanoAtivo;
 import com.dggl.amei.services.PagamentoService;
 import com.google.gson.JsonSyntaxException;
 import com.stripe.Stripe;
@@ -16,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,28 +61,43 @@ public class PagamentosController extends AbstractController {
             return ResponseEntity.badRequest().body("Webhook error while parsing basic request.");
         }
 
-        // Deserializae the nested object inside the event
+        /*
+            Deserializae the nested object inside the event
+        */
+
         EventDataObjectDeserializer dataObjectDeserializer = event.getDataObjectDeserializer();
         StripeObject stripeObject = null;
         if (dataObjectDeserializer.getObject().isPresent()) {
             stripeObject = dataObjectDeserializer.getObject().get();
         } else {
-            // Deserialization failed, probably due to an API version mismatch.
-            // Refer to the Javadoc documentation on `EventDataObjectDeserializer` for
-            // instructions on how to handle this case, or return an error here.
+
+            /*
+                Deserialization failed, probably due to an API version mismatch.
+                Refer to the Javadoc documentation on `EventDataObjectDeserializer` for
+                instructions on how to handle this case, or return an error here.
+            */
+
         }
 
         switch (event.getType()) {
             case "payment_intent.succeeded":
                 PaymentIntent paymentIntent = (PaymentIntent) stripeObject;
                 System.out.println("Payment for " + paymentIntent.getAmount() + " succeeded");
-                // Then define and call a method to handle the successful payment intent.
-                // handlePaymentIntentSucceeded(paymentIntent);
+
+                /*
+                    Then define and call a method to handle the successful payment intent.
+                    handlePaymentIntentSucceeded(paymentIntent);
+                */
+
                 break;
             case "payment_method.attached":
                 PaymentMethod paymentMethod = (PaymentMethod) stripeObject;
-                // Then define and call a method to handle the successful attachment of a PaymentMethod.
-                // handlePaymentMethodAttached(paymentMethod);
+
+                /*
+                   Then define and call a method to handle the successful attachment of a PaymentMethod.
+                   handlePaymentMethodAttached(paymentMethod);
+                */
+
                 break;
             case "customer.subscription.created":
                 System.out.println("Inscrição criada");
