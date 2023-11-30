@@ -44,4 +44,11 @@ public class CronometroController {
 
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("gerarOrdem/{id}")
+    public ResponseEntity<Long> gerarOrdem(@PathVariable Long id) {
+        var codigoOrdem = service.gerarNovaOrdem(id);
+
+        return ResponseEntity.ok().body(codigoOrdem);
+    }
 }

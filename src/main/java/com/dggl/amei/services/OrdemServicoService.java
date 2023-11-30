@@ -21,6 +21,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.Writer;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -39,6 +40,9 @@ public class OrdemServicoService {
     @Autowired
     private ItensOrdemServicoRepository itensOrdemServicoRepository;
 
+    @Autowired
+    private ClientesService clientesService;
+
     private String taskName = "Ordem de Serviço";
 
     public Page<OrdemServico> findAll(String filter, Pageable pageable, Long id){
@@ -55,8 +59,7 @@ public class OrdemServicoService {
                 dto.getClienteOrdem(),
                 dto.getTelefoneOrdem(),
                 dto.getValorTotal(),
-                dto.getUsuarioOrdem(),
-                dto.getDataEmissaoOrdemServico()
+                dto.getUsuarioOrdem()
         );
 
         var ordem = repository.save(ordemServico);
@@ -182,7 +185,6 @@ public class OrdemServicoService {
         itensOrdemServicoRepository.save(entidade);
     }
 
-
     public void exportaOrdemDeServicoParaCsvPorPeriodo(Writer writer, LocalDateTime dataInicio, LocalDateTime dataFim){
 
         List<OrdemServico> ordens = repository.findByDataBetween(dataInicio, dataFim);
@@ -230,5 +232,31 @@ public class OrdemServicoService {
 
         entidade.setStatusOrdemServico(StatusOrdemServicoEnum.EMITIDA);
         repository.save(entidade);
+    }
+
+    @Transactional
+    public Long gerarOrdemDoRelogio(Cronometro cronometro, BigDecimal valorTrabalhado) {
+        var clientePadrao = clientesService.getClientePadrao(cronometro.getUsuario().getId());
+
+        var ordem = new OrdemServico(
+            clientePadrao,
+            clientePadrao.getTelefoneCliente(),
+            valorTrabalhado,
+            cronometro.getUsuario()
+        );
+
+        repository.save(ordem);
+
+        var itemOrdem = new ItensOrdemServico(
+                1L,
+            valorTrabalhado,
+            valorTrabalhado,
+            cronometro.getNome(),
+            ordem
+        );
+
+        itensOrdemServicoRepository.save(itemOrdem);
+
+        return ordem.getId();
     }
 }

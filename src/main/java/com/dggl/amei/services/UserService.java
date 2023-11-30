@@ -2,11 +2,13 @@ package com.dggl.amei.services;
 
 import com.dggl.amei.configuration.security.jwt.JwtUtils;
 import com.dggl.amei.configuration.security.services.UserDetailsImpl;
+import com.dggl.amei.dtos.requests.CNPJValidadoDTO;
 import com.dggl.amei.dtos.requests.SignupRequest;
 import com.dggl.amei.dtos.requests.UserEnderecoRequestDTO;
 import com.dggl.amei.dtos.requests.UserGeralRequestDTO;
 import com.dggl.amei.dtos.responses.JwtResponse;
 import com.dggl.amei.dtos.responses.MessageResponse;
+import com.dggl.amei.dtos.responses.ViaCEPRetorno;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.RefreshToken;
 import com.dggl.amei.models.Role;
@@ -15,7 +17,7 @@ import com.dggl.amei.models.enums.EnumRole;
 import com.dggl.amei.repositories.RoleRepository;
 import com.dggl.amei.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,7 +25,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -52,6 +56,8 @@ public class UserService {
 
 
     public JwtResponse gerarToken (String username, String password) throws Exception {
+
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password)
         );
@@ -179,5 +185,26 @@ public class UserService {
         userRepository.save(userFound);
 
         return userFound;
+    }
+
+    public boolean validaCnpj(String cnpj) {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            String uri = "https://publica.cnpj.ws/cnpj/"+cnpj;
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+            headers.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
+
+            HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+            ResponseEntity<?> result =
+                    restTemplate.exchange(uri, HttpMethod.GET, entity, CNPJValidadoDTO.class);
+
+            CNPJValidadoDTO body = (CNPJValidadoDTO) result.getBody();
+
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 }

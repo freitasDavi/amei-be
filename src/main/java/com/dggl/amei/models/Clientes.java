@@ -31,27 +31,22 @@ public class Clientes {
     @Email
     private String emailCliente;
 
-    @NotBlank
     @Size(max = 11)
     @Column(name = "TELEFONE")
     private String telefoneCliente;
 
-    @NotBlank
     @Size(max = 8)
     @Column(name = "CEP")
     private String cepCliente;
 
-    @NotBlank
     @Size(max = 150)
     @Column(name = "ENDERECO")
     private String enderecoCliente;
 
-    @NotBlank
     @Size(max = 50)
     @Column(name = "NUMERO")
     private String numeroCliente;
 
-    @NotBlank
     @Size(max = 150)
     @Column(name = "COMPLEMENTO")
     private String complementoCliente;

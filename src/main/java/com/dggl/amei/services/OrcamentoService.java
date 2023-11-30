@@ -1,5 +1,6 @@
 package com.dggl.amei.services;
 
+import com.dggl.amei.dtos.requests.ItemOrcamentoRequestDTO;
 import com.dggl.amei.dtos.requests.NovoOrcamentoRequest;
 import com.dggl.amei.dtos.requests.UpdateOrcamentoRequest;
 import com.dggl.amei.exceptions.DataBaseException;
@@ -56,6 +57,8 @@ public class OrcamentoService {
     @Autowired
     ItensOrcamentoRepository itensOrcamentoRepository;
 
+
+
     private String taskName = "Orçamento";
 
     public Page<Orcamento> findAll(String filter, Pageable pageable, Long id) {
@@ -72,7 +75,6 @@ public class OrcamentoService {
         Optional<Orcamento> orcamento = repository.findById(id);
         return orcamento.orElseThrow(() -> new RecursoNaoEncontrado(taskName, id));
     }
-
     public List<Orcamento> buscaOrcamentoPorPeriodo(LocalDateTime dataInicio, LocalDateTime dataFim) {
 
         List<Orcamento> orcamentos = repository.findAll();
@@ -87,6 +89,8 @@ public class OrcamentoService {
     }
 
     public Orcamento insert(NovoOrcamentoRequest dto) {
+        var listItems = ItemOrcamentoRequestDTO.toEntity(dto.getItensOrcamentos());
+
         var orcamento = new Orcamento(
                 dto.getNomeCliente(),
                 dto.getTelefoneCliente(),
@@ -95,7 +99,7 @@ public class OrcamentoService {
                 dto.getObservacoesOrcamento(),
                 dto.getUsuarioOrcamento(),
                 dto.getClienteOrcamento(),
-                dto.getItensOrcamentos()
+                listItems
         );
 
         var orc = repository.save(orcamento);
@@ -156,7 +160,9 @@ public class OrcamentoService {
 
                 repository.save(entidade);
 
-                updateItemsOrcamento(id, dto.getItensOrcamentos());
+                var listItems = ItemOrcamentoRequestDTO.toEntity(dto.getItensOrcamentos());
+
+                updateItemsOrcamento(id, listItems);
 
 
             }
@@ -178,7 +184,7 @@ public class OrcamentoService {
         List<ItensOrcamento> listaNovos = new LinkedList<>();
 
         items.forEach(item -> {
-            if (item.getOrcamento() == null) {
+            if (item.getId() == null) {
                 listaNovos.add(new ItensOrcamento(
                         item.getValorUnitario(),
                         item.getValorTotal(),

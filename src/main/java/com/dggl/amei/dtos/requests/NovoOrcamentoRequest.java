@@ -31,7 +31,7 @@ public class NovoOrcamentoRequest {
     private User usuarioOrcamento;
 
     private Clientes clienteOrcamento;
-    private List<ItensOrcamento> itensOrcamentos;
+    private List<ItemOrcamentoRequestDTO> itensOrcamentos;
 
     public String getNomeCliente() {
         return nomeCliente;
@@ -57,8 +57,12 @@ public class NovoOrcamentoRequest {
         return usuarioOrcamento;
     }
 
-    public List<ItensOrcamento> getItensOrcamentos() {
+    public List<ItemOrcamentoRequestDTO> getItensOrcamentos() {
         return itensOrcamentos;
+    }
+
+    public void setItensOrcamentos(List<ItemOrcamentoRequestDTO> itensOrcamentos) {
+        this.itensOrcamentos = itensOrcamentos;
     }
 
     public Clientes getClienteOrcamento() {

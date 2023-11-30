@@ -53,7 +53,7 @@ public class CidadeService {
         ViaCEPRetorno body = (ViaCEPRetorno) result.getBody();
 
         var cidade = repository.findByNomeCidadeContaining(body.getLocalidade());
-        var bairro = bairroRepository.findByNomeBairroContaining(body.getBairro());
+        var bairro = bairroRepository.findFirstByNomeBairroContaining(body.getBairro());
 
         var retorno = new RetornoCEP(
                 cidade.getId(),

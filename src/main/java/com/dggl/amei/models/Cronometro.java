@@ -3,6 +3,7 @@ package com.dggl.amei.models;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -21,10 +22,10 @@ public class Cronometro {
     private BigDecimal valorHora;
 
     @Column(name = "DATA_INICIO")
-    private Instant inicio;
+    private LocalDateTime inicio;
 
     @Column(name = "DATA_FIM")
-    private Instant fim;
+    private LocalDateTime fim;
 
     @Column(name = "COMPLETO")
     private boolean completo;
@@ -60,19 +61,19 @@ public class Cronometro {
         this.nome = nome;
     }
 
-    public Instant getInicio() {
+    public LocalDateTime getInicio() {
         return inicio;
     }
 
-    public void setInicio(Instant inicio) {
+    public void setInicio(LocalDateTime inicio) {
         this.inicio = inicio;
     }
 
-    public Instant getFim() {
+    public LocalDateTime getFim() {
         return fim;
     }
 
-    public void setFim(Instant fim) {
+    public void setFim(LocalDateTime fim) {
         this.fim = fim;
     }
 
@@ -90,6 +91,22 @@ public class Cronometro {
 
     public void setUsuario(User usuario) {
         this.usuario = usuario;
+    }
+
+    public BigDecimal getValorHora() {
+        return valorHora;
+    }
+
+    public void setValorHora(BigDecimal valorHora) {
+        this.valorHora = valorHora;
+    }
+
+    public Servico getServico() {
+        return servico;
+    }
+
+    public void setServico(Servico servico) {
+        this.servico = servico;
     }
 
     @Override

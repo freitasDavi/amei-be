@@ -25,7 +25,6 @@ public class Agendamento {
     @Column(name = "DATA_AGENDAMENTO")
     private LocalDate dataAgendamento;
 
-    @NotBlank
     @Size(max = 150)
     @Column(name = "ENDERECO")
     private String enderecoAgendamento;

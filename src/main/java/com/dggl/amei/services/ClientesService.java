@@ -31,7 +31,6 @@ public class ClientesService {
 
         repository.save(cliente);
     }
-
     public Clientes update (Long id, ClienteResponseDTO dto) {
         var dbObject = repository.findById(id);
 
@@ -43,5 +42,15 @@ public class ClientesService {
         repository.save(entidade);
 
         return entidade;
+    }
+
+    public Clientes getClientePadrao(Long id) {
+        var clientePadrao = repository.findAll(QClientes.clientes.nomeCliente.like("%padrão%").and(QClientes.clientes.usuarioCliente.id.eq(id))).stream().findFirst();
+
+        if (clientePadrao.isEmpty()) {
+            throw new RecursoNaoEncontrado("Cliente", 1L);
+        }
+
+        return clientePadrao.get();
     }
 }
