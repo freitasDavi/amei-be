@@ -44,7 +44,7 @@ public class BooleanBuilderUtil {
                         predicate.and(Expressions.booleanTemplate("{0} <= {1}", campoPath, getTipo(tipoCampo, partes[2])));
                         break;
                     case "like":
-                        predicate.and(Expressions.booleanTemplate("{0} like '%'||{1}||'%'", campoPath, Expressions.constant(partes[2])));
+                        predicate.and(Expressions.booleanTemplate("lower({0}) like '%'||{1}||'%'", campoPath, Expressions.constant(partes[2])));
                         break;
                     default:
                         // Operador não suportado, trate conforme necessário

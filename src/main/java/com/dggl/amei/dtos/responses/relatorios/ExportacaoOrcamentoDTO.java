@@ -40,6 +40,7 @@ public class ExportacaoOrcamentoDTO {
         dto.setItensOrcamentos(orcamento.getItensOrcamentos());
         dto.setCliente(ClienteResponseDTO.fromEntity(orcamento.getClienteOrcamento()));
         dto.setUsuario(UserDTO.fromEntity(orcamento.getUsuarioOrcamento()));
+        dto.setValorTotalDoOrcamento(orcamento.getValorTotalDoOrcamento());
 
         return dto;
     }
