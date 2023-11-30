@@ -1,14 +1,10 @@
 package com.dggl.amei.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.apache.juli.logging.Log;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "ITENS_ORCAMENTO")

@@ -5,7 +5,6 @@ import com.dggl.amei.dtos.requests.NovoOrcamentoRequest;
 import com.dggl.amei.dtos.requests.UpdateOrcamentoRequest;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
-import com.dggl.amei.models.Agendamento;
 import com.dggl.amei.models.ItensOrcamento;
 import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.models.QOrcamento;
@@ -15,8 +14,6 @@ import com.dggl.amei.repositories.OrcamentoRepository;
 import com.dggl.amei.repositories.OrdemServicoRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import org.aspectj.weaver.ast.Or;
-import org.joda.time.Instant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +21,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -34,7 +30,6 @@ import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -45,9 +40,6 @@ public class OrcamentoService {
 
     private static final Logger log = LoggerFactory.getLogger(OrcamentoService.class);
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-
-
     @Autowired
     private OrcamentoRepository repository;
 
@@ -56,8 +48,6 @@ public class OrcamentoService {
 
     @Autowired
     ItensOrcamentoRepository itensOrcamentoRepository;
-
-
 
     private String taskName = "Orçamento";
 

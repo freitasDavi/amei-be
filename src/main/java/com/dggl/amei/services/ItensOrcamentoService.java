@@ -61,9 +61,6 @@ public class ItensOrcamentoService {
         itensOrcamentoBanco.setDescricao(novoItensOrcamento.getDescricao());
         itensOrcamentoBanco.setValorUnitario(novoItensOrcamento.getValorUnitario());
         itensOrcamentoBanco.setValorTotal(novoItensOrcamento.getValorTotal());
-        //itensOrcamentoBanco.setOrcamentoItens(novoItensOrcamento.getOrcamentoItens());
-
-
 
     }
 }

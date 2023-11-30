@@ -1,15 +1,11 @@
 package com.dggl.amei.configuration.security.services;
 
-import com.dggl.amei.models.Bairro;
-import com.dggl.amei.models.Cidade;
 import com.dggl.amei.models.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;

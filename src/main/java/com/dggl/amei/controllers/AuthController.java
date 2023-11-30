@@ -1,20 +1,12 @@
 package com.dggl.amei.controllers;
 
 import com.dggl.amei.configuration.security.jwt.JwtUtils;
-import com.dggl.amei.configuration.security.services.UserDetailsImpl;
 import com.dggl.amei.dtos.requests.LoginRequest;
 import com.dggl.amei.dtos.requests.SignupRequest;
 import com.dggl.amei.dtos.requests.TokenRefreshRequest;
-import com.dggl.amei.dtos.responses.JwtResponse;
 import com.dggl.amei.dtos.responses.MessageResponse;
-import com.dggl.amei.dtos.responses.MessageWithBodyResponse;
 import com.dggl.amei.dtos.responses.RefreshTokenResponse;
-import com.dggl.amei.models.enums.EnumRole;
 import com.dggl.amei.models.RefreshToken;
-import com.dggl.amei.models.Role;
-import com.dggl.amei.models.User;
-import com.dggl.amei.repositories.RoleRepository;
-import com.dggl.amei.repositories.UserRepository;
 import com.dggl.amei.services.RefreshTokenService;
 import com.dggl.amei.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,21 +14,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-//@CrossOrigin(origins = "*", maxAge = 3600)
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController extends AbstractController {

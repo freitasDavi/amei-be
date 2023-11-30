@@ -2,7 +2,6 @@ package com.dggl.amei.repositories;
 
 import com.dggl.amei.models.Orcamento;
 import com.dggl.amei.utils.CustomQueryDslPredicateExecutor;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

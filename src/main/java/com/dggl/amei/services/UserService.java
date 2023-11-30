@@ -7,8 +7,6 @@ import com.dggl.amei.dtos.requests.SignupRequest;
 import com.dggl.amei.dtos.requests.UserEnderecoRequestDTO;
 import com.dggl.amei.dtos.requests.UserGeralRequestDTO;
 import com.dggl.amei.dtos.responses.JwtResponse;
-import com.dggl.amei.dtos.responses.MessageResponse;
-import com.dggl.amei.dtos.responses.ViaCEPRetorno;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.RefreshToken;
 import com.dggl.amei.models.Role;

@@ -1,12 +1,12 @@
 package com.dggl.amei.services;
 
 import com.dggl.amei.dtos.requests.AgendamentoRequestDTO;
-import com.dggl.amei.dtos.responses.AgendamentoResponseDTO;
 import com.dggl.amei.dtos.responses.relatorios.AgendamentoPorClienteDTO;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
-import com.dggl.amei.models.*;
-import com.dggl.amei.models.enums.StatusOrcamentoEnum;
+import com.dggl.amei.models.Agendamento;
+import com.dggl.amei.models.QAgendamento;
+import com.dggl.amei.models.User;
 import com.dggl.amei.repositories.AgendamentoRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -42,7 +42,6 @@ public class AgendamentoService {
     public Page<Agendamento> getLatestFive (Long id) {
         return repository.findAll(QAgendamento.agendamento.usuarioAgendamento.id.eq(id), PageRequest.of(0, 5));
 
-        //return repository.getAgendamentosByUsuarioAgendamento_IdOrderByDataAgendamentoAsc(id);
     }
 
     public Page<Agendamento> findAll(
