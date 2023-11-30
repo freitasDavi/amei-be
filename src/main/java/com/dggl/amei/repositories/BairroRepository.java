@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BairroRepository extends JpaRepository<Bairro, Long>, CustomQueryDslPredicateExecutor<Bairro> {
 
-    Bairro findByNomeBairroContaining(String nomeBairro);
+    Bairro findFirstByNomeBairroContaining(String nomeBairro);
 }

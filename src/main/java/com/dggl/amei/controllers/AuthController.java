@@ -73,6 +73,10 @@ public class AuthController extends AbstractController {
         try {
             userService.usuarioJaExiste(signupRequest.getUsername(), signupRequest.getUsername());
 
+            var cnpjExiste = userService.validaCnpj(signupRequest.getCnpj());
+
+            if (!cnpjExiste) return ResponseEntity.badRequest().body(new MessageResponse("CNPJ Inválido"));
+
             var novoUser = userService.criarNovoUsuario(signupRequest);
 
             var tokens = userService.gerarToken(novoUser.getUsername(), signupRequest.getPassword());
@@ -81,7 +85,7 @@ public class AuthController extends AbstractController {
 
             return ResponseEntity.ok(tokens);
         } catch (Exception ex) {
-            return ResponseEntity.badRequest().body(ex.getMessage());
+                return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
 

@@ -1,8 +1,17 @@
 package com.dggl.amei.dtos.requests;
 
+import com.dggl.amei.dtos.responses.AgendamentoResponseDTO;
 import com.dggl.amei.dtos.responses.MiniOrcamentoDTO;
+import com.dggl.amei.models.Agendamento;
+import com.dggl.amei.models.ItensOrcamento;
+import com.dggl.amei.models.Orcamento;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ItemOrcamentoRequestDTO {
     private Long id;
@@ -23,6 +32,29 @@ public class ItemOrcamentoRequestDTO {
         dto.setOrcamento(new MiniOrcamentoDTO(item.getOrcamento().getId()));
 
         return dto;
+    }
+
+    public static ItensOrcamento toEntity(ItemOrcamentoRequestDTO dto) {
+        var entidade = new ItensOrcamento();
+
+        entidade.setDescricao(dto.getDescricao());
+        entidade.setOrcamento(new Orcamento(dto.getOrcamento().getId()));
+        entidade.setQuantidade(dto.getQuantidade());
+        entidade.setId(dto.getId());
+        entidade.setValorUnitario(dto.getValorUnitario());
+        entidade.setValorTotal(dto.getValorTotal());
+
+        return entidade;
+    }
+
+    public static List<ItensOrcamento> toEntity(List<ItemOrcamentoRequestDTO> itemList) {
+        List<ItensOrcamento> itens = new LinkedList<>();
+
+        for (var i : itemList) {
+            itens.add(toEntity(i));
+        }
+
+        return itens;
     }
 
     public Long getId() {
