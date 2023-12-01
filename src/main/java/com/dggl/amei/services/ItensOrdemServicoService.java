@@ -67,8 +67,6 @@ public class ItensOrdemServicoService {
         itensOrdemServicoBanco.setValorUnitario(novosItensOrdemServico.getValorUnitario());
         itensOrdemServicoBanco.setDescricaoItemOrdem(novosItensOrdemServico.getDescricaoItemOrdem());
         itensOrdemServicoBanco.setOrdemDeServico(novosItensOrdemServico.getOrdemDeServico());
-        
-        
-        
+
     }
 }

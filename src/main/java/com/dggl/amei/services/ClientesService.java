@@ -4,6 +4,7 @@ import com.dggl.amei.dtos.responses.ClienteResponseDTO;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Clientes;
 import com.dggl.amei.models.QClientes;
+import com.dggl.amei.models.User;
 import com.dggl.amei.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -52,5 +53,22 @@ public class ClientesService {
         }
 
         return clientePadrao.get();
+    }
+
+    public void createClientePadrao(Long id) {
+        var cliente = new Clientes();
+        cliente.setNomeCliente("Cliente padrão");
+        cliente.setUsuarioCliente(new User(id));
+        cliente.setCnpjCliente("00000000000");
+        cliente.setTelefoneCliente("00000000000");
+        cliente.setEnderecoCliente("Rua do cliente padrão");
+        cliente.setCepCliente("00000000");
+        //cliente.setCidadeCliente("Cidade do cliente padrão");
+        //cliente.setEstadoCliente("Estado do cliente padrão");
+        cliente.setEmailCliente("cliente@padrao.com");
+        cliente.setCepCliente("00000000");
+        cliente.setComplementoCliente("");
+
+        repository.save(cliente);
     }
 }

@@ -7,8 +7,6 @@ import com.dggl.amei.dtos.requests.SignupRequest;
 import com.dggl.amei.dtos.requests.UserEnderecoRequestDTO;
 import com.dggl.amei.dtos.requests.UserGeralRequestDTO;
 import com.dggl.amei.dtos.responses.JwtResponse;
-import com.dggl.amei.dtos.responses.MessageResponse;
-import com.dggl.amei.dtos.responses.ViaCEPRetorno;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.RefreshToken;
 import com.dggl.amei.models.Role;
@@ -54,6 +52,9 @@ public class UserService {
     @Autowired
     JwtUtils jwtUtils;
 
+    @Autowired
+    ClientesService clientesService;
+
 
     public JwtResponse gerarToken (String username, String password) throws Exception {
 
@@ -77,7 +78,8 @@ public class UserService {
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
-                roles);
+                roles,
+                userDetails.getRazaoSocial());
     }
 
     public User criarNovoUsuario (SignupRequest signupRequest) {
@@ -85,6 +87,8 @@ public class UserService {
         User user = mapearNovoUsuario(signupRequest, roles);
 
         userRepository.save(user);
+
+        clientesService.createClientePadrao(user.getId());
 
         return user;
     }

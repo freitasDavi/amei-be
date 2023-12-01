@@ -1,15 +1,16 @@
 package com.dggl.amei.models;
 
-import com.dggl.amei.models.Role;
 import com.dggl.amei.models.enums.EnumPlanoAtivo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Negative;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(
@@ -117,7 +118,6 @@ public class User {
     private List<Agendamento> agendamentosUsuario;
 
 //    ---
-
 
     public User() {
     }

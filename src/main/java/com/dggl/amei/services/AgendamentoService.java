@@ -1,12 +1,13 @@
 package com.dggl.amei.services;
 
 import com.dggl.amei.dtos.requests.AgendamentoRequestDTO;
-import com.dggl.amei.dtos.responses.AgendamentoResponseDTO;
 import com.dggl.amei.dtos.responses.relatorios.AgendamentoPorClienteDTO;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
-import com.dggl.amei.models.*;
-import com.dggl.amei.models.enums.StatusOrcamentoEnum;
+import com.dggl.amei.models.Agendamento;
+import com.dggl.amei.models.Clientes;
+import com.dggl.amei.models.QAgendamento;
+import com.dggl.amei.models.User;
 import com.dggl.amei.repositories.AgendamentoRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -25,6 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -32,12 +34,15 @@ public class AgendamentoService {
 
     @Autowired
     private AgendamentoRepository repository;
+
+    @Autowired
+    private ClientesService clientesService;
+
     private String task = "Agendamento";
 
     public Page<Agendamento> getLatestFive (Long id) {
         return repository.findAll(QAgendamento.agendamento.usuarioAgendamento.id.eq(id), PageRequest.of(0, 5));
 
-        //return repository.getAgendamentosByUsuarioAgendamento_IdOrderByDataAgendamentoAsc(id);
     }
 
     public Page<Agendamento> findAll(
@@ -125,8 +130,14 @@ public class AgendamentoService {
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
             csvPrinter.printRecord("Cliente", "Cidade" , "Bairro", "Endereço", "Responsavel", "Data");
             for(Agendamento agendamento : agendamentos){
+
+                String nomeDoCliente = clientesService
+                        .findById(agendamento.getClienteAgendamento().getId())
+                        .map(Clientes::getNomeCliente)
+                        .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));
+
                 csvPrinter.printRecord(
-                        agendamento.getClienteAgendamento(),
+                        nomeDoCliente,
                         agendamento.getAgendamentoCidade(),
                         agendamento.getAgendamentoBairro(),
                         agendamento.getEnderecoAgendamento(),
@@ -145,8 +156,14 @@ public class AgendamentoService {
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
             csvPrinter.printRecord("Cliente", "Cidade" , "Bairro", "Endereço", "Responsavel", "Data");
             for(Agendamento agendamento : agendamentos){
+
+                String nomeDoCliente = clientesService
+                        .findById(agendamento.getClienteAgendamento().getId())
+                        .map(Clientes::getNomeCliente)
+                        .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));
+
                 csvPrinter.printRecord(
-                        agendamento.getClienteAgendamento(),
+                        nomeDoCliente,
                         agendamento.getAgendamentoCidade(),
                         agendamento.getAgendamentoBairro(),
                         agendamento.getEnderecoAgendamento(),

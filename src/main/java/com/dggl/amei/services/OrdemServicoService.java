@@ -3,6 +3,7 @@ package com.dggl.amei.services;
 import com.dggl.amei.dtos.requests.NovoOrdemServicoRequest;
 import com.dggl.amei.dtos.requests.UpdateOrdemServicoRequest;
 import com.dggl.amei.exceptions.DataBaseException;
+import com.dggl.amei.exceptions.FaturamentoExcedido;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.*;
 import com.dggl.amei.models.enums.StatusOrdemServicoEnum;
@@ -22,11 +23,10 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.Writer;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 public class OrdemServicoService {
@@ -43,7 +43,12 @@ public class OrdemServicoService {
     @Autowired
     private ClientesService clientesService;
 
+    @Autowired
+    private PagamentoService pagamentoService;
+
     private String taskName = "Ordem de Serviço";
+
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public Page<OrdemServico> findAll(String filter, Pageable pageable, Long id){
         return repository.findAll(filter, OrdemServico.class, pageable, QOrdemServico.ordemServico.usuarioOrdem.id.eq(id));
@@ -61,6 +66,12 @@ public class OrdemServicoService {
                 dto.getValorTotal(),
                 dto.getUsuarioOrdem()
         );
+
+        var faturamentoDentroDoLimite = pagamentoService.faturamentoDentroDoLimite(dto.getUsuarioOrdem().getId(), dto.getValorTotal());
+
+        if (!faturamentoDentroDoLimite) {
+            throw new FaturamentoExcedido();
+        }
 
         var ordem = repository.save(ordemServico);
 
@@ -80,17 +91,21 @@ public class OrdemServicoService {
         return ordem;
     }
 
-    public void geraOrdemDeServicoVindoDoOrcamento(Long id){
+    public Long geraOrdemDeServicoVindoDoOrcamento(Long id){
         var orcamento = orcamentoService.findById(id);
 
         var ordemServico = new OrdemServico();
-        ordemServico.setClienteOrdem(ordemServico.getClienteOrdem());
+        ordemServico.setClienteOrdem(orcamento.getClienteOrcamento());
         ordemServico.setStatusOrdemServico(StatusOrdemServicoEnum.AGUARDANDO_EMISSAO);
         ordemServico.setDataEmissaoOrdemServico(LocalDateTime.now());
-        ordemServico.setValorTotal(ordemServico.getValorTotal());
+        ordemServico.setValorTotal(orcamento.getValorTotalDoOrcamento());
+        ordemServico.setUsuarioOrdem(orcamento.getUsuarioOrcamento());
+        ordemServico.setTelefoneOrdem(orcamento.getTelefoneCliente());
+
         repository.save(ordemServico);
         geraListaDeItensOrdemServico(orcamento.getItensOrcamentos(), ordemServico.getId());
 
+        return ordemServico.getId();
     }
 
     public void geraListaDeItensOrdemServico(List<ItensOrcamento> itensOrc, Long codigoOrdem){
@@ -190,12 +205,18 @@ public class OrdemServicoService {
         List<OrdemServico> ordens = repository.findByDataBetween(dataInicio, dataFim);
 
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
-            csvPrinter.printRecord("Cliente", "Status da Ordem", "Data de Emissão", "Valor Total");
+            csvPrinter.printRecord("Cliente", "Status da Ordem", "Data que foi emitida", "Valor Total");
             for(OrdemServico ordemDeServico : ordens){
+
+                String nomeDoCliente = clientesService
+                        .findById(ordemDeServico.getClienteOrdem().getId())
+                        .map(Clientes::getNomeCliente)
+                        .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));
+
                 csvPrinter.printRecord(
-                        ordemDeServico.getClienteOrdem(),
-                        ordemDeServico.getStatusOrdemServico(),
-                        ordemDeServico.getDataEmissaoOrdemServico(),
+                        nomeDoCliente,
+                        ordemDeServico.getStatusOrdemServico().toString(),
+                        ordemDeServico.getDataEmissaoOrdemServico().format(formatter),
                         ordemDeServico.getValorTotal()
                 );
             }
@@ -208,13 +229,20 @@ public class OrdemServicoService {
 
         List<OrdemServico> ordens = repository.findAll();
 
-        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
-            csvPrinter.printRecord("Cliente", "Status da Ordem", "Data de Emissão", "Valor Total");
+
+        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.EXCEL)){
+            csvPrinter.printRecord("Cliente", "Status da Ordem", "Data que foi emitida", "Valor Total");
             for(OrdemServico ordemDeServico : ordens){
+
+                String nomeDoCliente = clientesService
+                        .findById(ordemDeServico.getClienteOrdem().getId())
+                        .map(Clientes::getNomeCliente)
+                        .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));
+
                 csvPrinter.printRecord(
-                        ordemDeServico.getClienteOrdem(),
-                        ordemDeServico.getStatusOrdemServico(),
-                        ordemDeServico.getDataEmissaoOrdemServico(),
+                        nomeDoCliente,
+                        ordemDeServico.getStatusOrdemServico().toString(),
+                        ordemDeServico.getDataEmissaoOrdemServico().format(formatter),
                         ordemDeServico.getValorTotal()
                 );
             }
@@ -244,6 +272,12 @@ public class OrdemServicoService {
             valorTrabalhado,
             cronometro.getUsuario()
         );
+
+        var faturamentoDentroDoLimite = pagamentoService.faturamentoDentroDoLimite(cronometro.getUsuario().getId(), valorTrabalhado);
+
+        if (!faturamentoDentroDoLimite) {
+            throw new FaturamentoExcedido();
+        }
 
         repository.save(ordem);
 

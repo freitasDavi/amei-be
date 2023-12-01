@@ -1,15 +1,11 @@
 package com.dggl.amei.configuration.security.services;
 
-import com.dggl.amei.models.Bairro;
-import com.dggl.amei.models.Cidade;
 import com.dggl.amei.models.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -23,6 +19,7 @@ public class UserDetailsImpl implements UserDetails {
     private String username;
 
     private String email;
+    private String razaoSocial;
 
     @JsonIgnore
     private String password;
@@ -30,13 +27,14 @@ public class UserDetailsImpl implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(Long id, String username, String email, String password,
-                           Collection<? extends GrantedAuthority> authorities
+                           Collection<? extends GrantedAuthority> authorities, String razaoSocial
     ) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
+        this.razaoSocial = razaoSocial;
     }
 
     public static UserDetailsImpl build(User user) {
@@ -49,8 +47,13 @@ public class UserDetailsImpl implements UserDetails {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
-                authorities
+                authorities,
+                user.getRazaoSocialUsuario()
                 );
+    }
+
+    public String getRazaoSocial() {
+        return razaoSocial;
     }
 
     @Override

@@ -1,9 +1,10 @@
 package com.dggl.amei.controllers;
 
 import com.dggl.amei.configuration.security.services.UserDetailsImpl;
-import com.dggl.amei.dtos.requests.*;
+import com.dggl.amei.dtos.requests.NovoOrdemServicoRequest;
+import com.dggl.amei.dtos.requests.PeriodoDTO;
+import com.dggl.amei.dtos.requests.UpdateOrdemServicoRequest;
 import com.dggl.amei.dtos.responses.OrdemServicoResponseDTO;
-import com.dggl.amei.dtos.responses.relatorios.ExportacaoOrcamentoDTO;
 import com.dggl.amei.dtos.responses.relatorios.ExportacaoOrdemDTO;
 import com.dggl.amei.models.OrdemServico;
 import com.dggl.amei.services.OrdemServicoService;
@@ -93,6 +94,13 @@ public class OrdermServicoController extends AbstractController {
         service.emitirNfe(id);
 
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = "/gerarOrdem/{codigoOrcamento}")
+    public ResponseEntity gerarOrdemDoOrcamento(@PathVariable Long codigoOrcamento) {
+        var codigoOrdem = service.geraOrdemDeServicoVindoDoOrcamento(codigoOrcamento);
+
+        return ResponseEntity.ok().body(codigoOrdem);
     }
 
 
