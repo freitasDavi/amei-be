@@ -52,6 +52,9 @@ public class UserService {
     @Autowired
     JwtUtils jwtUtils;
 
+    @Autowired
+    ClientesService clientesService;
+
 
     public JwtResponse gerarToken (String username, String password) throws Exception {
 
@@ -75,7 +78,8 @@ public class UserService {
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
-                roles);
+                roles,
+                userDetails.getRazaoSocial());
     }
 
     public User criarNovoUsuario (SignupRequest signupRequest) {
@@ -83,6 +87,8 @@ public class UserService {
         User user = mapearNovoUsuario(signupRequest, roles);
 
         userRepository.save(user);
+
+        clientesService.createClientePadrao(user.getId());
 
         return user;
     }

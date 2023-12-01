@@ -5,6 +5,7 @@ import com.dggl.amei.dtos.responses.relatorios.AgendamentoPorClienteDTO;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Agendamento;
+import com.dggl.amei.models.Clientes;
 import com.dggl.amei.models.QAgendamento;
 import com.dggl.amei.models.User;
 import com.dggl.amei.repositories.AgendamentoRepository;

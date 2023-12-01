@@ -23,12 +23,10 @@ public class Curso {
     private String nomeCurso;
 
     @NotBlank
-    @Size(max = 300)
     @Column(name = "URL_CURSO")
     private String urlCurso;
 
     @NotBlank
-    @Size(max = 600)
     @Column(name = "DESCRICAO")
     private String descricao;
     @JsonFormat(pattern = "yyyy-MM-dd")
