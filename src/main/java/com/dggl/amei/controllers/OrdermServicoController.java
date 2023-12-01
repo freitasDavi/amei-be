@@ -96,5 +96,12 @@ public class OrdermServicoController extends AbstractController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping(value = "/gerarOrdem/{codigoOrcamento}")
+    public ResponseEntity gerarOrdemDoOrcamento(@PathVariable Long codigoOrcamento) {
+        var codigoOrdem = service.geraOrdemDeServicoVindoDoOrcamento(codigoOrcamento);
+
+        return ResponseEntity.ok().body(codigoOrdem);
+    }
+
 
 }

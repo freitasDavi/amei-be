@@ -54,7 +54,7 @@ public class PagamentoService {
         return ultimoPagamento.getCustomerId();
     }
 
-    public boolean isPagamentoAtivo(Long userId, BigDecimal novoValor) {
+    public boolean faturamentoDentroDoLimite(Long userId, BigDecimal novoValor) {
         var user = userRepository.findById(userId);
 
         if (user.isEmpty()) return false;
@@ -68,14 +68,24 @@ public class PagamentoService {
         var valorTotal = pagamentosDoMes.stream().map(i -> i.getValorTotal()).reduce(BigDecimal.ZERO, BigDecimal::add);
                 //.mapToDouble(p -> p.getValorTotal().doubleValue()).sum();
 
-        if (userE.getPlano() == EnumPlanoAtivo.ME) {
-            return valorTotal.add(novoValor) <= new BigDecimal(10.0);
-        } else {
-            return valorTotal.add(novoValor).doubleValue() <= 30.0;
+        var novoValorTotal = valorTotal.add(novoValor);
+
+        int resultado = 0;
+
+        switch (userE.getPlano()) {
+            case FREE -> {
+                resultado = novoValorTotal.compareTo(new BigDecimal(1320));
+            }
+
+            case MEI ->  {
+                resultado = novoValorTotal.compareTo(new BigDecimal(3000));
+            }
         }
 
-        var ultimoPagamento = pagamentosRepository.findFirstByUsuarioPagamento_IdOrderByDataPagamentoDesc(userId);
+        if (resultado > 0) {
+            return false;
+        }
 
-        return ultimoPagamento != null && ultimoPagamento.getDataPagamento().plusMonths(1).isAfter(LocalDateTime.now());
+        return true;
     }
 }

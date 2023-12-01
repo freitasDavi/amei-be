@@ -3,6 +3,7 @@ package com.dggl.amei.services;
 import com.dggl.amei.dtos.requests.NovoOrdemServicoRequest;
 import com.dggl.amei.dtos.requests.UpdateOrdemServicoRequest;
 import com.dggl.amei.exceptions.DataBaseException;
+import com.dggl.amei.exceptions.FaturamentoExcedido;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.*;
 import com.dggl.amei.models.enums.StatusOrdemServicoEnum;
@@ -42,6 +43,9 @@ public class OrdemServicoService {
     @Autowired
     private ClientesService clientesService;
 
+    @Autowired
+    private PagamentoService pagamentoService;
+
     private String taskName = "Ordem de Serviço";
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -63,6 +67,12 @@ public class OrdemServicoService {
                 dto.getUsuarioOrdem()
         );
 
+        var faturamentoDentroDoLimite = pagamentoService.faturamentoDentroDoLimite(dto.getUsuarioOrdem().getId(), dto.getValorTotal());
+
+        if (!faturamentoDentroDoLimite) {
+            throw new FaturamentoExcedido();
+        }
+
         var ordem = repository.save(ordemServico);
 
         List<ItensOrdemServico> listaDeItensDaOrdemServido = new LinkedList<>();
@@ -81,17 +91,21 @@ public class OrdemServicoService {
         return ordem;
     }
 
-    public void geraOrdemDeServicoVindoDoOrcamento(Long id){
+    public Long geraOrdemDeServicoVindoDoOrcamento(Long id){
         var orcamento = orcamentoService.findById(id);
 
         var ordemServico = new OrdemServico();
-        ordemServico.setClienteOrdem(ordemServico.getClienteOrdem());
+        ordemServico.setClienteOrdem(orcamento.getClienteOrcamento());
         ordemServico.setStatusOrdemServico(StatusOrdemServicoEnum.AGUARDANDO_EMISSAO);
         ordemServico.setDataEmissaoOrdemServico(LocalDateTime.now());
-        ordemServico.setValorTotal(ordemServico.getValorTotal());
+        ordemServico.setValorTotal(orcamento.getValorTotalDoOrcamento());
+        ordemServico.setUsuarioOrdem(orcamento.getUsuarioOrcamento());
+        ordemServico.setTelefoneOrdem(orcamento.getTelefoneCliente());
+
         repository.save(ordemServico);
         geraListaDeItensOrdemServico(orcamento.getItensOrcamentos(), ordemServico.getId());
 
+        return ordemServico.getId();
     }
 
     public void geraListaDeItensOrdemServico(List<ItensOrcamento> itensOrc, Long codigoOrdem){
@@ -258,6 +272,12 @@ public class OrdemServicoService {
             valorTrabalhado,
             cronometro.getUsuario()
         );
+
+        var faturamentoDentroDoLimite = pagamentoService.faturamentoDentroDoLimite(cronometro.getUsuario().getId(), valorTrabalhado);
+
+        if (!faturamentoDentroDoLimite) {
+            throw new FaturamentoExcedido();
+        }
 
         repository.save(ordem);
 
