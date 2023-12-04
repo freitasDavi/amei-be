@@ -55,7 +55,8 @@ public class OrdermServicoController extends AbstractController {
     @PostMapping(value = "/downloadCsvPorDatas")
     public void exportaOrdemDeServicioParaCsvPorPeriodo(HttpServletResponse servletResponse, @RequestBody PeriodoDTO dto) throws IOException {
         servletResponse.setContentType("text/csv");
-        servletResponse.addHeader("Contente-Disposition", "attachment; filename=\"ordensDeServico.csv\"");
+        servletResponse.setCharacterEncoding("UTF-8");
+        servletResponse.addHeader("Contente-Disposition", "attachment; filename=\"Ordens_De_Servico_por_periodo.csv\"");
 
         service.exportaOrdemDeServicoParaCsvPorPeriodo(servletResponse.getWriter(), dto.getDataInicio(), dto.getDataFim());
 
@@ -64,7 +65,8 @@ public class OrdermServicoController extends AbstractController {
     @GetMapping(value = "/downloadCsv")
     public void exportaOrdemDeServicoParaCsv(HttpServletResponse servletResponse) throws IOException {
         servletResponse.setContentType("text/csv");
-        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"ordensDeServico.csv\"");
+        servletResponse.setCharacterEncoding("UTF-8");
+        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"Ordens_De_Servico.csv\"");
         service.exportaOrdemDeServicoParaCsv(servletResponse.getWriter());
     }
 

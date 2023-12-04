@@ -58,7 +58,8 @@ public class AgendamentoController extends AbstractController {
     @PostMapping(value = "/downloadCsvPorDatas")
     public void exportaAgendamentoParaCsvPorPeriodo(HttpServletResponse servletResponse, @RequestBody PeriodoDTO dto) throws IOException {
         servletResponse.setContentType("text/csv");
-        servletResponse.addHeader("Contente-Disposition", "attachment; filename=\"agendamentos.csv\"");
+        servletResponse.setCharacterEncoding("UTF-8");
+        servletResponse.addHeader("Contente-Disposition", "attachment; filename=\"Agendamentos_por_periodo.csv\"");
 
         service.exportaAgendamentoParaCsvPorPeriodo(servletResponse.getWriter(), dto.getDataInicio(), dto.getDataFim());
 
@@ -67,7 +68,8 @@ public class AgendamentoController extends AbstractController {
     @GetMapping(value = "/downloadCsv")
     public void exportaAgendamentoParaCsv(HttpServletResponse servletResponse) throws IOException {
         servletResponse.setContentType("text/csv");
-        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"agendamentos.csv\"");
+        servletResponse.setCharacterEncoding("UTF-8");
+        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"Agendamentos.csv\"");
         service.exportaAgendamentoParaCsv(servletResponse.getWriter());
     }
 

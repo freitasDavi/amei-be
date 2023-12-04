@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -62,6 +63,14 @@ public class CidadeService {
         );
 
         return retorno;
+    }
+
+    public String buscaNomeCidadePorId(Long id){
+
+        return repository.findById(id)
+                .map(Cidade :: getNomeCidade)
+                .orElseThrow(() -> new NoSuchElementException("Cidade não encontrada"));
+
     }
 
 }

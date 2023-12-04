@@ -54,7 +54,8 @@ public class  OrcamentoController extends AbstractController {
     @PostMapping(value = "/downloadCsvPorDatas")
     public void exportaOrcamentoParaCsvPorPeriodo(HttpServletResponse servletResponse, @RequestBody PeriodoDTO dto) throws IOException {
         servletResponse.setContentType("text/csv");
-        servletResponse.addHeader("Contente-Disposition", "attachment; filename=\"orcamentos.csv\"");
+        servletResponse.setCharacterEncoding("UTF-8");
+        servletResponse.addHeader("Contente-Disposition", "attachment; filename=\"Orcamentos_por_periodo.csv\"");
 
         service.exportaOrcamentoParaCsvPorPeriodo(servletResponse.getWriter(), dto.getDataInicio(), dto.getDataFim());
 
@@ -63,7 +64,8 @@ public class  OrcamentoController extends AbstractController {
     @GetMapping(value = "/downloadCsv")
     public void exportaOrcamentoParaCsv(HttpServletResponse servletResponse) throws IOException {
         servletResponse.setContentType("text/csv");
-        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"orcamentos.csv\"");
+        servletResponse.setCharacterEncoding("UTF-8");
+        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"Orcamentos.csv\"");
         service.exportaOrcamentoParaCsv(servletResponse.getWriter());
     }
 

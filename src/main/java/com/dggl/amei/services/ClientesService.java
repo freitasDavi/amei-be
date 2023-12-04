@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -70,5 +71,12 @@ public class ClientesService {
         cliente.setComplementoCliente("");
 
         repository.save(cliente);
+    }
+
+    public String buscaNomeDoClientePeloId(Long id){
+        return repository.findById(id)
+                .map(Clientes :: getNomeCliente)
+                .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));
+
     }
 }

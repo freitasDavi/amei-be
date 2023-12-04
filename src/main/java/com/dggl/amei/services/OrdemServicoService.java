@@ -23,10 +23,12 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.Writer;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrdemServicoService {
@@ -205,16 +207,11 @@ public class OrdemServicoService {
         List<OrdemServico> ordens = repository.findByDataBetween(dataInicio, dataFim);
 
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
-            csvPrinter.printRecord("Cliente", "Status da Ordem", "Data que foi emitida", "Valor Total");
+            csvPrinter.printRecord("Cliente", "Status da Ordem", "Data Emissão", "Valor Total");
             for(OrdemServico ordemDeServico : ordens){
 
-                String nomeDoCliente = clientesService
-                        .findById(ordemDeServico.getClienteOrdem().getId())
-                        .map(Clientes::getNomeCliente)
-                        .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));
-
                 csvPrinter.printRecord(
-                        nomeDoCliente,
+                        clientesService.buscaNomeDoClientePeloId(ordemDeServico.getClienteOrdem().getId()),
                         ordemDeServico.getStatusOrdemServico().toString(),
                         ordemDeServico.getDataEmissaoOrdemServico().format(formatter),
                         ordemDeServico.getValorTotal()
@@ -229,18 +226,12 @@ public class OrdemServicoService {
 
         List<OrdemServico> ordens = repository.findAll();
 
-
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.EXCEL)){
-            csvPrinter.printRecord("Cliente", "Status da Ordem", "Data que foi emitida", "Valor Total");
+            csvPrinter.printRecord("Cliente", "Status da Ordem", "Data Emissão", "Valor Total");
+
             for(OrdemServico ordemDeServico : ordens){
-
-                String nomeDoCliente = clientesService
-                        .findById(ordemDeServico.getClienteOrdem().getId())
-                        .map(Clientes::getNomeCliente)
-                        .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));
-
                 csvPrinter.printRecord(
-                        nomeDoCliente,
+                        clientesService.buscaNomeDoClientePeloId(ordemDeServico.getClienteOrdem().getId()),
                         ordemDeServico.getStatusOrdemServico().toString(),
                         ordemDeServico.getDataEmissaoOrdemServico().format(formatter),
                         ordemDeServico.getValorTotal()
