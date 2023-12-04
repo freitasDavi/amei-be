@@ -126,9 +126,10 @@ public class AgendamentoService {
         return repository.exportRelatorioAgendamentosAgrupadoPorCliente(new User(codigoUsuario), dataInicio, dataFim);
     }
 
-    public void exportaAgendamentoParaCsvPorPeriodo(Writer writer, LocalDateTime dataInicio, LocalDateTime dataFim){
+    public void exportaAgendamentoParaCsvPorPeriodo(Long id, Writer writer, LocalDate dataInicio, LocalDate dataFim){
 
-        List<Agendamento> agendamentos = repository.findByDataBetween(dataInicio, dataFim);
+        List<Agendamento> agendamentos = repository.findAll(QAgendamento.agendamento.usuarioAgendamento.id.eq(id)
+                .and(QAgendamento.agendamento.dataAgendamento.between(dataInicio, dataFim)));
 
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
             csvPrinter.printRecord("Cliente", "Cidade" , "Bairro", "Endereço", "Responsavel", "Data");
@@ -147,9 +148,10 @@ public class AgendamentoService {
         }
     }
 
-    public void exportaAgendamentoParaCsv(Writer writer){
+    public void exportaAgendamentoParaCsv(Long id, Writer writer){
 
-        List<Agendamento> agendamentos = repository.findAll();
+        List<Agendamento> agendamentos = repository.findAll(QAgendamento.agendamento.usuarioAgendamento.id.eq(id));
+
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
             csvPrinter.printRecord("Cliente", "Cidade" , "Bairro", "Endereço", "Responsavel", "Data");
             for(Agendamento agendamento : agendamentos){

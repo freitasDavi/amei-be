@@ -202,9 +202,10 @@ public class OrdemServicoService {
         itensOrdemServicoRepository.save(entidade);
     }
 
-    public void exportaOrdemDeServicoParaCsvPorPeriodo(Writer writer, LocalDateTime dataInicio, LocalDateTime dataFim){
+    public void exportaOrdemDeServicoParaCsvPorPeriodo(Long id, Writer writer, LocalDateTime dataInicio, LocalDateTime dataFim){
 
-        List<OrdemServico> ordens = repository.findByDataBetween(dataInicio, dataFim);
+        List<OrdemServico> ordens = repository.findAll(QOrdemServico.ordemServico.usuarioOrdem.id.eq(id)
+                .and(QOrdemServico.ordemServico.dataEmissaoOrdemServico.between(dataInicio, dataFim)));
 
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
             csvPrinter.printRecord("Cliente", "Status da Ordem", "Data Emissão", "Valor Total");
@@ -222,9 +223,9 @@ public class OrdemServicoService {
         }
     }
 
-    public void exportaOrdemDeServicoParaCsv(Writer writer){
+    public void exportaOrdemDeServicoParaCsv(Long id, Writer writer){
 
-        List<OrdemServico> ordens = repository.findAll();
+        List<OrdemServico> ordens = repository.findAll(QOrdemServico.ordemServico.usuarioOrdem.id.eq(id));
 
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.EXCEL)){
             csvPrinter.printRecord("Cliente", "Status da Ordem", "Data Emissão", "Valor Total");
