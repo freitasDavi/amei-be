@@ -3,6 +3,7 @@ package com.dggl.amei.controllers;
 import com.dggl.amei.configuration.security.services.UserDetailsImpl;
 import com.dggl.amei.dtos.requests.NovoOrdemServicoRequest;
 import com.dggl.amei.dtos.requests.PeriodoDTO;
+import com.dggl.amei.dtos.requests.PeriodoDateTimeDTO;
 import com.dggl.amei.dtos.requests.UpdateOrdemServicoRequest;
 import com.dggl.amei.dtos.responses.OrdemServicoResponseDTO;
 import com.dggl.amei.dtos.responses.relatorios.ExportacaoOrdemDTO;
@@ -53,19 +54,27 @@ public class OrdermServicoController extends AbstractController {
     }
 
     @PostMapping(value = "/downloadCsvPorDatas")
-    public void exportaOrdemDeServicioParaCsvPorPeriodo(HttpServletResponse servletResponse, @RequestBody PeriodoDTO dto) throws IOException {
+    public void exportaOrdemDeServicioParaCsvPorPeriodo(
+            Authentication authentication,
+            HttpServletResponse servletResponse, @RequestBody PeriodoDateTimeDTO dto) throws IOException {
         servletResponse.setContentType("text/csv");
-        servletResponse.addHeader("Contente-Disposition", "attachment; filename=\"ordensDeServico.csv\"");
+        servletResponse.setCharacterEncoding("UTF-8");
+        servletResponse.addHeader("Contente-Disposition", "attachment; filename=\"Ordens_De_Servico_por_periodo.csv\"");
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        service.exportaOrdemDeServicoParaCsvPorPeriodo(servletResponse.getWriter(), dto.getDataInicio(), dto.getDataFim());
+        service.exportaOrdemDeServicoParaCsvPorPeriodo(userDetails.getId(), servletResponse.getWriter(), dto.getDataInicio(), dto.getDataFim());
 
     }
 
     @GetMapping(value = "/downloadCsv")
-    public void exportaOrdemDeServicoParaCsv(HttpServletResponse servletResponse) throws IOException {
+    public void exportaOrdemDeServicoParaCsv(
+            Authentication authentication,
+            HttpServletResponse servletResponse) throws IOException {
         servletResponse.setContentType("text/csv");
-        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"ordensDeServico.csv\"");
-        service.exportaOrdemDeServicoParaCsv(servletResponse.getWriter());
+        servletResponse.setCharacterEncoding("UTF-8");
+        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"Ordens_De_Servico.csv\"");
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        service.exportaOrdemDeServicoParaCsv(userDetails.getId(), servletResponse.getWriter());
     }
 
     @PostMapping

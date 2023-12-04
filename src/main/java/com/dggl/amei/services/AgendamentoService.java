@@ -5,7 +5,6 @@ import com.dggl.amei.dtos.responses.relatorios.AgendamentoPorClienteDTO;
 import com.dggl.amei.exceptions.DataBaseException;
 import com.dggl.amei.exceptions.RecursoNaoEncontrado;
 import com.dggl.amei.models.Agendamento;
-import com.dggl.amei.models.Clientes;
 import com.dggl.amei.models.QAgendamento;
 import com.dggl.amei.models.User;
 import com.dggl.amei.repositories.AgendamentoRepository;
@@ -26,7 +25,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -37,6 +35,12 @@ public class AgendamentoService {
 
     @Autowired
     private ClientesService clientesService;
+
+    @Autowired
+    private BairroService bairroService;
+
+    @Autowired
+    private CidadeService cidadeService;
 
     private String task = "Agendamento";
 
@@ -113,7 +117,6 @@ public class AgendamentoService {
 
     }
 
-
 //    --
     public List<AgendamentoPorClienteDTO> emitirRelatorio (Long codigoUsuario) {
         return repository.exportRelatorioAgendamentosAgrupadoPorCliente(new User(codigoUsuario));
@@ -123,23 +126,18 @@ public class AgendamentoService {
         return repository.exportRelatorioAgendamentosAgrupadoPorCliente(new User(codigoUsuario), dataInicio, dataFim);
     }
 
-    public void exportaAgendamentoParaCsvPorPeriodo(Writer writer, LocalDateTime dataInicio, LocalDateTime dataFim){
+    public void exportaAgendamentoParaCsvPorPeriodo(Long id, Writer writer, LocalDate dataInicio, LocalDate dataFim){
 
-        List<Agendamento> agendamentos = repository.findByDataBetween(dataInicio, dataFim);
+        List<Agendamento> agendamentos = repository.findAll(QAgendamento.agendamento.usuarioAgendamento.id.eq(id)
+                .and(QAgendamento.agendamento.dataAgendamento.between(dataInicio, dataFim)));
 
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
             csvPrinter.printRecord("Cliente", "Cidade" , "Bairro", "Endereço", "Responsavel", "Data");
             for(Agendamento agendamento : agendamentos){
-
-                String nomeDoCliente = clientesService
-                        .findById(agendamento.getClienteAgendamento().getId())
-                        .map(Clientes::getNomeCliente)
-                        .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));
-
                 csvPrinter.printRecord(
-                        nomeDoCliente,
-                        agendamento.getAgendamentoCidade(),
-                        agendamento.getAgendamentoBairro(),
+                        clientesService.buscaNomeDoClientePeloId(agendamento.getClienteAgendamento().getId()),
+                        cidadeService.buscaNomeCidadePorId(agendamento.getAgendamentoCidade().getId()),
+                        bairroService.buscaNomeBairroPorId(agendamento.getAgendamentoBairro().getId()),
                         agendamento.getEnderecoAgendamento(),
                         agendamento.getResponsavelAgendamento(),
                         agendamento.getDataAgendamento()
@@ -150,22 +148,17 @@ public class AgendamentoService {
         }
     }
 
-    public void exportaAgendamentoParaCsv(Writer writer){
+    public void exportaAgendamentoParaCsv(Long id, Writer writer){
 
-        List<Agendamento> agendamentos = repository.findAll();
+        List<Agendamento> agendamentos = repository.findAll(QAgendamento.agendamento.usuarioAgendamento.id.eq(id));
+
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)){
             csvPrinter.printRecord("Cliente", "Cidade" , "Bairro", "Endereço", "Responsavel", "Data");
             for(Agendamento agendamento : agendamentos){
-
-                String nomeDoCliente = clientesService
-                        .findById(agendamento.getClienteAgendamento().getId())
-                        .map(Clientes::getNomeCliente)
-                        .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));
-
                 csvPrinter.printRecord(
-                        nomeDoCliente,
-                        agendamento.getAgendamentoCidade(),
-                        agendamento.getAgendamentoBairro(),
+                        clientesService.buscaNomeDoClientePeloId(agendamento.getClienteAgendamento().getId()),
+                        cidadeService.buscaNomeCidadePorId(agendamento.getAgendamentoCidade().getId()),
+                        bairroService.buscaNomeBairroPorId(agendamento.getAgendamentoBairro().getId()),
                         agendamento.getEnderecoAgendamento(),
                         agendamento.getResponsavelAgendamento(),
                         agendamento.getDataAgendamento()

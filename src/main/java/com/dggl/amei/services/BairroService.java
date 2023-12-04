@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -24,5 +25,11 @@ public class BairroService {
     public Bairro findById(Long id){
         Optional<Bairro> bairro = repository.findById(id);
         return bairro.orElseThrow(()-> new RecursoNaoEncontrado(task, id));
+    }
+
+    public String buscaNomeBairroPorId(Long id){
+        return repository.findById(id)
+                .map(Bairro :: getNomeBairro)
+                .orElseThrow(() -> new NoSuchElementException("Bairro não encontrado"));
     }
 }

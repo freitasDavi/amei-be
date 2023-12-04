@@ -141,7 +141,7 @@ public class PagamentosController extends AbstractController {
                         )
                         .setUiMode(SessionCreateParams.UiMode.EMBEDDED)
                         .setCustomerEmail(userDetails.getEmail())
-                        .setReturnUrl("http://localhost:5173/pagamento/sucesso?session_id={CHECKOUT_SESSION_ID}")
+                        .setReturnUrl("https://amei.onrender.com/pagamento/sucesso?session_id={CHECKOUT_SESSION_ID}")
                         .build();
 
         Session session = Session.create(params);

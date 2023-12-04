@@ -3,6 +3,7 @@ package com.dggl.amei.controllers;
 import com.dggl.amei.configuration.security.services.UserDetailsImpl;
 import com.dggl.amei.dtos.requests.NovoOrcamentoRequest;
 import com.dggl.amei.dtos.requests.PeriodoDTO;
+import com.dggl.amei.dtos.requests.PeriodoDateTimeDTO;
 import com.dggl.amei.dtos.requests.UpdateOrcamentoRequest;
 import com.dggl.amei.dtos.responses.OrcamentoResponseDTO;
 import com.dggl.amei.dtos.responses.relatorios.ExportacaoOrcamentoDTO;
@@ -52,19 +53,27 @@ public class  OrcamentoController extends AbstractController {
     }
 
     @PostMapping(value = "/downloadCsvPorDatas")
-    public void exportaOrcamentoParaCsvPorPeriodo(HttpServletResponse servletResponse, @RequestBody PeriodoDTO dto) throws IOException {
+    public void exportaOrcamentoParaCsvPorPeriodo(
+            Authentication authentication,
+            HttpServletResponse servletResponse, @RequestBody PeriodoDateTimeDTO dto) throws IOException {
         servletResponse.setContentType("text/csv");
-        servletResponse.addHeader("Contente-Disposition", "attachment; filename=\"orcamentos.csv\"");
+        servletResponse.setCharacterEncoding("UTF-8");
+        servletResponse.addHeader("Contente-Disposition", "attachment; filename=\"Orcamentos_por_periodo.csv\"");
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        service.exportaOrcamentoParaCsvPorPeriodo(servletResponse.getWriter(), dto.getDataInicio(), dto.getDataFim());
+        service.exportaOrcamentoParaCsvPorPeriodo(userDetails.getId(), servletResponse.getWriter(), dto.getDataInicio(), dto.getDataFim());
 
     }
 
     @GetMapping(value = "/downloadCsv")
-    public void exportaOrcamentoParaCsv(HttpServletResponse servletResponse) throws IOException {
+    public void exportaOrcamentoParaCsv(
+            Authentication authentication,
+            HttpServletResponse servletResponse) throws IOException {
         servletResponse.setContentType("text/csv");
-        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"orcamentos.csv\"");
-        service.exportaOrcamentoParaCsv(servletResponse.getWriter());
+        servletResponse.setCharacterEncoding("UTF-8");
+        servletResponse.addHeader("Content-Disposition", "attachment; filename=\"Orcamentos.csv\"");
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        service.exportaOrcamentoParaCsv(userDetails.getId(), servletResponse.getWriter());
     }
 
     @PostMapping

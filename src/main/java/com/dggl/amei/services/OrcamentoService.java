@@ -28,6 +28,7 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
@@ -206,9 +207,10 @@ public class OrcamentoService {
         itensOrcamentoRepository.save(entidade);
     }
 
-    public void exportaOrcamentoParaCsvPorPeriodo(Writer writer, LocalDateTime dataInicio, LocalDateTime dataFim) {
+    public void exportaOrcamentoParaCsvPorPeriodo(Long id, Writer writer, LocalDateTime dataInicio, LocalDateTime dataFim) {
 
-        List<Orcamento> orcamentos = repository.findByDataBetween(dataInicio, dataFim);
+        List<Orcamento> orcamentos = repository.findAll(QOrcamento.orcamento.usuarioOrcamento.id.eq(id)
+                .and(QOrcamento.orcamento.dataEmissaoOrcamento.between(dataInicio, dataFim)));
 
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)) {
             csvPrinter.printRecord("Cliente", "Data Emissão", "Valor Total");
@@ -224,9 +226,9 @@ public class OrcamentoService {
         }
     }
 
-    public void exportaOrcamentoParaCsv(Writer writer) {
+    public void exportaOrcamentoParaCsv(Long id, Writer writer) {
 
-        List<Orcamento> orcamentos = repository.findAll();
+        List<Orcamento> orcamentos = repository.findAll(QOrcamento.orcamento.usuarioOrcamento.id.eq(id));
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.EXCEL)) {
             csvPrinter.printRecord("Cliente", "Data Emissão", "Valor Total");
             for (Orcamento orcamento : orcamentos) {
